@@ -1,0 +1,25 @@
+build:
+    environment:
+        timezone: Europe/Amsterdam
+        postgresql: false
+        rabbitmq: false
+        mysql: false
+        redis: false
+        php:
+            version: 7.2
+            ini:
+                'date.timezone': 'Europe/Amsterdam'
+    project_setup:
+        override: true
+    tests:
+        override:
+            command: "php -v"
+    #     before:
+    #         - command: 'bin/websiteconsole doctrine:migrations:migrate --no-interaction --env=test'
+    #     override:
+    #         - php-scrutinizer-run
+    #         -
+    #             command: 'bin/phpunit --coverage-clover=code-coverage'
+    #             coverage:
+    #                 file: 'code-coverage'
+    #                 format: 'clover'

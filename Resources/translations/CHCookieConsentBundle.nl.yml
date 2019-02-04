@@ -1,0 +1,13 @@
+ch_cookie_consent:
+    title: 'Cookies op onze website.'
+    intro: 'Curabitur lacinia condimentum egestas. Quisque pharetra egestas viverra. Vivamus ac semper tellus. Donec eu sapien eget massa porta porttitor. Nam congue nulla velit, sit amet malesuada sapien ullamcorper eget.'
+    read_more: 'meer uitleg hierover'
+    analytics:
+        title: 'Wilt u analytische cookies?'
+        description: 'Aliquam dictum dolor pellentesque neque ultricies, eget consequat nunc auctor. Fusce tincidunt diam quis magna congue ornare. Duis rhoncus ante elementum aliquam vehicula. Donec euismod orci at dictum facilisis. Aenean gravida sit amet risus aliquam tincidunt.'
+    marketing:
+        title: 'Wilt u gepersonaliseerde advertenties?'
+        description: 'Aliquam sagittis est vel nunc congue, porta feugiat mi rhoncus. Sed elementum pharetra ante. Morbi tortor nisl, viverra at euismod at, ornare quis elit.'
+    no: 'Nee'
+    yes: 'Ja'
+    save: 'Opslaan'
