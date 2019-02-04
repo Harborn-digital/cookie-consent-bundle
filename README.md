@@ -21,6 +21,12 @@ You can use the TwigExtension to check if user has given it's permission for cer
 {% endif %}
 ```
 
+Dark theme:
+![alt text](https://raw.githubusercontent.com/connectholland/cookie-consent-bundle/master/doc/dark_theme.png)
+
+Light theme:
+![alt text](https://raw.githubusercontent.com/connectholland/cookie-consent-bundle/master/doc/light_theme.png)
+
 ## Customization
 ### Translations
 All texts can be altered via Symfony translations by overwriting the CHCookieConsentBundle translation files
