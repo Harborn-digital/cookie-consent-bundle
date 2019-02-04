@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\DOM;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
@@ -23,28 +22,22 @@ class DOMParser
     private $templating;
 
     /**
-     * @var CookieHandler
-     */
-    private $cookieHandler;
-
-    /**
      * @var string
      */
     private $cookieConsentTheme;
 
-    public function __construct(EngineInterface $templating, CookieHandler $cookieHandler, string $cookieConsentTheme)
+    public function __construct(EngineInterface $templating, string $cookieConsentTheme)
     {
         $this->templating         = $templating;
-        $this->cookieHandler      = $cookieHandler;
         $this->cookieConsentTheme = $cookieConsentTheme;
     }
 
     /**
      * Append content of cookie consent to Kernel Response content.
      */
-    public function appendCookieConsent(Response $response, FormInterface $form): string
+    public function appendCookieConsent(string $content, FormInterface $form): string
     {
-        $crawler = new HtmlPageCrawler($response->getContent());
+        $crawler = new HtmlPageCrawler($content);
         $crawler->filter('body')->append(
             $this->generateCookieConsentContent($form)
         );

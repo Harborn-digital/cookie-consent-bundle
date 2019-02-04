@@ -88,7 +88,7 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
     protected function showCookieConsent(Response $response, FormInterface $form)
     {
         $response->setContent(
-            $this->domParser->appendCookieConsent($response, $form)
+            $this->domParser->appendCookieConsent($response->getContent(), $form)
         );
     }
 }
