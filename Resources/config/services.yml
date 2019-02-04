@@ -10,6 +10,9 @@ services:
         resource: '../../'
         exclude: '../../{vendor}'
 
+    ConnectHolland\CookieConsentBundle\Cookie\CookieHandler:
+        arguments: ["@=service('request_stack').getCurrentRequest()"]
+
     ConnectHolland\CookieConsentBundle\DOM\DOMParser:
         arguments:
             $cookieConsentTheme: '%ch_cookie_consent.theme%'

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\Twig;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
+use Symfony\Component\HttpFoundation\Request;
 use Twig_Extension;
 use Twig_SimpleFunction;
 

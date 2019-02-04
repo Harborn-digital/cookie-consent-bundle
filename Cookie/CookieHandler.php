@@ -11,7 +11,6 @@ namespace ConnectHolland\CookieConsentBundle\Cookie;
 
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class CookieHandler
@@ -25,9 +24,9 @@ class CookieHandler
      */
     private $request;
 
-    public function __construct(RequestStack $requestStack)
+    public function __construct(Request $request)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request = $request;
     }
 
     /**
