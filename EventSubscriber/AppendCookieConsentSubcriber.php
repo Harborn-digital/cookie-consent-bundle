@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\EventSubscriber;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
+use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
+use ConnectHolland\CookieConsentBundle\DOM\DOMBuilder;
 use ConnectHolland\CookieConsentBundle\DOM\DOMParser;
-use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -23,31 +21,31 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class AppendCookieConsentSubcriber implements EventSubscriberInterface
 {
     /**
-     * @var CookieHandler
+     * @var CookieChecker
      */
-    private $cookieHandler;
+    private $cookieChecker;
+
+    /**
+     * @var DOMBuilder
+     */
+    private $domBuilder;
 
     /**
      * @var DOMParser
      */
     private $domParser;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-
-    public function __construct(CookieHandler $cookieHandler, DOMParser $domParser, FormFactoryInterface $formFactory)
+    public function __construct(CookieChecker $cookieChecker, DOMBuilder $domBuilder, DOMParser $domParser)
     {
-        $this->cookieHandler = $cookieHandler;
+        $this->cookieChecker = $cookieChecker;
+        $this->domBuilder    = $domBuilder;
         $this->domParser     = $domParser;
-        $this->formFactory   = $formFactory;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-           KernelEvents::RESPONSE => ['onResponse'],
+           KernelEvents::RESPONSE => ['onResponse', 0],
         ];
     }
 
@@ -56,39 +54,23 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
      */
     public function onResponse(FilterResponseEvent $event): void
     {
-        if ($event->isMasterRequest() === false || $this->cookieHandler->hasCookieConsent()) {
+        if ($event->isMasterRequest() === false || $this->cookieChecker->hasCookiesSaved()) {
             return;
         }
 
-        $request  = $event->getRequest();
-        $response = $event->getResponse();
-
-        $form = $this->createCookieConsentForm();
-        $form->handleRequest($request);
-
-        // If form is submitted save in cookies, otherwise display cookie consent
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->cookieHandler->saveCookieConsent($response, $form->getData());
-        } else {
-            $this->showCookieConsent($response, $form);
-        }
-    }
-
-    /**
-     * Create cookie consent form.
-     */
-    protected function createCookieConsentForm(): FormInterface
-    {
-        return $this->formFactory->create(CookieConsentType::class);
+        $this->appendCookieConsent($event->getResponse());
     }
 
     /**
      * Append cookie consent to Kernel Response.
      */
-    protected function showCookieConsent(Response $response, FormInterface $form)
+    protected function appendCookieConsent(Response $response)
     {
         $response->setContent(
-            $this->domParser->appendCookieConsent($response->getContent(), $form)
+            $this->domParser->appendToBody(
+                $response->getContent(),
+                $this->domBuilder->buildCookieConsentDom()
+            )
         );
     }
 }

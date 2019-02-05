@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\Twig;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
+use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use Symfony\Component\HttpFoundation\Request;
 use Twig_Extension;
 use Twig_SimpleFunction;
@@ -25,28 +25,43 @@ class CHCookieConsentTwigExtension extends Twig_Extension
     {
         return [
             new Twig_SimpleFunction(
-                'chcookieconsent_isCategoryPermitted',
-                [$this, 'isCategoryPermitted'],
+                'chcookieconsent_isSaved',
+                [$this, 'isSaved'],
+                ['needs_context' => true]
+            ),
+            new Twig_SimpleFunction(
+                'chcookieconsent_isAllowed',
+                [$this, 'isAllowed'],
                 ['needs_context' => true]
             ),
         ];
     }
 
     /**
-     * Checks if user has given permission for cookie category.
+     * Checks if user has sent cookie consent form.
      */
-    public function isCategoryPermitted(array $context, string $category): bool
+    public function isSaved(array $context): bool
     {
-        $cookieHandler = $this->getCookieHandler($context['app']->getRequest());
+        $cookieChecker = $this->getCookieChecker($context['app']->getRequest());
 
-        return $cookieHandler->isCategoryPermitted($category);
+        return $cookieChecker->hasCookiesSaved();
     }
 
     /**
-     * Get instance of CookieHandler.
+     * Checks if user has given permission for cookie category.
      */
-    private function getCookieHandler(Request $request): CookieHandler
+    public function isAllowed(array $context, string $category): bool
     {
-        return new CookieHandler($request);
+        $cookieChecker = $this->getCookieChecker($context['app']->getRequest());
+
+        return $cookieChecker->isAllowed($category);
+    }
+
+    /**
+     * Get instance of CookieChecker.
+     */
+    private function getCookieChecker(Request $request): CookieChecker
+    {
+        return new CookieChecker($request);
     }
 }

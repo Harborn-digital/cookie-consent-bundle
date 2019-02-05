@@ -26,6 +26,6 @@ class CHCookieConsentExtension extends Extension
         $container->setParameter('ch_cookie_consent.theme', $config['theme']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 }

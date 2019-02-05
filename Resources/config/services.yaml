@@ -10,10 +10,14 @@ services:
         resource: '../../'
         exclude: '../../{vendor}'
 
-    ConnectHolland\CookieConsentBundle\Cookie\CookieHandler:
+    ConnectHolland\CookieConsentBundle\Controller\:
+        resource: '../../Controller/*'
+        public: true
+
+    ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:
         arguments: ["@=service('request_stack').getCurrentRequest()"]
 
-    ConnectHolland\CookieConsentBundle\DOM\DOMParser:
+    ConnectHolland\CookieConsentBundle\DOM\DOMBuilder:
         arguments:
             $cookieConsentTheme: '%ch_cookie_consent.theme%'
 
