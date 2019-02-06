@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
+use DateInterval;
+use DateTime;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,8 +44,11 @@ class CookieHandler
      */
     protected function saveCookie(string $name, string $value): void
     {
+        $expirationDate = new DateTime();
+        $expirationDate->add(new DateInterval('P10Y'));
+
         $this->response->headers->setCookie(
-            new Cookie($name, $value, 0, '/', null, null, true, true)
+            new Cookie($name, $value, $expirationDate, '/', null, null, true, true)
         );
     }
 }
