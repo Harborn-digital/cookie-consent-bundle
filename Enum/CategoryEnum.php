@@ -15,22 +15,4 @@ class CategoryEnum
     const CATEGORY_TRACKING     = 'tracking';
     const CATEGORY_MARKETING    = 'marketing';
     const CATEGORY_SOCIAL_MEDIA = 'social_media';
-
-    /**
-     * @var array
-     */
-    private static $categories = [
-        self::CATEGORY_ANALYTICS,
-        self::CATEGORY_TRACKING,
-        self::CATEGORY_MARKETING,
-        self::CATEGORY_SOCIAL_MEDIA,
-    ];
-
-    /**
-     * Get all cookie consent categories.
-     */
-    public static function getAvailableCategories(): array
-    {
-        return self::$categories;
-    }
 }

@@ -45,7 +45,7 @@ class CookieHandler
     protected function saveCookie(string $name, string $value): void
     {
         $expirationDate = new DateTime();
-        $expirationDate->add(new DateInterval('P10Y'));
+        $expirationDate->add(new DateInterval('P1Y'));
 
         $this->response->headers->setCookie(
             new Cookie($name, $value, $expirationDate, '/', null, null, true, true)

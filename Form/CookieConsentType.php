@@ -42,7 +42,7 @@ class CookieConsentType extends AbstractType
             $builder->add($category, ChoiceType::class, [
                 'expanded' => true,
                 'multiple' => false,
-                'data'     => $this->cookieChecker->isAllowed($category) ? 'true' : 'false',
+                'data'     => $this->cookieChecker->isCategoryAllowedByUser($category) ? 'true' : 'false',
                 'choices'  => [
                     ['ch_cookie_consent.yes' => 'true'],
                     ['ch_cookie_consent.no' => 'false'],

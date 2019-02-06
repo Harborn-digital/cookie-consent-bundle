@@ -39,7 +39,7 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Appends Cookie Consent scripts into body.
+     * Checks if form has been submitted and saves users preferences in cookies by calling the CookieHandler.
      */
     public function onResponse(FilterResponseEvent $event): void
     {

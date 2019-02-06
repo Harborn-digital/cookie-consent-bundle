@@ -14,6 +14,7 @@ use ConnectHolland\CookieConsentBundle\DOM\DOMBuilder;
 use ConnectHolland\CookieConsentBundle\DOM\DOMParser;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -35,11 +36,23 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
      */
     private $domParser;
 
-    public function __construct(CookieChecker $cookieChecker, DOMBuilder $domBuilder, DOMParser $domParser)
+    /**
+     * @var array
+     */
+    private $excludedRoutes;
+
+    /**
+     * @var array
+     */
+    private $excludedPaths;
+
+    public function __construct(CookieChecker $cookieChecker, DOMBuilder $domBuilder, DOMParser $domParser, array $excludedRoutes, array $excludedPaths)
     {
-        $this->cookieChecker = $cookieChecker;
-        $this->domBuilder    = $domBuilder;
-        $this->domParser     = $domParser;
+        $this->cookieChecker  = $cookieChecker;
+        $this->domBuilder     = $domBuilder;
+        $this->domParser      = $domParser;
+        $this->excludedRoutes = $excludedRoutes;
+        $this->excludedPaths  = $excludedPaths;
     }
 
     public static function getSubscribedEvents(): array
@@ -54,7 +67,7 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
      */
     public function onResponse(FilterResponseEvent $event): void
     {
-        if ($event->isMasterRequest() === false || $this->cookieChecker->hasCookiesSaved()) {
+        if ($event->isMasterRequest() === false || $this->cookieChecker->isCookieConsentSavedByUser() || $this->isExcludedRequest($event->getRequest())) {
             return;
         }
 
@@ -64,7 +77,7 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
     /**
      * Append cookie consent to Kernel Response.
      */
-    protected function appendCookieConsent(Response $response)
+    protected function appendCookieConsent(Response $response): void
     {
         $response->setContent(
             $this->domParser->appendToBody(
@@ -72,5 +85,21 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
                 $this->domBuilder->buildCookieConsentDom()
             )
         );
+    }
+
+    /**
+     * Check if route or path is within the excluded routes or paths.
+     */
+    protected function isExcludedRequest(Request $request): bool
+    {
+        if (in_array($request->get('_route'), $this->excludedRoutes)) {
+            return true;
+        }
+
+        if (in_array($request->getRequestUri(), $this->excludedPaths)) {
+            return true;
+        }
+
+        return false;
     }
 }

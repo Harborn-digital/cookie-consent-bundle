@@ -21,6 +21,11 @@ services:
         arguments:
             $cookieConsentTheme: '%ch_cookie_consent.theme%'
 
+    ConnectHolland\CookieConsentBundle\EventSubscriber\AppendCookieConsentSubcriber:
+        arguments:
+            $excludedRoutes: '%ch_cookie_consent.excluded_routes%'
+            $excludedPaths: '%ch_cookie_consent.excluded_paths%'
+
     ConnectHolland\CookieConsentBundle\Form\CookieConsentType:
         arguments:
             $cookieCategories: '%ch_cookie_consent.categories%'

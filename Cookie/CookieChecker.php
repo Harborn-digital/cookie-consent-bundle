@@ -28,7 +28,7 @@ class CookieChecker
     /**
      * Check if cookie consent has already been saved.
      */
-    public function hasCookiesSaved(): bool
+    public function isCookieConsentSavedByUser(): bool
     {
         return $this->request->cookies->has(CookieNameEnum::COOKIE_CONSENT_NAME);
     }
@@ -36,7 +36,7 @@ class CookieChecker
     /**
      * Check if given cookie category is permitted by user.
      */
-    public function isAllowed(string $category): bool
+    public function isCategoryAllowedByUser(string $category): bool
     {
         return $this->request->cookies->get(CookieNameEnum::getCookieCategoryName($category)) === 'true';
     }
