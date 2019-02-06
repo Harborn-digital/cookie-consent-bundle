@@ -15,7 +15,7 @@ build:
         override:
             - php-scrutinizer-run
             -
-                command: 'bin/phpunit --coverage-clover=code-coverage'
+                command: 'vendor/bin/phpunit --coverage-clover=code-coverage'
                 coverage:
                     file: 'code-coverage'
                     format: 'clover'
