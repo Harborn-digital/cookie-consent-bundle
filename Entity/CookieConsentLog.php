@@ -23,7 +23,7 @@ class CookieConsentLog
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @var id
+     * @var int
      */
     protected $id;
 
@@ -55,7 +55,7 @@ class CookieConsentLog
      */
     protected $timestamp;
 
-    public function getId(): id
+    public function getId(): int
     {
         return $this->id;
     }

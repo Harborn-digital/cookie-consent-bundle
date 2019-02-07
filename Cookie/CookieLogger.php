@@ -47,7 +47,7 @@ class CookieLogger
     protected function persistCookieConsentLog(string $category, string $value): void
     {
         $cookieConsentLog = (new CookieConsentLog())
-            ->setIpAddress($this->request->getClientIp())
+            ->setIpAddress($this->request->getClientIp() ?? 'unknown')
             ->setCookieName($category)
             ->setCookieValue($value)
             ->setTimestamp(new \DateTime());

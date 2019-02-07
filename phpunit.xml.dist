@@ -19,6 +19,7 @@
             <exclude>
                 <directory>./doc</directory>
                 <directory>./Enum</directory>
+                <directory>./Entity</directory>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
