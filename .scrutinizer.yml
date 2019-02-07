@@ -1,3 +1,9 @@
+checks:
+    php: true
+
+coding_style:
+    php: {  }
+
 build:
     environment:
         timezone: Europe/Amsterdam
@@ -19,3 +25,8 @@ build:
                 coverage:
                     file: 'code-coverage'
                     format: 'clover'
+
+filter:
+    excluded_paths:
+        - Resources/*
+        - Tests/*
