@@ -53,3 +53,15 @@ CHCookieConsentBundle comes with a default styling. A sass file is available in 
 
 ### Javascript
 By loading Resources/public/js/cookie_consent.js the cookie consent will be shown on top of your website while pushing down the rest of the website.
+
+### Template Themes
+You can override the templates by placing templates inside your poject:
+
+```twig
+# app/Resources/CHCookieConsentBundle/views/cookie_consent.html.twig
+{% extends '@!CHCookieConsent/cookie_consent.html.twig' %}
+
+{% block title %}
+    Your custom title
+{% endblock %}
+```
