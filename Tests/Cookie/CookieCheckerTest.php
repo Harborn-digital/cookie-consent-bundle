@@ -34,21 +34,21 @@ class CookieCheckerTest extends TestCase
     }
 
     /**
-     * @dataProvider hasCookiesSavedDataProvider
+     * @dataProvider isCookieConsentSavedByUserDataProvider
      *
-     * Test CookieChecker:hasCookiesSaved
+     * Test CookieChecker:isCookieConsentSavedByUser
      */
-    public function testHasCookiesSaved(array $cookies = [], bool $expected): void
+    public function testIsCookieConsentSavedByUser(array $cookies = [], bool $expected): void
     {
         $this->request->cookies = new ParameterBag($cookies);
 
-        $this->assertSame($expected, $this->cookieChecker->hasCookiesSaved());
+        $this->assertSame($expected, $this->cookieChecker->isCookieConsentSavedByUser());
     }
 
     /**
-     * Data provider for testHasCookiesSaved.
+     * Data provider for testIsCookieConsentSavedByUser.
      */
-    public function hasCookiesSavedDataProvider(): array
+    public function isCookieConsentSavedByUserDataProvider(): array
     {
         return [
             [['Cookie_Consent' => date('r')], true],
@@ -61,21 +61,21 @@ class CookieCheckerTest extends TestCase
     }
 
     /**
-     * @dataProvider isAllowedDataProvider
+     * @dataProvider isCategoryAllowedByUserDataProvider
      *
-     * Test CookieChecker:isAllowed
+     * Test CookieChecker:isCategoryAllowedByUser
      */
-    public function testIsAllowed(array $cookies = [], string $category, bool $expected): void
+    public function testIsCategoryAllowedByUser(array $cookies = [], string $category, bool $expected): void
     {
         $this->request->cookies = new ParameterBag($cookies);
 
-        $this->assertSame($expected, $this->cookieChecker->isAllowed($category));
+        $this->assertSame($expected, $this->cookieChecker->isCategoryAllowedByUser($category));
     }
 
     /**
-     * Data provider for testIsAllowed.
+     * Data provider for testIsCategoryAllowedByUser.
      */
-    public function isAllowedDataProvider(): array
+    public function isCategoryAllowedByUserDataProvider(): array
     {
         return [
             [['Cookie_Category_analytics' => 'true'], 'analytics', true],

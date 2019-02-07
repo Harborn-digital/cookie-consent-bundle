@@ -38,6 +38,8 @@ class CHCookieConsentExtensionTest extends TestCase
 
         $this->assertParameter(['analytics', 'tracking', 'marketing', 'social_media'], 'ch_cookie_consent.categories');
         $this->assertParameter('dark', 'ch_cookie_consent.theme');
+        $this->assertParameter(['app_cookies'], 'ch_cookie_consent.excluded_routes');
+        $this->assertParameter(['/cookies'], 'ch_cookie_consent.excluded_paths');
     }
 
     /**
@@ -66,6 +68,8 @@ class CHCookieConsentExtensionTest extends TestCase
         $yaml = <<<EOF
 categories: ['analytics', 'tracking', 'marketing', 'social_media']
 theme: 'dark'
+excluded_routes: ['app_cookies']
+excluded_paths: ['/cookies']
 EOF;
         $parser = new Parser();
 
@@ -78,7 +82,6 @@ EOF;
     protected function getInvalidConfig(): array
     {
         $yaml = <<<EOF
-categories: ['not_existing']
 theme: 'not_existing'
 EOF;
         $parser = new Parser();
