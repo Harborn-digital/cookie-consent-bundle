@@ -9,61 +9,46 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\Cookie;
 
+use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
+use DateInterval;
+use DateTime;
 use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CookieHandler
 {
-    const COOKIE_CONSENT_NAME = 'Cookie_Consent';
-
-    const COOKIE_CATEGORY_NAME = 'Cookie_Category_';
-
     /**
-     * @var Request
+     * @var Response
      */
-    private $request;
+    private $response;
 
-    public function __construct(Request $request)
+    public function __construct(Response $response)
     {
-        $this->request = $request;
-    }
-
-    /**
-     * Check if cookie consent has already been saved.
-     */
-    public function hasCookieConsent(): bool
-    {
-        return $this->request->cookies->has(self::COOKIE_CONSENT_NAME);
-    }
-
-    /**
-     * Check if given cookie category is permitted by user.
-     */
-    public function isCategoryPermitted(string $category): bool
-    {
-        return $this->request->cookies->get(self::COOKIE_CATEGORY_NAME.$category) === 'true';
+        $this->response = $response;
     }
 
     /**
      * Save chosen cookie categories in cookies.
      */
-    public function saveCookieConsent(Response $response, array $categories): void
+    public function save(array $categories): void
     {
-        $this->addCookie($response, self::COOKIE_CONSENT_NAME, date('r'));
+        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_NAME, date('r'));
 
         foreach ($categories as $category => $permitted) {
-            $this->addCookie($response, self::COOKIE_CATEGORY_NAME.$category, $permitted);
+            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted);
         }
     }
 
     /**
      * Add cookie to response headers.
      */
-    protected function addCookie(Response $response, string $name, string $value): void
+    protected function saveCookie(string $name, string $value): void
     {
-        $response->headers->setCookie(
-            new Cookie($name, $value, 0, '/', null, null, true, true)
+        $expirationDate = new DateTime();
+        $expirationDate->add(new DateInterval('P1Y'));
+
+        $this->response->headers->setCookie(
+            new Cookie($name, $value, $expirationDate, '/', null, null, true, true)
         );
     }
 }

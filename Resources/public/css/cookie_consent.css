@@ -1,9 +1,7 @@
 .ch-cookie-consent {
     background-color: #fff;
     color: #000;
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 100%;
     z-index: 99999;
     padding: 40px 40px 150px;
 }

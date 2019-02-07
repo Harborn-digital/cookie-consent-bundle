@@ -29,9 +29,7 @@ $ch-cookie-consent-dark-theme-checkbox-active-border-color: #000 !default;
 .ch-cookie-consent {
     background-color: $ch-cookie-consent-background-color;
     color: $ch-cookie-consent-text-color;
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 100%;
     z-index: 99999;
     padding: 40px 40px 150px;
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\Form;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
+use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,18 +18,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CookieConsentType extends AbstractType
 {
     /**
-     * @var CookieHandler
+     * @var CookieChecker
      */
-    protected $cookieHandler;
+    protected $cookieChecker;
 
     /**
      * @var array
      */
     protected $cookieCategories;
 
-    public function __construct(CookieHandler $cookieHandler, array $cookieCategories)
+    public function __construct(CookieChecker $cookieChecker, array $cookieCategories)
     {
-        $this->cookieHandler    = $cookieHandler;
+        $this->cookieChecker    = $cookieChecker;
         $this->cookieCategories = $cookieCategories;
     }
 
@@ -42,10 +42,10 @@ class CookieConsentType extends AbstractType
             $builder->add($category, ChoiceType::class, [
                 'expanded' => true,
                 'multiple' => false,
-                'data'     => $this->cookieHandler->isCategoryPermitted($category) ? 'true' : 'false',
+                'data'     => $this->cookieChecker->isCategoryAllowedByUser($category) ? 'true' : 'false',
                 'choices'  => [
-                    ['ch_cookie_consent.no' => 'false'],
                     ['ch_cookie_consent.yes' => 'true'],
+                    ['ch_cookie_consent.no' => 'false'],
                 ],
             ]);
         }

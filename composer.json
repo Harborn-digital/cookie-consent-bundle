@@ -2,7 +2,7 @@
     "name": "connectholland/cookie-consent-bundle",
     "type": "symfony-bundle",
     "description": "This bundle provides cookie consent for Symfony applications",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "~7.1 || ~7.2",
         "symfony/framework-bundle": "^3.4",

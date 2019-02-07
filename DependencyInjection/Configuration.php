@@ -9,9 +9,10 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\DependencyInjection;
 
+use ConnectHolland\CookieConsentBundle\Enum\CategoryEnum;
+use ConnectHolland\CookieConsentBundle\Enum\ThemeEnum;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
 
 class Configuration implements ConfigurationInterface
 {
@@ -23,25 +24,17 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->variableNode('categories')
-                    ->defaultValue(['analytics', 'marketing'])
-                    ->validate()
-                    ->always(function ($values) {
-                        foreach ((array) $values as $value) {
-                            if (!in_array($value, ['analytics', 'marketing'])) {
-                                throw new InvalidTypeException(sprintf('Invalid cookie type %s', $value));
-                            }
-                        }
-
-                        return (array) $values;
-                    })
-                    ->end()
+                    ->defaultValue([CategoryEnum::CATEGORY_TRACKING, CategoryEnum::CATEGORY_MARKETING, CategoryEnum::CATEGORY_SOCIAL_MEDIA])
                 ->end()
-                ->scalarNode('theme')
-                    ->defaultValue('light')
-                    ->validate()
-                        ->ifNotInArray(['light', 'dark'])
-                        ->thenInvalid('Invalid theme %s')
-                    ->end()
+                ->enumNode('theme')
+                    ->defaultValue(ThemeEnum::THEME_LIGHT)
+                    ->values(ThemeEnum::getAvailableThemes())
+                ->end()
+                ->arrayNode('excluded_routes')
+                    ->scalarPrototype()->end()
+                ->end()
+                ->arrayNode('excluded_paths')
+                    ->scalarPrototype()->end()
                 ->end()
             ->end()
         ;
