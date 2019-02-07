@@ -1,3 +1,9 @@
+checks:
+    php: true
+
+coding_style:
+    php: {  }
+
 build:
     environment:
         timezone: Europe/Amsterdam
@@ -13,13 +19,14 @@ build:
         override: true
     tests:
         override:
-            command: "php -v"
-    #     before:
-    #         - command: 'bin/websiteconsole doctrine:migrations:migrate --no-interaction --env=test'
-    #     override:
-    #         - php-scrutinizer-run
-    #         -
-    #             command: 'bin/phpunit --coverage-clover=code-coverage'
-    #             coverage:
-    #                 file: 'code-coverage'
-    #                 format: 'clover'
+            - php-scrutinizer-run
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=code-coverage'
+                coverage:
+                    file: 'code-coverage'
+                    format: 'clover'
+
+filter:
+    excluded_paths:
+        - Resources/*
+        - Tests/*
