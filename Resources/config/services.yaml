@@ -17,6 +17,10 @@ services:
     ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:
         arguments: ["@=service('request_stack').getCurrentRequest()"]
 
+    ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
+        arguments:
+            $request: "@=service('request_stack').getCurrentRequest()"
+
     ConnectHolland\CookieConsentBundle\DOM\DOMBuilder:
         arguments:
             $cookieConsentTheme: '%ch_cookie_consent.theme%'

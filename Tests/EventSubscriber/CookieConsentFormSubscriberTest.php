@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\Tests\EventSubscriber;
 
+use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
 use ConnectHolland\CookieConsentBundle\EventSubscriber\CookieConsentFormSubscriber;
 use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +35,8 @@ class CookieConsentFormSubscriberTest extends TestCase
     public function setUp()
     {
         $this->formFactoryInterface        = $this->createMock(FormFactoryInterface::class);
-        $this->cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface);
+        $this->cookieLogger                = $this->createMock(CookieLogger::class);
+        $this->cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface, $this->cookieLogger);
     }
 
     public function testGetSubscribedEvents(): void
@@ -80,6 +82,10 @@ class CookieConsentFormSubscriberTest extends TestCase
             ->method('create')
             ->with(CookieConsentType::class)
             ->willReturn($form);
+
+        $this->cookieLogger
+            ->expects($this->once())
+            ->method('log');
 
         $this->cookieConsentFormSubscriber->onResponse($event);
     }
