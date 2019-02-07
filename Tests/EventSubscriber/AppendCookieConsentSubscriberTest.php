@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class AppendCookieConsentSubscriberTest extends TestCase
 {
@@ -47,6 +48,15 @@ class AppendCookieConsentSubscriberTest extends TestCase
         $this->domBuilder                    = $this->createMock(DOMBuilder::class);
         $this->domParser                     = $this->createMock(DOMParser::class);
         $this->appendCookieConsentSubscriber = new AppendCookieConsentSubcriber($this->cookieChecker, $this->domBuilder, $this->domParser, ['app_cookies'], ['/cookies']);
+    }
+
+    public function testGetSubscribedEvents(): void
+    {
+        $expectedEvents = [
+            KernelEvents::RESPONSE => ['onResponse', 0],
+        ];
+
+        $this->assertSame($expectedEvents, $this->appendCookieConsentSubscriber->getSubscribedEvents());
     }
 
     public function testOnResponse(): void

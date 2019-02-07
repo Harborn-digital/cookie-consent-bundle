@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriberTest extends TestCase
 {
@@ -36,6 +37,15 @@ class CookieConsentFormSubscriberTest extends TestCase
         $this->cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface);
     }
 
+    public function testGetSubscribedEvents(): void
+    {
+        $expectedEvents = [
+           KernelEvents::RESPONSE => ['onResponse', 5],
+        ];
+
+        $this->assertSame($expectedEvents, $this->cookieConsentFormSubscriber->getSubscribedEvents());
+    }
+
     public function testOnResponse(): void
     {
         $request  = new Request();
@@ -52,6 +62,18 @@ class CookieConsentFormSubscriberTest extends TestCase
             ->willReturn($response);
 
         $form = $this->createMock(FormInterface::class);
+        $form
+            ->expects($this->once())
+            ->method('isSubmitted')
+            ->willReturn(true);
+        $form
+            ->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+        $form
+            ->expects($this->once())
+            ->method('getData')
+            ->willReturn([]);
 
         $this->formFactoryInterface
             ->expects($this->once())
