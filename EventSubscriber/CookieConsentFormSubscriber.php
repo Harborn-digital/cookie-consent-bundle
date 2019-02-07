@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\EventSubscriber;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
+use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
 use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -26,9 +27,15 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
      */
     private $formFactory;
 
-    public function __construct(FormFactoryInterface $formFactory)
+    /**
+     * @var CookieLogger
+     */
+    private $cookieLogger;
+
+    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger)
     {
-        $this->formFactory   = $formFactory;
+        $this->formFactory  = $formFactory;
+        $this->cookieLogger = $cookieLogger;
     }
 
     public static function getSubscribedEvents(): array
@@ -51,8 +58,12 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
 
         // If form is submitted save in cookies, otherwise display cookie consent
         if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+
             $cookieHandler = new CookieHandler($response);
-            $cookieHandler->save($form->getData());
+            $cookieHandler->save($formData);
+
+            $this->cookieLogger->log($formData);
         }
     }
 

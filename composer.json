@@ -5,7 +5,11 @@
     "license": "MIT",
     "require": {
         "php": "~7.1 || ~7.2",
+        "doctrine/annotations": "^1.6",
+        "doctrine/doctrine-bundle": "^1.10",
+        "doctrine/orm": "^2.6",
         "symfony/dependency-injection": "^3.4",
+        "symfony/doctrine-bridge": "^4.2",
         "symfony/expression-language": "^4.2",
         "symfony/form": "^3.4",
         "symfony/framework-bundle": "^3.4",

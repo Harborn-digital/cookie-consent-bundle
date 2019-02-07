@@ -35,6 +35,10 @@ Light theme:
 ## Usage
 On every (master) kernel request the cookie consent will automatically be loaded into your website when the visitor has not yet used the Cookie Consent form yet. After submitting the form a few cookies are saved ( with a lifetime of 1 year ). The cookie **Cookie_Consent** is saved with the date of submit and for each configured category a cookie saved e.g. **Cookie_Category_analytics** with it's value set to either *true* or *false*
 
+# Logging
+As per AVG requirements all cookie preferences of the users must be explainable by the webmaster. For this we log all cookie preferences to the database.
+![alt text](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/log.png)
+
 # Controller
 A controller is available for renderering the cookie consent in a template.
 
