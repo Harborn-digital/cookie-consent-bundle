@@ -7,7 +7,7 @@
         "php": "^7.1",
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^1.10",
-        "doctrine/orm": "^2.6",
+        "doctrine/orm": "^2.5",
         "symfony/asset": "^3.4 || ^4.0",
         "symfony/dependency-injection": "^3.4 || ^4.0",
         "symfony/doctrine-bridge": "^3.4 || ^4.0",
