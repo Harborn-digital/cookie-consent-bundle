@@ -15,7 +15,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class DOMBuilderTest extends TestCase
 {

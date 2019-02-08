@@ -63,15 +63,25 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
     }
 
     /**
-     * Appends Cookie Consent scripts into body.
+     * Appends cookie consent scripts into body.
      */
     public function onResponse(FilterResponseEvent $event): void
     {
-        if ($event->isMasterRequest() === false || $this->cookieChecker->isCookieConsentSavedByUser() || $this->isExcludedRequest($event->getRequest())) {
-            return;
+        if ($this->shouldAppendCookieConsent($event)) {
+            $this->appendCookieConsent($event->getResponse());
         }
+    }
 
-        $this->appendCookieConsent($event->getResponse());
+    /**
+     * Check if cookie consent should be appended to page.
+     */
+    protected function shouldAppendCookieConsent(FilterResponseEvent $event): bool
+    {
+        return
+            $event->isMasterRequest() &&
+            $event->getResponse()->getStatusCode() === 200 &&
+            $this->cookieChecker->isCookieConsentSavedByUser() === false &&
+            $this->isExcludedRequest($event->getRequest()) === false;
     }
 
     /**
