@@ -36,7 +36,7 @@ class DOMBuilderTest extends TestCase
 
     public function setUp()
     {
-        $this->templating  = $this->createMock(EngineInterface::class);
+        $this->templating  = $this->createMock(\Twig_Environment::class);
         $this->formFactory = $this->createMock(FormFactoryInterface::class);
         $this->domBuilder  = new DOMBuilder($this->templating, $this->formFactory, 'dark');
     }

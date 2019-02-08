@@ -8,6 +8,7 @@
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^1.10",
         "doctrine/orm": "^2.6",
+        "symfony/asset": "^3.4 || ^4.0",
         "symfony/dependency-injection": "^3.4 || ^4.0",
         "symfony/doctrine-bridge": "^3.4 || ^4.0",
         "symfony/expression-language": "^3.4 || ^4.0",
@@ -17,6 +18,7 @@
         "symfony/templating": "^3.4 || ^4.0",
         "symfony/translation": "^3.4 || ^4.0",
         "symfony/twig-bridge": "^3.4 || ^4.0",
+        "symfony/twig-bundle": "^3.4 || ^4.0",
         "twig/twig": "^2.6",
         "wa72/htmlpagedom": "^1.3"
     },
