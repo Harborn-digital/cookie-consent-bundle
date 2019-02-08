@@ -9,7 +9,7 @@ ch_cookie_consent:
         title: 'Do you want tracking cookies?'
         description: ''
     marketing:
-    title: 'Do you want personalised ads?'
+        title: 'Do you want personalised ads?'
         description: ''
     social_media:
         title: 'Do you want social media cookies?'

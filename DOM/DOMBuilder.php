@@ -12,14 +12,13 @@ namespace ConnectHolland\CookieConsentBundle\DOM;
 use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Templating\EngineInterface;
 
 class DOMBuilder
 {
     /**
-     * @var EngineInterface
+     * @var \Twig_Environment
      */
-    private $templating;
+    private $twigEnvironment;
 
     /**
      * @var FormFactoryInterface
@@ -31,9 +30,9 @@ class DOMBuilder
      */
     private $cookieConsentTheme;
 
-    public function __construct(EngineInterface $templating, FormFactoryInterface $formFactory, string $cookieConsentTheme)
+    public function __construct(\Twig_Environment $twigEnvironment, FormFactoryInterface $formFactory, string $cookieConsentTheme)
     {
-        $this->templating         = $templating;
+        $this->twigEnvironment    = $twigEnvironment;
         $this->formFactory        = $formFactory;
         $this->cookieConsentTheme = $cookieConsentTheme;
     }
@@ -43,7 +42,7 @@ class DOMBuilder
      */
     public function buildCookieConsentDom(): string
     {
-        return $this->templating->render('@CHCookieConsent/cookie_consent.html.twig', [
+        return $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
             'form'  => $this->createCookieConsentForm()->createView(),
             'theme' => $this->cookieConsentTheme,
         ]);
