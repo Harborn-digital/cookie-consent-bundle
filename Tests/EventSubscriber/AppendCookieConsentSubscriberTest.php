@@ -71,13 +71,12 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->willReturn(true);
         $event
             ->expects($this->once())
-            ->method('getResponse')
-            ->willReturn($response);
-
-        $event
-            ->expects($this->once())
             ->method('getRequest')
             ->willReturn($request);
+        $event
+            ->expects($this->exactly(2))
+            ->method('getResponse')
+            ->willReturn($response);
 
         $this->cookieChecker
             ->expects($this->once())
@@ -112,6 +111,10 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->expects($this->once())
             ->method('getRequest')
             ->willReturn($request);
+        $event
+            ->expects($this->once())
+            ->method('getResponse')
+            ->willReturn($response);
 
         $this->cookieChecker
             ->expects($this->once())
@@ -143,6 +146,10 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->expects($this->once())
             ->method('getRequest')
             ->willReturn($request);
+        $event
+            ->expects($this->once())
+            ->method('getResponse')
+            ->willReturn($response);
 
         $this->cookieChecker
             ->expects($this->once())
@@ -174,6 +181,10 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->expects($this->once())
             ->method('isMasterRequest')
             ->willReturn(true);
+        $event
+            ->expects($this->once())
+            ->method('getResponse')
+            ->willReturn($response);
 
         $this->cookieChecker
             ->expects($this->once())
@@ -194,6 +205,17 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->expects($this->once())
             ->method('isMasterRequest')
             ->willReturn(false);
+
+        $this->appendCookieConsentSubscriber->onResponse($event);
+
+        $this->assertSame('', $response->getContent());
+    }
+
+    public function testOnResponseWithInvalidStatusCode(): void
+    {
+        $response = new Response('', 404);
+
+        $event = $this->createMock(FilterResponseEvent::class);
 
         $this->appendCookieConsentSubscriber->onResponse($event);
 
