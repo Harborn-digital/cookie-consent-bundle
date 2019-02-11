@@ -5,6 +5,10 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            $cookieConsentTheme: '%ch_cookie_consent.theme%'
+            $cookieCategories: '%ch_cookie_consent.categories%'
+            $useLogger: '%ch_cookie_consent.use_logger%'
 
     ConnectHolland\CookieConsentBundle\:
         resource: '../../'
@@ -20,16 +24,3 @@ services:
     ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
         arguments:
             $request: "@=service('request_stack').getCurrentRequest()"
-
-    ConnectHolland\CookieConsentBundle\DOM\DOMBuilder:
-        arguments:
-            $cookieConsentTheme: '%ch_cookie_consent.theme%'
-
-    ConnectHolland\CookieConsentBundle\EventSubscriber\AppendCookieConsentSubcriber:
-        arguments:
-            $excludedRoutes: '%ch_cookie_consent.excluded_routes%'
-            $excludedPaths: '%ch_cookie_consent.excluded_paths%'
-
-    ConnectHolland\CookieConsentBundle\Form\CookieConsentType:
-        arguments:
-            $cookieCategories: '%ch_cookie_consent.categories%'

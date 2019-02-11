@@ -32,16 +32,22 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
      */
     private $cookieLogger;
 
-    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger)
+    /**
+     * @var bool
+     */
+    private $useLogger;
+
+    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger, bool $useLogger)
     {
         $this->formFactory  = $formFactory;
         $this->cookieLogger = $cookieLogger;
+        $this->useLogger    = $useLogger;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-           KernelEvents::RESPONSE => ['onResponse', 5],
+           KernelEvents::RESPONSE => ['onResponse'],
         ];
     }
 
@@ -63,7 +69,9 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
             $cookieHandler = new CookieHandler($response);
             $cookieHandler->save($formData);
 
-            $this->cookieLogger->log($formData);
+            if ($this->useLogger) {
+                $this->cookieLogger->log($formData);
+            }
         }
     }
 
