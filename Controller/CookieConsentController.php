@@ -13,7 +13,6 @@ use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -34,6 +33,11 @@ class CookieConsentController
      */
     private $cookieChecker;
 
+    /**
+     * @var string
+     */
+    private $cookieConsentTheme;
+
     public function __construct(
         \Twig_Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
@@ -51,7 +55,7 @@ class CookieConsentController
      *
      * @Route("/cookie_consent", name="ch_cookie_consent.show")
      */
-    public function show(Request $request): Response
+    public function show(): Response
     {
         return new Response(
             $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
@@ -68,10 +72,10 @@ class CookieConsentController
      *
      * @Route("/cookie_consent_alt", name="ch_cookie_consent.show_if_cookie_consent_not_set")
      */
-    public function showIfCookieConsentNotSet(Request $request): Response
+    public function showIfCookieConsentNotSet(): Response
     {
         if ($this->cookieChecker->isCookieConsentSavedByUser() === false) {
-            return $this->show($request);
+            return $this->show();
         }
 
         return new Response();

@@ -62,7 +62,7 @@ class CookieConsentControllerTest extends TestCase
             ->method('render')
             ->willReturn('test');
 
-        $response = $this->cookieConsentController->show(new Request());
+        $response = $this->cookieConsentController->show();
 
         $this->assertInstanceOf(Response::class, $response);
     }
@@ -85,7 +85,7 @@ class CookieConsentControllerTest extends TestCase
             ->method('render')
             ->willReturn('test');
 
-        $response = $this->cookieConsentController->showIfCookieConsentNotSet(new Request());
+        $response = $this->cookieConsentController->showIfCookieConsentNotSet();
 
         $this->assertInstanceOf(Response::class, $response);
     }
