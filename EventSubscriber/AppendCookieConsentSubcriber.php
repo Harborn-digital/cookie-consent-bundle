@@ -78,8 +78,7 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
     protected function shouldAppendCookieConsent(FilterResponseEvent $event): bool
     {
         return
-            $event->isMasterRequest() &&
-            $event->getResponse()->getStatusCode() === 200 &&
+            $this->isValidHttpRequest($event) &&
             $this->cookieChecker->isCookieConsentSavedByUser() === false &&
             $this->isExcludedRequest($event->getRequest()) === false;
     }
@@ -95,6 +94,17 @@ class AppendCookieConsentSubcriber implements EventSubscriberInterface
                 $this->domBuilder->buildCookieConsentDom()
             )
         );
+    }
+
+    /**
+     * Checks if request is valid.
+     */
+    protected function isValidHttpRequest(FilterResponseEvent $event): bool
+    {
+        return
+            $event->isMasterRequest() &&
+            $event->getResponse()->getStatusCode() === 200 &&
+            empty($event->getResponse()->headers->get('Content-Type')) === false && strpos($event->getResponse()->headers->get('Content-Type'), 'text/html') !== false;
     }
 
     /**

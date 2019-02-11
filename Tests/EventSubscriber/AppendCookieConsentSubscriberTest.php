@@ -61,7 +61,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
 
     public function testOnResponse(): void
     {
-        $response = new Response();
+        $response = new Response('', 200, ['Content-Type' => 'text/html']);
         $request  = new Request();
 
         $event = $this->createMock(FilterResponseEvent::class);
@@ -74,7 +74,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->method('getRequest')
             ->willReturn($request);
         $event
-            ->expects($this->exactly(2))
+            ->expects($this->atLeastOnce())
             ->method('getResponse')
             ->willReturn($response);
 
@@ -99,7 +99,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
 
     public function testOnResponseWithExcludedRoute(): void
     {
-        $response = new Response();
+        $response = new Response('', 200, ['Content-Type' => 'text/html']);
         $request  = $this->createMock(Request::class);
 
         $event = $this->createMock(FilterResponseEvent::class);
@@ -112,7 +112,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->method('getRequest')
             ->willReturn($request);
         $event
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('getResponse')
             ->willReturn($response);
 
@@ -134,7 +134,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
 
     public function testOnResponseWithExcludedPath(): void
     {
-        $response = new Response();
+        $response = new Response('', 200, ['Content-Type' => 'text/html']);
         $request  = $this->createMock(Request::class);
 
         $event = $this->createMock(FilterResponseEvent::class);
@@ -147,7 +147,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->method('getRequest')
             ->willReturn($request);
         $event
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('getResponse')
             ->willReturn($response);
 
@@ -174,7 +174,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
 
     public function testOnResponseWithCookieConsentAlreadySaved(): void
     {
-        $response = new Response();
+        $response = new Response('', 200, ['Content-Type' => 'text/html']);
 
         $event = $this->createMock(FilterResponseEvent::class);
         $event
@@ -182,7 +182,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
             ->method('isMasterRequest')
             ->willReturn(true);
         $event
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('getResponse')
             ->willReturn($response);
 
@@ -198,7 +198,7 @@ class AppendCookieConsentSubscriberTest extends TestCase
 
     public function testOnResponseWithSubrequest(): void
     {
-        $response = new Response();
+        $response = new Response('', 200, ['Content-Type' => 'text/html']);
 
         $event = $this->createMock(FilterResponseEvent::class);
         $event
@@ -213,7 +213,18 @@ class AppendCookieConsentSubscriberTest extends TestCase
 
     public function testOnResponseWithInvalidStatusCode(): void
     {
-        $response = new Response('', 404);
+        $response = new Response('', 404, ['Content-Type' => 'text/html']);
+
+        $event = $this->createMock(FilterResponseEvent::class);
+
+        $this->appendCookieConsentSubscriber->onResponse($event);
+
+        $this->assertSame('', $response->getContent());
+    }
+
+    public function testOnResponseWithJsonHeaders(): void
+    {
+        $response = new Response('', 200, ['Content-Type' => 'application/json']);
 
         $event = $this->createMock(FilterResponseEvent::class);
 
