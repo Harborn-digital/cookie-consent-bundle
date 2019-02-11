@@ -30,11 +30,8 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(ThemeEnum::THEME_LIGHT)
                     ->values(ThemeEnum::getAvailableThemes())
                 ->end()
-                ->arrayNode('excluded_routes')
-                    ->scalarPrototype()->end()
-                ->end()
-                ->arrayNode('excluded_paths')
-                    ->scalarPrototype()->end()
+                ->booleanNode('use_logger')
+                    ->defaultTrue()
                 ->end()
             ->end()
         ;
