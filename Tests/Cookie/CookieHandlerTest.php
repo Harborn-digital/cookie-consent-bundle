@@ -40,21 +40,24 @@ class CookieHandlerTest extends TestCase
             'analytics'    => 'true',
             'social_media' => 'true',
             'tracking'     => 'false',
-        ]);
+        ], 'key-test');
 
         $cookies = $this->response->headers->getCookies();
 
-        $this->assertCount(4, $cookies);
+        $this->assertCount(5, $cookies);
 
         $this->assertSame('Cookie_Consent', $cookies[0]->getName());
 
-        $this->assertSame('Cookie_Category_analytics', $cookies[1]->getName());
-        $this->assertSame('true', $cookies[1]->getValue());
+        $this->assertSame('Cookie_Consent_Key', $cookies[1]->getName());
+        $this->assertSame('key-test', $cookies[1]->getValue());
 
-        $this->assertSame('Cookie_Category_social_media', $cookies[2]->getName());
+        $this->assertSame('Cookie_Category_analytics', $cookies[2]->getName());
         $this->assertSame('true', $cookies[2]->getValue());
 
-        $this->assertSame('Cookie_Category_tracking', $cookies[3]->getName());
-        $this->assertSame('false', $cookies[3]->getValue());
+        $this->assertSame('Cookie_Category_social_media', $cookies[3]->getName());
+        $this->assertSame('true', $cookies[3]->getValue());
+
+        $this->assertSame('Cookie_Category_tracking', $cookies[4]->getName());
+        $this->assertSame('false', $cookies[4]->getValue());
     }
 }

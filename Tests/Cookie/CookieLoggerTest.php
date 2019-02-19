@@ -41,7 +41,7 @@ class CookieLoggerTest extends TestCase
             ->with(CookieConsentLog::class)
             ->willReturn($this->entityManager);
 
-        $this->cookieLogger  = new CookieLogger($registry, $this->request);
+        $this->cookieLogger = new CookieLogger($registry, $this->request);
     }
 
     /**
@@ -50,7 +50,7 @@ class CookieLoggerTest extends TestCase
     public function testLog(): void
     {
         $this->request
-            ->expects($this->exactly(3))
+            ->expects($this->once())
             ->method('getClientIp')
             ->willReturn('127.0.0.1');
 
@@ -67,6 +67,32 @@ class CookieLoggerTest extends TestCase
             'analytics'    => 'true',
             'social_media' => 'true',
             'tracking'     => 'false',
-        ]);
+        ], 'key-test');
+    }
+
+    /**
+     * Test CookieLogger:log.
+     */
+    public function testLogWithNullIp(): void
+    {
+        $this->request
+            ->expects($this->once())
+            ->method('getClientIp')
+            ->willReturn(null);
+
+        $this->entityManager
+            ->expects($this->exactly(3))
+            ->method('persist');
+
+        $this->entityManager
+            ->expects($this->once())
+            ->method('flush')
+            ->with();
+
+        $this->cookieLogger->log([
+            'analytics'    => 'true',
+            'social_media' => 'true',
+            'tracking'     => 'false',
+        ], 'key-test');
     }
 }

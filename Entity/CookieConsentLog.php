@@ -39,6 +39,13 @@ class CookieConsentLog
      *
      * @var string
      */
+    protected $cookieConsentKey;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
     protected $cookieName;
 
     /**
@@ -70,6 +77,18 @@ class CookieConsentLog
     public function getIpAddress(): string
     {
         return $this->ipAddress;
+    }
+
+    public function setCookieConsentKey(string $cookieConsentKey): self
+    {
+        $this->cookieConsentKey = $cookieConsentKey;
+
+        return $this;
+    }
+
+    public function getCookieConsentKey(): string
+    {
+        return $this->cookieConsentKey;
     }
 
     public function setCookieName(string $cookieName): self

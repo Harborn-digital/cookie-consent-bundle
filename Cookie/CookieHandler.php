@@ -30,9 +30,10 @@ class CookieHandler
     /**
      * Save chosen cookie categories in cookies.
      */
-    public function save(array $categories): void
+    public function save(array $categories, string $key): void
     {
         $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_NAME, date('r'));
+        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_KEY_NAME, $key);
 
         foreach ($categories as $category => $permitted) {
             $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted);

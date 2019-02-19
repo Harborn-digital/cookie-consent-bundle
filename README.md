@@ -24,24 +24,33 @@ ch_cookie_consent:
     use_logger: true # Logs user actions to database
 ```
 Dark theme:
+
 ![alt text](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/dark_theme.png)
 
 Light theme:
+
 ![alt text](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/light_theme.png)
 
 ## Usage
+### Twig implementation
 Load the cookie consent in Twig via render_esi ( to prevent caching ) at any place you like:
 ```twig
 {{ render_esi(path('ch_cookie_consent.show')) }}
 {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set')) }}
 ```
-When a user submits the form the preferences are saved as cookies and logged into the database. The cookies have a lifetime of 1 year. The cookie **Cookie_Consent** is saved with the date of submit and for each configured category a cookie saved e.g. **Cookie_Category_analytics** with it's value set to either *true* or *false*
 
-# Logging
-AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. This option can be disabled in the config.
+### Cookies
+When a user submits the form the preferences are saved as cookies. The cookies have a lifetime of 1 year. The following cookies are saved:
+- **Cookie_Consent**: date of submit
+- **Cookie_Consent_Key**: Generated key as identifier to the submitted Cookie Consent of the user
+- **Cookie_Category_[CATEGORY]**: selected value of user (*true* or *false*)
+
+### Logging
+AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. IP addresses are anonymized. This option can be disabled in the config.
+
 ![alt text](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/log.png)
 
-# TwigExtension
+## TwigExtension
 You can use the TwigExtension to check if user has given it's permission for certain cookie categories
 ```twig
 {% if chcookieconsent_isAllowed('analytics') == true %}
