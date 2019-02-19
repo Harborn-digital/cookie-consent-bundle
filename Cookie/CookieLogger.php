@@ -35,23 +35,40 @@ class CookieLogger
     /**
      * Logs users preferences in database.
      */
-    public function log(array $categories): void
+    public function log(array $categories, string $key): void
     {
+        $ip = $this->anonymizeIp($this->request->getClientIp());
+
         foreach ($categories as $category => $value) {
-            $this->persistCookieConsentLog($category, $value);
+            $this->persistCookieConsentLog($category, $value, $ip, $key);
         }
 
         $this->entityManager->flush();
     }
 
-    protected function persistCookieConsentLog(string $category, string $value): void
+    protected function persistCookieConsentLog(string $category, string $value, string $ip, string $key): void
     {
         $cookieConsentLog = (new CookieConsentLog())
-            ->setIpAddress($this->request->getClientIp() ?? 'unknown')
+            ->setIpAddress($ip)
+            ->setCookieConsentKey($key)
             ->setCookieName($category)
             ->setCookieValue($value)
             ->setTimestamp(new \DateTime());
 
         $this->entityManager->persist($cookieConsentLog);
+    }
+
+    /**
+     * GDPR required IP addresses to be saved anonymized.
+     */
+    protected function anonymizeIp(?string $ip): string
+    {
+        if ($ip === null) {
+            return 'unknown';
+        }
+
+        $lastDot = strrpos($ip, '.') + 1;
+
+        return substr($ip, 0, $lastDot).str_repeat('x', strlen($ip) - $lastDot);
     }
 }
