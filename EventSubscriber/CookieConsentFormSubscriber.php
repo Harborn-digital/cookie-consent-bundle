@@ -64,24 +64,30 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
         $form = $this->createCookieConsentForm();
         $form->handleRequest($request);
 
-        // If form is submitted save in cookies, otherwise display cookie consent
         if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
-            $key      = $this->createCookieConsentKey($request);
+            $this->handleFormSubmit($form->getData(), $request, $response);
+        }
+    }
 
-            $cookieHandler = new CookieHandler($response);
-            $cookieHandler->save($formData, $key);
+    /**
+     * Handle form submit.
+     */
+    protected function handleFormSubmit(array $categories, Request $request, Response $response): void
+    {
+        $cookieConsentKey = $this->getCookieConsentKey($request);
 
-            if ($this->useLogger) {
-                $this->cookieLogger->log($formData, $key);
-            }
+        $cookieHandler = new CookieHandler($response);
+        $cookieHandler->save($categories, $cookieConsentKey);
+
+        if ($this->useLogger) {
+            $this->cookieLogger->log($categories, $cookieConsentKey);
         }
     }
 
     /**
      *  Return existing key from cookies or create new one.
      */
-    protected function createCookieConsentKey(Request $request): string
+    protected function getCookieConsentKey(Request $request): string
     {
         return $request->cookies->get(CookieNameEnum::COOKIE_CONSENT_KEY_NAME) ?? uniqid();
     }
