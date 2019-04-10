@@ -39,7 +39,9 @@ function serializeForm(form) {
 	for (var i = 0; i < form.elements.length; i++) {
         var field = form.elements[i];
 
-        serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+        if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+            serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+        }
     }
 
     return serialized.join('&');
