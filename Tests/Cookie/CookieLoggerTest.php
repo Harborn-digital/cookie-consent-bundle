@@ -37,7 +37,7 @@ class CookieLoggerTest extends TestCase
         $registry = $this->createMock(RegistryInterface::class);
         $registry
             ->expects($this->once())
-            ->method('getEntityManagerForClass')
+            ->method('getManagerForClass')
             ->with(CookieConsentLog::class)
             ->willReturn($this->entityManager);
 
