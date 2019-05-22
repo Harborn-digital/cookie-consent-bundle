@@ -32,6 +32,12 @@ Load the cookie consent in Twig via render_esi ( to prevent caching ) at any pla
 {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set')) }}
 ```
 
+If you want to load the cookie consent with a specific locale you can pass the locale as a parameter:
+```twig
+{{ render_esi(path('ch_cookie_consent.show', { 'locale' : 'en' })) }}
+{{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set', { 'locale' : app.request.locale })) }}
+```
+
 ### Cookies
 When a user submits the form the preferences are saved as cookies. The cookies have a lifetime of 1 year. The following cookies are saved:
 - **Cookie_Consent**: date of submit
