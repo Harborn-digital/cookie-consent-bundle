@@ -47,11 +47,11 @@ When a user submits the form the preferences are saved as cookies. The cookies h
 ### Logging
 AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. IP addresses are anonymized. This option can be disabled in the config.
 
-![Database logging](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/log.png)
+![Database logging](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/log.png)
 
 ### Themes
-![Dark Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/dark_theme.png)
-![Light Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/light_theme.png)
+![Dark Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/dark_theme.png)
+![Light Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/light_theme.png)
 
 ### TwigExtension
 You can use the TwigExtension to check if user has given it's permission for certain cookie categories
