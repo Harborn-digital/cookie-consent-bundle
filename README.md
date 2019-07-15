@@ -98,6 +98,16 @@ All texts can be altered via Symfony translations by overwriting the CHCookieCon
 ### Styling
 CHCookieConsentBundle comes with a default styling. A sass file is available in Resources/assets/css/cookie_consent.scss and a build css file is available in Resoureces/public/css/cookie_consent.css. Colors can easily be adjusted by setting the variables available in the sass file.
 
+To install these assets run:
+```bash
+bin/console assets:install
+```
+
+And include the styling in your template:
+```twig
+{% include "CHCookieConsentBundle::cookie_consent_styling.html.twig" %}
+```
+
 ### Javascript
 By loading Resources/public/js/cookie_consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
 
