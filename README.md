@@ -7,11 +7,38 @@
 Symfony bundle to append Cookie Consent to your website to comply to AVG/GDPR for cookies.
 
 ## Installation
+
+### Step 1: Download using composer
 In a Symfony application run this command to install and integrate Cookie Consent bundle in your application:
 ```bash
 composer require connectholland/cookie-consent-bundle
 ```
 
+### Step 2: Enable the bundle
+When not using symfony flex, enable the bundle in the kernel manually:
+```php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new ConnectHolland\CookieConsentBundle\CHCookieConsentBundle(),
+        // ...
+    );
+}
+```
+
+### Step 3: Enable the routing
+When not using symfony flex, enable the bundles routing manually:
+```yaml
+# app/config/routing.yml
+ch_cookie_consent:
+    resource: "@CHCookieConsentBundle/Resources/config/routing.yaml"
+```
+
+### Step 4: Configure to your needs
 Configure your Cookie Consent with the following possible settings
 ```yaml
 ch_cookie_consent:
