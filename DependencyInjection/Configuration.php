@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
             $rootNode = $treeBuilder->getRootNode();
         } else {
             // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->root('sensio_framework_extra');
+            $rootNode = $treeBuilder->root('ch_cookie_consent');
         }
 
         $rootNode
