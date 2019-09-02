@@ -22,9 +22,18 @@ class CookieHandler
      */
     private $response;
 
-    public function __construct(Response $response)
+    private $cookiePrefix;
+
+    private $cookieKeyName;
+
+    private $cookieConsentName;
+
+    public function __construct(Response $response, string $cookiePrefix, string $cookieKeyName, string $cookieConsentName)
     {
-        $this->response = $response;
+        $this->response             = $response;
+        $this->cookiePrefix         = $cookiePrefix;
+        $this->cookieKeyName        = $cookieKeyName;
+        $this->cookieConsentName    = $cookieConsentName;
     }
 
     /**
@@ -32,11 +41,11 @@ class CookieHandler
      */
     public function save(array $categories, string $key): void
     {
-        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_NAME, date('r'));
-        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_KEY_NAME, $key);
+        $this->saveCookie($this->cookieConsentName, date('r'));
+        $this->saveCookie($this->cookieKeyName, $key);
 
         foreach ($categories as $category => $permitted) {
-            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted);
+            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category, $this->cookieConsentName), $permitted);
         }
     }
 
