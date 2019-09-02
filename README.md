@@ -22,6 +22,11 @@ ch_cookie_consent:
         - 'marketing'
         - 'social_media'
     use_logger: true # Logs user actions to database
+    
+    # add trying
+    cookie_prefix: 'neo_Consent'                                          # 'cookie_Consent'
+    cookie_key_name: 'neo_Consent_Key'                                    # 'cookie_Consent_Key'
+    cookie_consent_name: 'neo_Category_'                                  # 'cookie_Category_'
 ```
 
 ## Usage
