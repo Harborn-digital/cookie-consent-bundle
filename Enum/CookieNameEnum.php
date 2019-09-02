@@ -18,15 +18,6 @@ class CookieNameEnum
     const COOKIE_CATEGORY_NAME_PREFIX = 'cookie_Category_';
 
     /**
-     * CookieNameEnum constructor.
-     */
-    public function __construct(string $cookiePrefix, string $cookieKeyName, string $cookieConsentName)
-    {
-        $this->cookiePrefix = $cookieKeyName;
-    }
-
-
-    /**
      * Get cookie category name.
      */
     public static function getCookieCategoryName(string $category, string $cookieConsentName): string
