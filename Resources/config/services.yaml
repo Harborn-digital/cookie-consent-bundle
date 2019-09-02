@@ -9,6 +9,9 @@ services:
             $cookieConsentTheme: '%ch_cookie_consent.theme%'
             $cookieCategories: '%ch_cookie_consent.categories%'
             $useLogger: '%ch_cookie_consent.use_logger%'
+            $cookiePrefix: '%ch_cookie_consent.cookie_prefix%'
+            $cookieKeyName: '%ch_cookie_consent.cookie_key_name%'
+            $cookieConsentName: '%ch_cookie_consent.cookie_consent_name%'
 
     ConnectHolland\CookieConsentBundle\:
         resource: '../../'
@@ -18,8 +21,13 @@ services:
         resource: '../../Controller/*'
         public: true
 
+    ConnectHolland\CookieConsentBundle\EventSubscriber\:
+        resource: '../../EventSubscriber/*'
+        public: true
+
     ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:
-        arguments: ["@=service('request_stack').getCurrentRequest()"]
+        arguments:
+            - "@=service('request_stack').getCurrentRequest()"
 
     ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
         arguments:
