@@ -33,6 +33,17 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('use_logger')
                     ->defaultTrue()
                 ->end()
+                
+                // add trying
+                ->variableNode('cookie_prefix')
+                    ->defaultValue(CookieNameEnum::COOKIE_CATEGORY_NAME_PREFIX)
+                ->end()
+                ->variableNode('cookie_key_name')
+                    ->defaultValue(CookieNameEnum::COOKIE_CONSENT_KEY_NAME)
+                ->end()
+                ->variableNode('cookie_consent_name')
+                    ->defaultValue(CookieNameEnum::COOKIE_CONSENT_NAME)
+                ->end()
             ->end()
         ;
 
