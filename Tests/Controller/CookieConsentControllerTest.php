@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class CookieConsentControllerTest extends TestCase
 {
@@ -37,6 +38,11 @@ class CookieConsentControllerTest extends TestCase
     private $cookieChecker;
 
     /**
+     * @var MockObject
+     */
+    private $translator;
+
+    /**
      * @var CookieConsentController
      */
     private $cookieConsentController;
@@ -46,7 +52,8 @@ class CookieConsentControllerTest extends TestCase
         $this->templating              = $this->createMock(\Twig_Environment::class);
         $this->formFactory             = $this->createMock(FormFactoryInterface::class);
         $this->cookieChecker           = $this->createMock(CookieChecker::class);
-        $this->cookieConsentController = new CookieConsentController($this->templating, $this->formFactory, $this->cookieChecker, 'dark');
+        $this->translator              = $this->createMock(TranslatorInterface::class);
+        $this->cookieConsentController = new CookieConsentController($this->templating, $this->formFactory, $this->cookieChecker, 'dark', $this->translator);
     }
 
     public function testShow()
@@ -62,7 +69,7 @@ class CookieConsentControllerTest extends TestCase
             ->method('render')
             ->willReturn('test');
 
-        $response = $this->cookieConsentController->show();
+        $response = $this->cookieConsentController->show(new Request());
 
         $this->assertInstanceOf(Response::class, $response);
     }
@@ -85,7 +92,49 @@ class CookieConsentControllerTest extends TestCase
             ->method('render')
             ->willReturn('test');
 
-        $response = $this->cookieConsentController->showIfCookieConsentNotSet();
+        $response = $this->cookieConsentController->showIfCookieConsentNotSet(new Request());
+
+        $this->assertInstanceOf(Response::class, $response);
+    }
+
+    public function testShowIfCookieConsentNotSetWithLocale()
+    {
+        $this->cookieChecker
+            ->expects($this->once())
+            ->method('isCookieConsentSavedByUser')
+            ->willReturn(false);
+
+        $this->formFactory
+            ->expects($this->once())
+            ->method('create')
+            ->with(CookieConsentType::class)
+            ->willReturn($this->createMock(FormInterface::class));
+
+        $this->templating
+            ->expects($this->once())
+            ->method('render')
+            ->willReturn('test');
+
+        $request = $this->createMock(Request::class);
+        $locale  = 'en';
+
+        $request
+            ->expects($this->once())
+            ->method('get')
+            ->with('locale')
+            ->willReturn($locale);
+
+        $this->translator
+            ->expects($this->once())
+            ->method('setLocale')
+            ->with($locale);
+
+        $request
+            ->expects($this->once())
+            ->method('setLocale')
+            ->with($locale);
+
+        $response = $this->cookieConsentController->showIfCookieConsentNotSet($request);
 
         $this->assertInstanceOf(Response::class, $response);
     }

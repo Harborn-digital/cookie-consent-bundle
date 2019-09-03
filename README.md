@@ -7,11 +7,38 @@
 Symfony bundle to append Cookie Consent to your website to comply to AVG/GDPR for cookies.
 
 ## Installation
+
+### Step 1: Download using composer
 In a Symfony application run this command to install and integrate Cookie Consent bundle in your application:
 ```bash
 composer require connectholland/cookie-consent-bundle
 ```
 
+### Step 2: Enable the bundle
+When not using symfony flex, enable the bundle in the kernel manually:
+```php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new ConnectHolland\CookieConsentBundle\CHCookieConsentBundle(),
+        // ...
+    );
+}
+```
+
+### Step 3: Enable the routing
+When not using symfony flex, enable the bundles routing manually:
+```yaml
+# app/config/routing.yml
+ch_cookie_consent:
+    resource: "@CHCookieConsentBundle/Resources/config/routing.yaml"
+```
+
+### Step 4: Configure to your needs
 Configure your Cookie Consent with the following possible settings
 ```yaml
 ch_cookie_consent:
@@ -37,6 +64,12 @@ Load the cookie consent in Twig via render_esi ( to prevent caching ) at any pla
 {{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set')) }}
 ```
 
+If you want to load the cookie consent with a specific locale you can pass the locale as a parameter:
+```twig
+{{ render_esi(path('ch_cookie_consent.show', { 'locale' : 'en' })) }}
+{{ render_esi(path('ch_cookie_consent.show_if_cookie_consent_not_set', { 'locale' : app.request.locale })) }}
+```
+
 ### Cookies
 When a user submits the form the preferences are saved as cookies. The cookies have a lifetime of 1 year. The following cookies are saved:
 - **Cookie_Consent**: date of submit
@@ -46,11 +79,11 @@ When a user submits the form the preferences are saved as cookies. The cookies h
 ### Logging
 AVG/GDPR requires all given cookie preferences of users to be explainable by the webmasters. For this we log all cookie preferences to the database. IP addresses are anonymized. This option can be disabled in the config.
 
-![Database logging](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/log.png)
+![Database logging](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/log.png)
 
 ### Themes
-![Dark Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/dark_theme.png)
-![Light Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/doc/light_theme.png)
+![Dark Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/dark_theme.png)
+![Light Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/light_theme.png)
 
 ### TwigExtension
 You can use the TwigExtension to check if user has given it's permission for certain cookie categories
@@ -69,6 +102,16 @@ All texts can be altered via Symfony translations by overwriting the CHCookieCon
 
 ### Styling
 CHCookieConsentBundle comes with a default styling. A sass file is available in Resources/assets/css/cookie_consent.scss and a build css file is available in Resoureces/public/css/cookie_consent.css. Colors can easily be adjusted by setting the variables available in the sass file.
+
+To install these assets run:
+```bash
+bin/console assets:install
+```
+
+And include the styling in your template:
+```twig
+{% include "CHCookieConsentBundle::cookie_consent_styling.html.twig" %}
+```
 
 ### Javascript
 By loading Resources/public/js/cookie_consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
