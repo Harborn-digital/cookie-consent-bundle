@@ -12,6 +12,7 @@ services:
             $cookiePrefix: '%ch_cookie_consent.cookie_prefix%'
             $cookieKeyName: '%ch_cookie_consent.cookie_key_name%'
             $cookieConsentName: '%ch_cookie_consent.cookie_consent_name%'
+            $cookieConsentCategory: '%ch_cookie_consent.cookie_category_name_prefix%'
 
     ConnectHolland\CookieConsentBundle\:
         resource: '../../'
@@ -21,8 +22,8 @@ services:
         resource: '../../Controller/*'
         public: true
 
-    ConnectHolland\CookieConsentBundle\EventSubscriber\:
-        resource: '../../EventSubscriber/*'
+    ConnectHolland\CookieConsentBundle\Enum\:
+        resource: '../../Enum/CookieNameEnum.php'
         public: true
 
     ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:

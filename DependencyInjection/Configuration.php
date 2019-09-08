@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\DependencyInjection;
 
 use ConnectHolland\CookieConsentBundle\Enum\CategoryEnum;
+use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
 use ConnectHolland\CookieConsentBundle\Enum\ThemeEnum;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,8 +19,14 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('ch_cookie_consent');
+        $treeBuilder = new TreeBuilder('ch_cookie_consent');
+
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('ch_cookie_consent');
+        }
 
         $rootNode
             ->children()
@@ -33,9 +40,12 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('use_logger')
                     ->defaultTrue()
                 ->end()
-                
+
                 // add trying
                 ->variableNode('cookie_prefix')
+                ->defaultValue(CookieNameEnum::COOKIE_PREFIX)
+                ->end()
+                ->variableNode('cookie_category_name_prefix')
                     ->defaultValue(CookieNameEnum::COOKIE_CATEGORY_NAME_PREFIX)
                 ->end()
                 ->variableNode('cookie_key_name')

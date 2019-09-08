@@ -14,6 +14,6 @@ ch_cookie_consent:
     social_media:
         title: 'Do you want social media cookies?'
         description: ''
-    no: 'No'
-    yes: 'Yes'
+    no: 'Nee'
+    yes: 'Ja'
     save: 'Save'

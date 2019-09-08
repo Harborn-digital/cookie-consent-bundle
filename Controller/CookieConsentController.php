@@ -13,10 +13,8 @@ use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class CookieConsentController
 {
@@ -40,23 +38,16 @@ class CookieConsentController
      */
     private $cookieConsentTheme;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
     public function __construct(
         \Twig_Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
         CookieChecker $cookieChecker,
-        string $cookieConsentTheme,
-        TranslatorInterface $translator
+        string $cookieConsentTheme
     ) {
         $this->twigEnvironment    = $twigEnvironment;
         $this->formFactory        = $formFactory;
         $this->cookieChecker      = $cookieChecker;
         $this->cookieConsentTheme = $cookieConsentTheme;
-        $this->translator         = $translator;
     }
 
     /**
@@ -64,10 +55,8 @@ class CookieConsentController
      *
      * @Route("/cookie_consent", name="ch_cookie_consent.show")
      */
-    public function show(Request $request): Response
+    public function show(): Response
     {
-        $this->setLocale($request);
-
         return new Response(
             $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
                 'form'  => $this->createCookieConsentForm()->createView(),
@@ -83,10 +72,10 @@ class CookieConsentController
      *
      * @Route("/cookie_consent_alt", name="ch_cookie_consent.show_if_cookie_consent_not_set")
      */
-    public function showIfCookieConsentNotSet(Request $request): Response
+    public function showIfCookieConsentNotSet(): Response
     {
         if ($this->cookieChecker->isCookieConsentSavedByUser() === false) {
-            return $this->show($request);
+            return $this->show();
         }
 
         return new Response();
@@ -98,17 +87,5 @@ class CookieConsentController
     protected function createCookieConsentForm(): FormInterface
     {
         return $this->formFactory->create(CookieConsentType::class);
-    }
-
-    /**
-     * Set locale if available as GET parameter.
-     */
-    protected function setLocale(Request $request)
-    {
-        $locale = $request->get('locale');
-        if (empty($locale) === false) {
-            $this->translator->setLocale($locale);
-            $request->setLocale($locale);
-        }
     }
 }

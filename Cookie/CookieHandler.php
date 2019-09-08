@@ -23,34 +23,42 @@ class CookieHandler
     private $response;
 
     private $cookiePrefix;
+//
+//    private $cookieKeyName;
+//
+//    private $cookieConsentName;
 
-    private $cookieKeyName;
-
-    private $cookieConsentName;
-
-    public function __construct(Response $response, string $cookiePrefix, string $cookieKeyName, string $cookieConsentName)
+    public function __construct(Response $response, CookieNameEnum $cookieNameEnum) //, string $cookiePrefix, string $cookieKeyName, string $cookieConsentName
     {
         $this->response             = $response;
-        $this->cookiePrefix         = $cookiePrefix;
-        $this->cookieKeyName        = $cookieKeyName;
-        $this->cookieConsentName    = $cookieConsentName;
+        $this->cookiePrefix         = $cookieNameEnum;
     }
 
     /**
      * Save chosen cookie categories in cookies.
+     *
+     * @param array  $categories
+     * @param string $key
+     *
+     * @throws \Exception
      */
     public function save(array $categories, string $key): void
     {
-        $this->saveCookie($this->cookieConsentName, date('r'));
-        $this->saveCookie($this->cookieKeyName, $key);
+        $this->saveCookie($this->cookiePrefix::$prefixCookie["COOKIE_CONSENT_NAME"], date('r'));
+        $this->saveCookie($this->cookiePrefix::$prefixCookie["COOKIE_CONSENT_KEY_NAME"], $key);
 
         foreach ($categories as $category => $permitted) {
-            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category, $this->cookieConsentName), $permitted);
+            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted);
         }
     }
 
     /**
      * Add cookie to response headers.
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @throws \Exception
      */
     protected function saveCookie(string $name, string $value): void
     {
