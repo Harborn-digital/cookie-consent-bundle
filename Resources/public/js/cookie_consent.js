@@ -4,11 +4,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
     if (cookieConsent && cookieConsent.parentNode.nodeName === 'BODY') {
-        document.body.style.marginTop = cookieConsent.offsetHeight + 'px';
+        if (cookieConsent.classList.contains('ch-cookie-consent--top')) {
+            document.body.style.marginTop = cookieConsent.offsetHeight + 'px';
 
-        cookieConsent.style.position = 'absolute';
-        cookieConsent.style.top = '0';
-        cookieConsent.style.left = '0';
+            cookieConsent.style.position = 'absolute';
+            cookieConsent.style.top = '0';
+            cookieConsent.style.left = '0';
+        }
+
+        if (cookieConsent.classList.contains('ch-cookie-consent--bottom')) {
+            document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
+
+            cookieConsent.style.position = 'fixed';
+            cookieConsent.style.bottom = '0';
+            cookieConsent.style.left = '0';
+        }
     }
 
     if (cookieConsentForm) {

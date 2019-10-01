@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\DependencyInjection;
 
 use ConnectHolland\CookieConsentBundle\Enum\CategoryEnum;
+use ConnectHolland\CookieConsentBundle\Enum\PositionEnum;
 use ConnectHolland\CookieConsentBundle\Enum\ThemeEnum;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -35,6 +36,10 @@ class Configuration implements ConfigurationInterface
                 ->enumNode('theme')
                     ->defaultValue(ThemeEnum::THEME_LIGHT)
                     ->values(ThemeEnum::getAvailableThemes())
+                ->end()
+                ->enumNode('position')
+                    ->defaultValue(PositionEnum::POSITION_TOP)
+                    ->values(PositionEnum::getAvailablePositions())
                 ->end()
                 ->booleanNode('use_logger')
                     ->defaultTrue()
