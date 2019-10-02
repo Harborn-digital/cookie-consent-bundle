@@ -96,7 +96,7 @@ You can add or remove any category by changing the config and making sure there 
 All texts can be altered via Symfony translations by overwriting the CHCookieConsentBundle translation files.
 
 ### Styling
-CHCookieConsentBundle comes with a default styling. A sass file is available in Resources/assets/css/cookie_consent.scss and a build css file is available in Resoureces/public/css/cookie_consent.css. Colors can easily be adjusted by setting the variables available in the sass file.
+CHCookieConsentBundle comes with a default styling. A sass file is available in Resources/assets/css/cookie_consent.scss and a build css file is available in Resources/public/css/cookie_consent.css. Colors can easily be adjusted by setting the variables available in the sass file.
 
 To install these assets run:
 ```bash
