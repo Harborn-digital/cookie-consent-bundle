@@ -10,14 +10,13 @@ document.addEventListener("DOMContentLoaded", function() {
             cookieConsent.style.position = 'absolute';
             cookieConsent.style.top = '0';
             cookieConsent.style.left = '0';
-            return;
+        } else {
+            document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
+
+            cookieConsent.style.position = 'fixed';
+            cookieConsent.style.bottom = '0';
+            cookieConsent.style.left = '0';
         }
-
-        document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
-
-        cookieConsent.style.position = 'fixed';
-        cookieConsent.style.bottom = '0';
-        cookieConsent.style.left = '0';
     }
 
     if (cookieConsentForm) {
