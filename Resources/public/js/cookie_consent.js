@@ -10,15 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
             cookieConsent.style.position = 'absolute';
             cookieConsent.style.top = '0';
             cookieConsent.style.left = '0';
+            return;
         }
 
-        if (cookieConsent.classList.contains('ch-cookie-consent--bottom')) {
-            document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
+        document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
 
-            cookieConsent.style.position = 'fixed';
-            cookieConsent.style.bottom = '0';
-            cookieConsent.style.left = '0';
-        }
+        cookieConsent.style.position = 'fixed';
+        cookieConsent.style.bottom = '0';
+        cookieConsent.style.left = '0';
     }
 
     if (cookieConsentForm) {
