@@ -53,7 +53,7 @@ class CookieConsentControllerTest extends TestCase
         $this->formFactory             = $this->createMock(FormFactoryInterface::class);
         $this->cookieChecker           = $this->createMock(CookieChecker::class);
         $this->translator              = $this->createMock(TranslatorInterface::class);
-        $this->cookieConsentController = new CookieConsentController($this->templating, $this->formFactory, $this->cookieChecker, 'dark', $this->translator);
+        $this->cookieConsentController = new CookieConsentController($this->templating, $this->formFactory, $this->cookieChecker, 'dark', 'top', $this->translator);
     }
 
     public function testShow()
