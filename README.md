@@ -82,12 +82,24 @@ AVG/GDPR requires all given cookie preferences of users to be explainable by the
 ![Light Theme](https://raw.githubusercontent.com/ConnectHolland/cookie-consent-bundle/master/Resources/doc/light_theme.png)
 
 ### TwigExtension
-You can use the TwigExtension to check if user has given it's permission for certain cookie categories
+The following TwigExtension functions are available:
+
+**chcookieconsent_isCategoryAllowedByUser**
+check if user has given it's permission for certain cookie categories
 ```twig
-{% if chcookieconsent_isAllowed('analytics') == true %}
+{% if chcookieconsent_isCategoryAllowedByUser('analytics') == true %}
     ...
 {% endif %}
 ```
+
+**chcookieconsent_isCookieConsentSavedByUser**
+check if user has saved any cookie preferences
+```twig
+{% if chcookieconsent_isCookieConsentSavedByUser() == true %}
+    ...
+{% endif %}
+```
+
 
 ## Customization
 ### Categories
