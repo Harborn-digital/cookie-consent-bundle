@@ -11,7 +11,7 @@ namespace ConnectHolland\CookieConsentBundle\Enum;
 
 class PositionEnum
 {
-    const POSITION_TOP = 'top';
+    const POSITION_TOP     = 'top';
     const POSITION_BOTTOM  = 'bottom';
 
     /**

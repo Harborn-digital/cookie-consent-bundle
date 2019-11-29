@@ -22,11 +22,11 @@ class CookieLogger
     private $entityManager;
 
     /**
-     * @var Request
+     * @var Request|null
      */
     private $request;
 
-    public function __construct(RegistryInterface $registry, Request $request)
+    public function __construct(RegistryInterface $registry, ?Request $request)
     {
         $this->entityManager = $registry->getManagerForClass(CookieConsentLog::class);
         $this->request       = $request;
@@ -37,6 +37,10 @@ class CookieLogger
      */
     public function log(array $categories, string $key): void
     {
+        if ($this->request === null) {
+            throw new \RuntimeException('No request found');
+        }
+
         $ip = $this->anonymizeIp($this->request->getClientIp());
 
         foreach ($categories as $category => $value) {

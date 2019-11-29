@@ -80,8 +80,6 @@ class CookieConsentController
                 'position' => $this->cookieConsentPosition,
             ])
         );
-
-        return $response;
     }
 
     /**
