@@ -27,7 +27,7 @@ class CookieCheckerTest extends TestCase
      */
     private $cookieChecker;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request       = $this->createMock(Request::class);
         $this->cookieChecker = new CookieChecker($this->request);

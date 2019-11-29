@@ -26,7 +26,7 @@ class CHCookieConsentExtensionTest extends TestCase
      */
     private $configuration;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->chCookieConsentExtension = new CHCookieConsentExtension();
         $this->configuration            = new ContainerBuilder();
@@ -90,7 +90,7 @@ EOF;
     /**
      * Test if parameter is set.
      */
-    private function assertParameter($value, $key)
+    private function assertParameter($value, $key): void
     {
         $this->assertSame($value, $this->configuration->getParameter($key), sprintf('%s parameter is correct', $key));
     }

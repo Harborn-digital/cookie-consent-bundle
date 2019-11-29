@@ -47,7 +47,7 @@ class CookieConsentControllerTest extends TestCase
      */
     private $cookieConsentController;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->templating              = $this->createMock(\Twig_Environment::class);
         $this->formFactory             = $this->createMock(FormFactoryInterface::class);
@@ -56,7 +56,7 @@ class CookieConsentControllerTest extends TestCase
         $this->cookieConsentController = new CookieConsentController($this->templating, $this->formFactory, $this->cookieChecker, 'dark', 'top', $this->translator);
     }
 
-    public function testShow()
+    public function testShow(): void
     {
         $this->formFactory
             ->expects($this->once())
@@ -74,7 +74,7 @@ class CookieConsentControllerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
     }
 
-    public function testShowIfCookieConsentNotSet()
+    public function testShowIfCookieConsentNotSet(): void
     {
         $this->cookieChecker
             ->expects($this->once())
@@ -97,7 +97,7 @@ class CookieConsentControllerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
     }
 
-    public function testShowIfCookieConsentNotSetWithLocale()
+    public function testShowIfCookieConsentNotSetWithLocale(): void
     {
         $this->cookieChecker
             ->expects($this->once())
@@ -139,7 +139,7 @@ class CookieConsentControllerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
     }
 
-    public function testShowIfCookieConsentNotSetWithCookieConsentSet()
+    public function testShowIfCookieConsentNotSetWithCookieConsentSet(): void
     {
         $this->cookieChecker
             ->expects($this->once())
