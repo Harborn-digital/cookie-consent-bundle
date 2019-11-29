@@ -11,10 +11,10 @@ namespace ConnectHolland\CookieConsentBundle\Twig;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use Symfony\Component\HttpFoundation\Request;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class CHCookieConsentTwigExtension extends Twig_Extension
+class CHCookieConsentTwigExtension extends AbstractExtension
 {
     /**
      * Register all custom twig functions.
@@ -24,12 +24,12 @@ class CHCookieConsentTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'chcookieconsent_isCookieConsentSavedByUser',
                 [$this, 'isCookieConsentSavedByUser'],
                 ['needs_context' => true]
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'chcookieconsent_isCategoryAllowedByUser',
                 [$this, 'isCategoryAllowedByUser'],
                 ['needs_context' => true]
