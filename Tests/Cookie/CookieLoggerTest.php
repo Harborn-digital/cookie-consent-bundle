@@ -34,7 +34,7 @@ class CookieLoggerTest extends TestCase
      */
     private $entityManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry      = $this->createMock(RegistryInterface::class);
         $this->request       = $this->createMock(Request::class);

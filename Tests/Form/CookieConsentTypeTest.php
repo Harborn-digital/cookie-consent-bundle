@@ -22,7 +22,7 @@ class CookieConsentTypeTest extends TypeTestCase
      */
     private $cookieChecker;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->cookieChecker = $this->createMock(CookieChecker::class);
 
@@ -47,7 +47,7 @@ class CookieConsentTypeTest extends TypeTestCase
         $this->assertSame($formData, $form->getData());
     }
 
-    protected function getExtensions()
+    protected function getExtensions(): array
     {
         $type = new CookieConsentType($this->cookieChecker, ['analytics', 'tracking', 'marketing']);
 

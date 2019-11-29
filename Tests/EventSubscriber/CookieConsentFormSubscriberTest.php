@@ -33,7 +33,7 @@ class CookieConsentFormSubscriberTest extends TestCase
      */
     private $cookieLogger;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->formFactoryInterface = $this->createMock(FormFactoryInterface::class);
         $this->cookieLogger         = $this->createMock(CookieLogger::class);

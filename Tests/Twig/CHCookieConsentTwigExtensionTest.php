@@ -21,7 +21,7 @@ class CHCookieConsentTwigExtensionTest extends TestCase
      */
     private $chCookieConsentTwigExtension;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->chCookieConsentTwigExtension = new CHCookieConsentTwigExtension();
     }
