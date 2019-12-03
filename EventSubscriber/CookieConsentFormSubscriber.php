@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriber implements EventSubscriberInterface
@@ -56,7 +56,7 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     /**
      * Checks if form has been submitted and saves users preferences in cookies by calling the CookieHandler.
      */
-    public function onResponse(FilterResponseEvent $event): void
+    public function onResponse(ResponseEvent $event): void
     {
         $request  = $event->getRequest();
         $response = $event->getResponse();
