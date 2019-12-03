@@ -11,10 +11,10 @@ namespace ConnectHolland\CookieConsentBundle\Tests\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
 use ConnectHolland\CookieConsentBundle\Entity\CookieConsentLog;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class CookieLoggerTest extends TestCase
@@ -36,7 +36,7 @@ class CookieLoggerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->registry      = $this->createMock(RegistryInterface::class);
+        $this->registry      = $this->createMock(ManagerRegistry::class);
         $this->request       = $this->createMock(Request::class);
         $this->entityManager = $this->createMock(EntityManagerInterface::class);
 
