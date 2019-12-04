@@ -16,12 +16,13 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class CookieConsentController
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $twigEnvironment;
 
@@ -44,17 +45,17 @@ class CookieConsentController
     private $cookieConsentPosition;
 
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     private $translator;
 
     public function __construct(
-        \Twig_Environment $twigEnvironment,
+        Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
         CookieChecker $cookieChecker,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
-        Translator $translator
+        TranslatorInterface $translator
     ) {
         $this->twigEnvironment       = $twigEnvironment;
         $this->formFactory           = $formFactory;
