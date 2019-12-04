@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriberTest extends TestCase
@@ -54,7 +55,7 @@ class CookieConsentFormSubscriberTest extends TestCase
         $request  = new Request();
         $response = new Response();
 
-        $event = $this->createMock(FilterResponseEvent::class);
+        $event = $this->getMockResponseEvent();
         $event
             ->expects($this->once())
             ->method('getRequest')
@@ -97,7 +98,7 @@ class CookieConsentFormSubscriberTest extends TestCase
         $request  = new Request();
         $response = new Response();
 
-        $event = $this->createMock(FilterResponseEvent::class);
+        $event = $this->getMockResponseEvent();
         $event
             ->expects($this->once())
             ->method('getRequest')
@@ -133,5 +134,15 @@ class CookieConsentFormSubscriberTest extends TestCase
 
         $cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface, $this->cookieLogger, false);
         $cookieConsentFormSubscriber->onResponse($event);
+    }
+
+    private function getMockResponseEvent(): MockObject
+    {
+        if (class_exists(ReponseEvent::class)) {
+            return $this->createMock(ResponseEvent::class);
+        } else {
+            // Support for Symfony 3.4 & < 4.3
+            return $this->createMock(FilterResponseEvent::class);
+        }
     }
 }
