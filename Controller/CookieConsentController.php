@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Translation\Translator;
 
 class CookieConsentController
 {
@@ -44,7 +44,7 @@ class CookieConsentController
     private $cookieConsentPosition;
 
     /**
-     * @var TranslatorInterface
+     * @var Translator
      */
     private $translator;
 
@@ -54,7 +54,7 @@ class CookieConsentController
         CookieChecker $cookieChecker,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
-        TranslatorInterface $translator
+        Translator $translator
     ) {
         $this->twigEnvironment       = $twigEnvironment;
         $this->formFactory           = $formFactory;
