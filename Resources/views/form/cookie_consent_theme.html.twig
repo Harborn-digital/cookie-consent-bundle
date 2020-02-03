@@ -1,9 +1,11 @@
 {% block choice_row %}
     <div class="ch-cookie-consent__category">
         <div class="ch-cookie-consent__category-toggle">
-            {% for child in form if not child.rendered %}
-                {{- form_widget(child) -}}
-                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+            {% for child in form %}
+                {% if not child.rendered %}
+                    {{- form_widget(child) -}}
+                    {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+                {% endif %}
             {% endfor %}
         </div>
         <div class="ch-cookie-consent__category-information">
