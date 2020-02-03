@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -117,6 +118,15 @@ class CookieConsentFormSubscriberTest extends TestCase
 
         $cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface, $this->cookieLogger, false);
         $cookieConsentFormSubscriber->onResponse($event);
+    }
+
+    public function testOnResponseWithUnfoundResponseEvent(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('No ResponseEvent class found');
+
+        $cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface, $this->cookieLogger, false);
+        $cookieConsentFormSubscriber->onResponse($this->createMock(KernelEvent::class));
     }
 
     /**
