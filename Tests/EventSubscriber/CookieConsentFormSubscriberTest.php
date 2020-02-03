@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriberTest extends TestCase
@@ -54,16 +55,7 @@ class CookieConsentFormSubscriberTest extends TestCase
     {
         $request  = new Request();
         $response = new Response();
-
-        $event = $this->getMockResponseEvent();
-        $event
-            ->expects($this->once())
-            ->method('getRequest')
-            ->willReturn($request);
-        $event
-            ->expects($this->once())
-            ->method('getResponse')
-            ->willReturn($response);
+        $event    = $this->getResponseEvent($request, $response);
 
         $form = $this->createMock(FormInterface::class);
         $form
@@ -97,16 +89,7 @@ class CookieConsentFormSubscriberTest extends TestCase
     {
         $request  = new Request();
         $response = new Response();
-
-        $event = $this->getMockResponseEvent();
-        $event
-            ->expects($this->once())
-            ->method('getRequest')
-            ->willReturn($request);
-        $event
-            ->expects($this->once())
-            ->method('getResponse')
-            ->willReturn($response);
+        $event    = $this->getResponseEvent($request, $response);
 
         $form = $this->createMock(FormInterface::class);
         $form
@@ -136,13 +119,18 @@ class CookieConsentFormSubscriberTest extends TestCase
         $cookieConsentFormSubscriber->onResponse($event);
     }
 
-    private function getMockResponseEvent(): MockObject
+    /**
+     * @return ResponseEvent|FilterResponseEvent
+     */
+    private function getResponseEvent(Request $request, Response $response)
     {
-        if (class_exists(ReponseEvent::class)) {
-            return $this->createMock(ResponseEvent::class);
+        $kernel = $this->createMock(HttpKernelInterface::class);
+
+        if (class_exists(ResponseEvent::class)) {
+            return new ResponseEvent($kernel, $request, 200, $response);
         } else {
             // Support for Symfony 3.4 & < 4.3
-            return $this->createMock(FilterResponseEvent::class);
+            return new FilterResponseEvent($kernel, $request, 200, $response);
         }
     }
 }
