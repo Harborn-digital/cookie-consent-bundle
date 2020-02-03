@@ -60,8 +60,8 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
      */
     public function onResponse(KernelEvent $event): void
     {
-        if ($event instanceof FilterResponseEvent === false && $event instanceof ResponseEvent) {
-            throw new \RuntimeException('No ReponseEvent class found');
+        if ($event instanceof FilterResponseEvent === false && $event instanceof ResponseEvent === false) {
+            throw new \RuntimeException('No ResponseEvent class found');
         }
 
         $request  = $event->getRequest();
