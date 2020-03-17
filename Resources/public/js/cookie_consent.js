@@ -21,11 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cookieConsentForm) {
         // Submit form via ajax
-        document.addEventListener('click', function (event) {
-            if (event.target.matches('.ch-cookie-consent__btn') === false) {
-                return;
-            }
-
+        cookieConsentForm.addEventListener('click', function (event) {
             event.preventDefault();
 
             var xhr = new XMLHttpRequest();
