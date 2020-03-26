@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var cookieConsent = document.getElementsByClassName('ch-cookie-consent')[0];
     var cookieConsentForm = document.getElementsByClassName('ch-cookie-consent__form')[0];
+    var cookieConsentFormBtn = document.getElementsByClassName('ch-cookie-consent__btn')[0];
 
     // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
     if (cookieConsent && cookieConsent.parentNode.nodeName === 'BODY') {
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cookieConsentForm) {
         // Submit form via ajax
-        cookieConsentForm.addEventListener('click', function (event) {
+        cookieConsentFormBtn.addEventListener('click', function (event) {
             event.preventDefault();
 
             var xhr = new XMLHttpRequest();
