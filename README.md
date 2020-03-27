@@ -118,7 +118,7 @@ bin/console assets:install
 
 And include the styling in your template:
 ```twig
-{% include "CHCookieConsentBundle::cookie_consent_styling.html.twig" %}
+{% include "@CHCookieConsent/cookie_consent_styling.html.twig" %}
 ```
 
 ### Javascript
