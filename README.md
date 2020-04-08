@@ -41,6 +41,7 @@ ch_cookie_consent:
 ### Step 4: Configure to your needs
 Configure your Cookie Consent with the following possible settings
 ```yaml
+# app/config.yml
 ch_cookie_consent:
     theme: 'light' # light, dark
     categories: # Below are the default supported categories
