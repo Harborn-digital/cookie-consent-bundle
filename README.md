@@ -129,7 +129,7 @@ By loading Resources/public/js/cookie_consent.js the cookie consent will be subm
 You can override the templates by placing templates inside your poject:
 
 ```twig
-# app/Resources/CHCookieConsentBundle/views/cookie_consent.html.twig
+# app/templates/bundles/CHCookieConsentBundle/cookie_consent.html.twig
 {% extends '@!CHCookieConsent/cookie_consent.html.twig' %}
 
 {% block title %}
