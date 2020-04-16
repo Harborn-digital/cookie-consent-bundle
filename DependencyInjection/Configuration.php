@@ -44,6 +44,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('use_logger')
                     ->defaultTrue()
                 ->end()
+                ->booleanNode('simplified')
+                    ->defaultFalse()
+                ->end()
             ->end()
         ;
 

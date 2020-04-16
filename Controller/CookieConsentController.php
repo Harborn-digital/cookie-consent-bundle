@@ -41,7 +41,9 @@ class CookieConsentController
      */
     private $cookieConsentTheme;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $cookieConsentPosition;
 
     /**
@@ -49,20 +51,27 @@ class CookieConsentController
      */
     private $translator;
 
+    /**
+     * @var bool
+     */
+    private $cookieConsentSimplified;
+
     public function __construct(
         Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
         CookieChecker $cookieChecker,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        bool $cookieConsentSimplified = false
     ) {
-        $this->twigEnvironment       = $twigEnvironment;
-        $this->formFactory           = $formFactory;
-        $this->cookieChecker         = $cookieChecker;
-        $this->cookieConsentTheme    = $cookieConsentTheme;
-        $this->cookieConsentPosition = $cookieConsentPosition;
-        $this->translator            = $translator;
+        $this->twigEnvironment         = $twigEnvironment;
+        $this->formFactory             = $formFactory;
+        $this->cookieChecker           = $cookieChecker;
+        $this->cookieConsentTheme      = $cookieConsentTheme;
+        $this->cookieConsentPosition   = $cookieConsentPosition;
+        $this->translator              = $translator;
+        $this->cookieConsentSimplified = $cookieConsentSimplified;
     }
 
     /**
@@ -76,9 +85,10 @@ class CookieConsentController
 
         return new Response(
             $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
-                'form'     => $this->createCookieConsentForm()->createView(),
-                'theme'    => $this->cookieConsentTheme,
-                'position' => $this->cookieConsentPosition,
+                'form'       => $this->createCookieConsentForm()->createView(),
+                'theme'      => $this->cookieConsentTheme,
+                'position'   => $this->cookieConsentPosition,
+                'simplified' => $this->cookieConsentSimplified,
             ])
         );
     }

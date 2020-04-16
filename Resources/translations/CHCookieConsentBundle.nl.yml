@@ -17,3 +17,7 @@ ch_cookie_consent:
     no: 'Nee'
     yes: 'Ja'
     save: 'Opslaan'
+    use_only_functional_cookies: 'Gebruik alleen noodzakelijke cookies'
+    use_all_cookies: 'Sta alle cookies toe'
+    show_details: 'Toon details'
+    hide_details: 'Verberg details'

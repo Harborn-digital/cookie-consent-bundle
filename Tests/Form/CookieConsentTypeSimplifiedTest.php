@@ -15,7 +15,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-class CookieConsentTypeTest extends TypeTestCase
+class CookieConsentTypeSimplifiedTest extends TypeTestCase
 {
     /**
      * @var MockObject
@@ -35,21 +35,26 @@ class CookieConsentTypeTest extends TypeTestCase
     public function testSubmitValidDate(): void
     {
         $formData = [
-            'analytics'    => 'true',
-            'tracking'     => 'true',
-            'marketing'    => 'false',
+            'analytics'       => 'false',
+            'tracking'        => 'false',
+            'marketing'       => 'false',
+            'use_all_cookies' => true,
         ];
 
         $form = $this->factory->create(CookieConsentType::class);
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertSame($formData, $form->getData());
+        $this->assertSame([
+            'analytics'    => 'true',
+            'tracking'     => 'true',
+            'marketing'    => 'true',
+        ], $form->getData());
     }
 
     protected function getExtensions(): array
     {
-        $type = new CookieConsentType($this->cookieChecker, ['analytics', 'tracking', 'marketing'], false);
+        $type = new CookieConsentType($this->cookieChecker, ['analytics', 'tracking', 'marketing'], true);
 
         return [
             new PreloadedExtension([$type], []),
