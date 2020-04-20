@@ -12,7 +12,10 @@ namespace ConnectHolland\CookieConsentBundle\Form;
 use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CookieConsentType extends AbstractType
@@ -27,10 +30,16 @@ class CookieConsentType extends AbstractType
      */
     protected $cookieCategories;
 
-    public function __construct(CookieChecker $cookieChecker, array $cookieCategories)
+    /**
+     * @var bool
+     */
+    protected $cookieConsentSimplified;
+
+    public function __construct(CookieChecker $cookieChecker, array $cookieCategories, bool $cookieConsentSimplified = false)
     {
-        $this->cookieChecker    = $cookieChecker;
-        $this->cookieCategories = $cookieCategories;
+        $this->cookieChecker           = $cookieChecker;
+        $this->cookieCategories        = $cookieCategories;
+        $this->cookieConsentSimplified = $cookieConsentSimplified;
     }
 
     /**
@@ -48,6 +57,23 @@ class CookieConsentType extends AbstractType
                     ['ch_cookie_consent.no' => 'false'],
                 ],
             ]);
+        }
+
+        if ($this->cookieConsentSimplified === false) {
+            $builder->add('save', SubmitType::class, ['label' => 'ch_cookie_consent.save', 'attr' => ['class' => 'btn ch-cookie-consent__btn']]);
+        } else {
+            $builder->add('use_only_functional_cookies', SubmitType::class, ['label' => 'ch_cookie_consent.use_only_functional_cookies', 'attr' => ['class' => 'btn ch-cookie-consent__btn']]);
+            $builder->add('use_all_cookies', SubmitType::class, ['label' => 'ch_cookie_consent.use_all_cookies', 'attr' => ['class' => 'btn ch-cookie-consent__btn ch-cookie-consent__btn--secondary']]);
+
+            $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $data = $event->getData();
+
+                foreach ($this->cookieCategories as $category) {
+                    $data[$category] = isset($data['use_all_cookies']) ? 'true' : 'false';
+                }
+
+                $event->setData($data);
+            });
         }
     }
 

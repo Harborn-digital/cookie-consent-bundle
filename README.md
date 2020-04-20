@@ -50,6 +50,7 @@ ch_cookie_consent:
         - 'social_media'
     use_logger: true # Logs user actions to database
     position: 'top' # top, bottom
+    simplified: false # When set to true the user can only deny or accept all cookies at once
 ```
 
 ## Usage

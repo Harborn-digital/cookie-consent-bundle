@@ -17,3 +17,7 @@ ch_cookie_consent:
     no: 'No'
     yes: 'Yes'
     save: 'Save'
+    use_only_functional_cookies: 'Only use functional cookies'
+    use_all_cookies: 'Allow all cookies'
+    show_details: 'Show details'
+    hide_details: 'Hide details'
