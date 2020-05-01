@@ -29,10 +29,12 @@
         <div class="ch-cookie-consent__btn-group">
             {{ form_rest(form) }}
             {% if simplified %}
-                <div class="ch-cookie-consent__toggle-details">
-                    <span class="ch-cookie-consent__toggle-details-show">{{ 'ch_cookie_consent.show_details'|trans({}, 'CHCookieConsentBundle') }}</span>
-                    <span class="ch-cookie-consent__toggle-details-hide">{{ 'ch_cookie_consent.hide_details'|trans({}, 'CHCookieConsentBundle') }}</span>
-                </div>
+                {% block toggle_details %}
+                    <div class="ch-cookie-consent__toggle-details">
+                        <span class="ch-cookie-consent__toggle-details-show">{{ 'ch_cookie_consent.show_details'|trans({}, 'CHCookieConsentBundle') }}</span>
+                        <span class="ch-cookie-consent__toggle-details-hide">{{ 'ch_cookie_consent.hide_details'|trans({}, 'CHCookieConsentBundle') }}</span>
+                    </div>
+                {% endblock %}
             {% endif %}
         </div>
     {{ form_end(form) }}
