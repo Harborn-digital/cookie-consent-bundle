@@ -28,8 +28,14 @@ $ch-cookie-consent-dark-theme-secondary-button-background: transparent !default;
 $ch-cookie-consent-dark-theme-secondary-button-text-color: #fff !default;
 $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
-@mixin check-icon ($color: '#000') {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath fill='#{$color}' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+@mixin check-icon ($color: '123')  {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath fill='%23{$color}' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+}
+@mixin check-icon-white ()  {
+    @include check-icon('fff')
+}
+@mixin check-icon-black ()  {
+    @include check-icon('000')
 }
 
 .ch-cookie-consent {
@@ -114,7 +120,7 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
             }
 
             input:checked + label {
-                @include check-icon($ch-cookie-consent-checkbox-active-text-color);
+                @include check-icon-white();
             }
         }
 
@@ -214,7 +220,7 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
                 }
 
                 input:checked + label {
-                    @include check-icon($ch-cookie-consent-dark-theme-checkbox-active-text-color);
+                    @include check-icon-black();
                 }
             }
 
@@ -231,24 +237,3 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
     }
 }
 
-.ch-cookie-consent--simplified {
-    .ch-cookie-consent {
-        &__form {
-            flex-direction: column-reverse;
-            display: flex;
-        }
-
-        &__category-group {
-            display: none;
-        }
-
-        &__category-toggle {
-            display: none;
-        }
-
-        &__btn-group {
-            margin-top: 0;
-            margin-bottom: 25px;
-        }
-    }
-}

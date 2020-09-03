@@ -9,13 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
     if (cookieConsent && cookieConsent.parentNode.nodeName === 'BODY') {
         if (cookieConsent.classList.contains('ch-cookie-consent--top')) {
             document.body.style.marginTop = cookieConsent.offsetHeight + 'px';
-
             cookieConsent.style.position = 'absolute';
             cookieConsent.style.top = '0';
             cookieConsent.style.left = '0';
-        } else {
+        } else if (cookieConsent.classList.contains('ch-cookie-consent--bottom')){
             document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
-
             cookieConsent.style.position = 'fixed';
             cookieConsent.style.bottom = '0';
             cookieConsent.style.left = '0';
@@ -41,14 +39,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    if (cookieConsentCategoryDetails && cookieConsentCategoryDetailsToggle) {
-        cookieConsentCategoryDetailsToggle.addEventListener('click', function() {
-            var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
-            cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
-        });
-    }
+    cookieConsentCategoryDetailsToggle.addEventListener('click', function() {
+        var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
+        cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
+        cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
+        cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
+    });
+
 });
 
 function serializeForm(form, clickedButton) {

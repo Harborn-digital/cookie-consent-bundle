@@ -4,7 +4,7 @@
     <script type="text/javascript" src="{{ asset('bundles/chcookieconsent/js/cookie_consent.js') }}"></script>
 {% endblock %}
 
-<div class="ch-cookie-consent ch-cookie-consent--{{ theme }}-theme ch-cookie-consent--{{ position }} {% if simplified %}ch-cookie-consent--simplified{% endif %}">
+<div class="ch-cookie-consent ch-cookie-consent--{{ theme }}-theme ch-cookie-consent--{{ position }}">
     {% block title %}
         <h3 class="ch-cookie-consent__title">{{ 'ch_cookie_consent.title'|trans({}, 'CHCookieConsentBundle') }}</h3>
     {% endblock %}
@@ -14,11 +14,13 @@
     {% endblock %}
 
     {% block read_more %}
-        <a class="ch-cookie-consent__read-more" href="{% block read_more_link %}/privacy-statement{% endblock %}">{{ 'ch_cookie_consent.read_more'|trans({}, 'CHCookieConsentBundle') }}</a>
+        <a class="ch-cookie-consent__read-more" href="{% block read_more_link %}/privacy-statement{% endblock %}" target="_blank">{{ 'ch_cookie_consent.read_more'|trans({}, 'CHCookieConsentBundle') }}</a>
     {% endblock %}
 
     {{ form_start(form, {'attr': {'class': 'ch-cookie-consent__form'}}) }}
         <div class="ch-cookie-consent__category-group">
+
+
             {% for child in form %}
                 {% if child.vars.block_prefixes[0] != 'button' %}
                     {{ form_row(child) }}
@@ -28,14 +30,12 @@
 
         <div class="ch-cookie-consent__btn-group">
             {{ form_rest(form) }}
-            {% if simplified %}
-                {% block toggle_details %}
-                    <div class="ch-cookie-consent__toggle-details">
-                        <span class="ch-cookie-consent__toggle-details-show">{{ 'ch_cookie_consent.show_details'|trans({}, 'CHCookieConsentBundle') }}</span>
-                        <span class="ch-cookie-consent__toggle-details-hide">{{ 'ch_cookie_consent.hide_details'|trans({}, 'CHCookieConsentBundle') }}</span>
-                    </div>
-                {% endblock %}
-            {% endif %}
+            {% block toggle_details %}
+                <div class="ch-cookie-consent__toggle-details">
+                    <span class="ch-cookie-consent__toggle-details-show">{{ 'ch_cookie_consent.show_details'|trans({}, 'CHCookieConsentBundle') }}</span>
+                    <span class="ch-cookie-consent__toggle-details-hide">{{ 'ch_cookie_consent.hide_details'|trans({}, 'CHCookieConsentBundle') }}</span>
+                </div>
+            {% endblock %}
         </div>
     {{ form_end(form) }}
 </div>

@@ -43,6 +43,10 @@ Configure your Cookie Consent with the following possible settings
 ```yaml
 ch_cookie_consent:
     theme: 'light' # light, dark
+    essentials: # Below are the default essential cookies
+        - 'cookie_consent'
+        - 'phpsessid'
+        - 'sf_redirect'
     categories: # Below are the default supported categories
         - 'analytics'
         - 'tracking'
@@ -50,7 +54,6 @@ ch_cookie_consent:
         - 'social_media'
     use_logger: true # Logs user actions to database
     position: 'top' # top, bottom
-    simplified: false # When set to true the user can only deny or accept all cookies at once
 ```
 
 ## Usage
