@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var cookieConsentCategoryDetails = document.querySelector('.ch-cookie-consent__category-group');
     var cookieConsentCategoryDetailsToggle = document.querySelector('.ch-cookie-consent__toggle-details');
 
+    /*
     // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
     if (cookieConsent && cookieConsent.parentNode.nodeName === 'BODY') {
         if (cookieConsent.classList.contains('ch-cookie-consent--top')) {
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cookieConsent.style.left = '0';
         }
     }
+     */
 
     if (cookieConsentForm) {
         // Submit form via ajax

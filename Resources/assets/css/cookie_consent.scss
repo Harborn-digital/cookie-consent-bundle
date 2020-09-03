@@ -43,7 +43,37 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
     color: $ch-cookie-consent-text-color;
     width: 100%;
     z-index: 99999;
-    padding: 35px 40px;
+    padding: 20px;
+
+    &--top {
+        border-bottom: 1px solid $ch-cookie-consent-border-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &--bottom {
+        border-top: 1px solid $ch-cookie-consent-border-color;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+
+    &--standalone {
+        display: block;
+        border-top: none;
+        padding: 0;
+        .ch-cookie-consent__title {
+            display: none;
+        }
+        #groupDetails {
+            display: block;
+        }
+        & > .container {
+            margin: 0;
+            padding: 0;
+        }
+    }
 
     &__title {
         color: $ch-cookie-consent-text-color;
