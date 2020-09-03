@@ -43,13 +43,13 @@ class CookieConsentTypeTest extends TypeTestCase
         $form = $this->factory->create(CookieConsentType::class);
         $form->submit($formData);
 
-        $this->assertTrue($form->isSynchronized());
-        $this->assertSame($formData, $form->getData());
+        self::assertTrue($form->isSynchronized());
+        self::assertSame($formData, $form->getData());
     }
 
     protected function getExtensions(): array
     {
-        $type = new CookieConsentType($this->cookieChecker, ['analytics', 'tracking', 'marketing'], false);
+        $type = new CookieConsentType($this->cookieChecker, ['analytics', 'tracking', 'marketing']);
 
         return [
             new PreloadedExtension([$type], []),
