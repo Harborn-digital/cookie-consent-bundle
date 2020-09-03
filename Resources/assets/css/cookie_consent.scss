@@ -66,13 +66,17 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
         .ch-cookie-consent__title {
             display: none;
         }
-        #groupDetails {
+        .ch-cookie-consent__category-group {
             display: block;
         }
         & > .container {
             margin: 0;
             padding: 0;
         }
+    }
+
+    &__category-group {
+        display: none;
     }
 
     &__title {
@@ -162,6 +166,16 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
         &-description {
             margin: 0;
         }
+    }
+
+    &__toggle-cookie-information,
+    &__toggle-cookie-information-show {
+        display: block;
+    }
+
+    &__category-description-details,
+    &__toggle-cookie-information-hide {
+        display: none;
     }
 
     &__btn-group {

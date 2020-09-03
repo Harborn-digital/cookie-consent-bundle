@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var cookieConsentCategoryDetails = document.querySelector('.ch-cookie-consent__category-group');
     var cookieConsentCategoryDetailsToggle = document.querySelector('.ch-cookie-consent__toggle-details');
     var cookieConsentStandalone = document.querySelector('.ch-cookie-consent--standalone');
+    var cookieConsentCookieInfoDetailsToggle = document.querySelectorAll('.ch-cookie-consent__toggle-cookie-information');
+    var cookieConsentCookieInfoDetails = document.querySelectorAll('.ch-cookie-consent__category-description-details');
 
     /*
     // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
@@ -51,6 +53,24 @@ document.addEventListener("DOMContentLoaded", function() {
         cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
         cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
         cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
+    });
+
+    cookieConsentCookieInfoDetailsToggle.forEach(function(element) {
+        element.addEventListener('click', function(event) {
+            var rel = event.target.getAttribute("rel");
+            var currentCookieConsentCookieInfoDetails = document.querySelector('#' + rel);
+            var detailsIsHidden = currentCookieConsentCookieInfoDetails.style.display !== 'block';
+            cookieConsentCookieInfoDetails.forEach(function(container){
+                container.style.display = detailsIsHidden ? 'none' : container.style.display;
+                document.querySelectorAll('.ch-cookie-consent__toggle-cookie-information').forEach(function(el){
+                    el.querySelector('.ch-cookie-consent__toggle-cookie-information-hide').style.display = 'none';
+                    el.querySelector('.ch-cookie-consent__toggle-cookie-information-show').style.display = 'block';
+                });
+            });
+            currentCookieConsentCookieInfoDetails.style.display = detailsIsHidden ? 'block' : 'none';
+            element.querySelector('.ch-cookie-consent__toggle-cookie-information-hide').style.display = detailsIsHidden ? 'block' : 'none';
+            element.querySelector('.ch-cookie-consent__toggle-cookie-information-show').style.display = detailsIsHidden ? 'none' : 'block';
+        });
     });
 
 });
