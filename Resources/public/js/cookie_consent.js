@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var cookieConsentFormBtn = document.querySelectorAll('.ch-cookie-consent__btn');
     var cookieConsentCategoryDetails = document.querySelector('.ch-cookie-consent__category-group');
     var cookieConsentCategoryDetailsToggle = document.querySelector('.ch-cookie-consent__toggle-details');
+    var cookieConsentStandalone = document.querySelector('.ch-cookie-consent--standalone');
 
     /*
     // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
@@ -31,7 +32,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 var xhr = new XMLHttpRequest();
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                       cookieConsent.style.display = 'none';
+                        if (cookieConsentStandalone) {
+                            window.location.assign("/");
+                        } else {
+                            cookieConsent.style.display = 'none';
+                        }
                     }
                 };
                 xhr.open('POST', cookieConsentForm.action);
