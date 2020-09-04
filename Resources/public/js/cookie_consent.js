@@ -31,19 +31,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // main toggle
-    cookieConsentCategoryDetailsToggle.addEventListener('click', function () {
-        var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
-        cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
-        cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
-        cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
-        cookieConsentCookieInfoDetails.forEach(function (container) {
-            container.style.display = 'none';
-            document.querySelectorAll('.ch-cookie-consent__toggle-cookie-information').forEach(function (el) {
-                el.querySelector('.ch-cookie-consent__toggle-cookie-information-hide').style.display = 'none';
-                el.querySelector('.ch-cookie-consent__toggle-cookie-information-show').style.display = 'inline-block';
+    if (!cookieConsentStandalone) {
+        cookieConsentCategoryDetailsToggle.addEventListener('click', function () {
+            var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
+            cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
+            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
+            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
+            cookieConsentCookieInfoDetails.forEach(function (container) {
+                container.style.display = 'none';
+                document.querySelectorAll('.ch-cookie-consent__toggle-cookie-information').forEach(function (el) {
+                    el.querySelector('.ch-cookie-consent__toggle-cookie-information-hide').style.display = 'none';
+                    el.querySelector('.ch-cookie-consent__toggle-cookie-information-show').style.display = 'inline-block';
+                });
             });
         });
-    });
+    }
 
     // category details toggle
     cookieConsentCookieInfoDetailsToggle.forEach(function (element) {

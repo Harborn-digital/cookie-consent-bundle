@@ -77,9 +77,21 @@ class CookieConsentController
     /**
      * Show cookie consent.
      *
-     * @Route("/cookie_consent", name="ch_cookie_consent.standalone")
+     * @Route("/cookie_consent", name="ch_cookie_consent.index")
      */
-    public function index(Request $request): Response
+    public function index(): Response
+    {
+        return new Response(
+            $this->twigEnvironment->render('@CHCookieConsent/cookie_consent_index.html.twig', [])
+        );
+    }
+
+    /**
+     * Show cookie consent.
+     *
+     * @Route("/cookie_consent_standalone", name="ch_cookie_consent.standalone")
+     */
+    public function review(Request $request): Response
     {
         $this->setLocale($request);
 

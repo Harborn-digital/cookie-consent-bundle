@@ -72,6 +72,14 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
         & > .ch-cookie-consent__content {
             margin: 0;
             padding: 0;
+            width: 100%;
+        }
+        .ch-cookie-consent__title {
+            margin-top: 0;
+        }
+
+        .ch-cookie-consent__footer {
+            display: none;
         }
     }
 
@@ -187,6 +195,9 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
         table {
             margin: 0;
+            &:first-child {
+                margin-top: 10px;
+            }
             th, td {
                 font-size: 0.85rem;
                 padding: 2px;
@@ -200,7 +211,7 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
     &__toggle-cookie-information,
     &__toggle-cookie-information-show {
-        display: block;
+        display: inline-block;
     }
 
     &__category-description-details,
@@ -231,12 +242,6 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
         margin-bottom: 25px;
 
-        /*
-        &:nth-child(2) {
-            flex-grow: 1;
-        }
-         */
-
         @media screen and (max-width: 861px) {
             width: 100%;
         }
@@ -262,7 +267,7 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
         &:hover {
             color: $ch-cookie-consent-button-text-color;
-            background: lighten($ch-cookie-consent-button-background, 25%);
+            background: darken($ch-cookie-consent-button-background, 15%);
         }
 
         &--secondary {
@@ -272,12 +277,43 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
             &:hover {
                 background: $ch-cookie-consent-secondary-button-background;
-                color: lighten($ch-cookie-consent-secondary-button-text-color, 50%);
-                border: 1px solid lighten($ch-cookie-consent-secondary-button-border-color, 50%);
+                color: darken($ch-cookie-consent-secondary-button-text-color, 35%);
+                border: 1px solid darken($ch-cookie-consent-secondary-button-border-color, 35%);
             }
         }
 
     }
+
+    &__btn-group-footer {
+        .ch-cookie-consent__btn-wrapper {
+            &:nth-child(1) {
+                flex-grow: 1;
+            }
+        }
+    }
+
+    &__footer {
+        margin-bottom: 25px;
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            li {
+                margin: 0 10px;
+                clear: none;
+                float: left;
+                a {
+                    color: $ch-cookie-consent-secondary-button-text-color;
+                    font-size: .9rem;
+                    font-weight: normal;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 .ch-cookie-consent--dark-theme {

@@ -1,0 +1,7 @@
+{% extends "main.html.twig" %}
+
+{% block title %}{{ 'ch_cookie_consent.title'|trans({}, 'CHCookieConsentBundle') }}{% endblock %}
+
+{% block body %}
+    {{ render_esi(path('ch_cookie_consent.standalone')) }}
+{% endblock %}

@@ -90,9 +90,22 @@
                     {% endif %}
                 {% endfor %}
 
-                <div class="ch-cookie-consent__btn-group">
+                <div class="ch-cookie-consent__btn-group ch-cookie-consent__btn-group-footer">
                     {{ form_rest(form) }}
+                    <div class="ch-cookie-consent__footer">
+                        {% block footer %}
+                            <ul>
+                                <li>
+                                    <a href="#" target="_blank">{{ 'ch_cookie_consent.privacy_policy'|trans({}, 'CHCookieConsentBundle') }}</a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">{{ 'ch_cookie_consent.imprint'|trans({}, 'CHCookieConsentBundle') }}</a>
+                                </li>
+                            </ul>
+                        {% endblock %}
+                    </div>
                 </div>
+
             </div>
 
         {{ form_end(form) }}
