@@ -44,9 +44,9 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
     &__content {
         margin: 0 auto;
-        width: 768px;
+        width: 1208px;
 
-        @media screen and (max-width: 767.98px) {
+        @media screen and (max-width: 1207.98px) {
             width: 100%;
         }
     }
@@ -242,7 +242,11 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
         margin-bottom: 25px;
 
-        @media screen and (max-width: 861px) {
+        &:nth-child(2) {
+            flex-grow: 1;
+        }
+
+        @media screen and (max-width: 641px) {
             width: 100%;
         }
     }
