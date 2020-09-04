@@ -252,6 +252,7 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
     }
 
     &__btn {
+        border: 1px solid $ch-cookie-consent-button-background;
         background: $ch-cookie-consent-button-background;
         color: $ch-cookie-consent-button-text-color;
         font-weight: bold;
