@@ -51,12 +51,18 @@ class CookieConsentController
      */
     private $translator;
 
+    /**
+     * @var array
+     */
+    private $cookieConsentEssentials;
+
     public function __construct(
         Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
         CookieChecker $cookieChecker,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
+        array $cookieConsentEssentials,
         TranslatorInterface $translator
     ) {
         $this->twigEnvironment         = $twigEnvironment;
@@ -64,15 +70,28 @@ class CookieConsentController
         $this->cookieChecker           = $cookieChecker;
         $this->cookieConsentTheme      = $cookieConsentTheme;
         $this->cookieConsentPosition   = $cookieConsentPosition;
+        $this->cookieConsentEssentials = $cookieConsentEssentials;
         $this->translator              = $translator;
     }
 
     /**
      * Show cookie consent.
      *
-     * @Route("/cookie_consent", name="ch_cookie_consent.standalone")
+     * @Route("/cookie_consent", name="ch_cookie_consent.index")
      */
-    public function index(Request $request): Response
+    public function index(): Response
+    {
+        return new Response(
+            $this->twigEnvironment->render('@CHCookieConsent/cookie_consent_index.html.twig', [])
+        );
+    }
+
+    /**
+     * Show cookie consent.
+     *
+     * @Route("/cookie_consent_standalone", name="ch_cookie_consent.standalone")
+     */
+    public function review(Request $request): Response
     {
         $this->setLocale($request);
 
@@ -80,6 +99,7 @@ class CookieConsentController
             $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
                 'form'       => $this->createCookieConsentForm()->createView(),
                 'theme'      => $this->cookieConsentTheme,
+                'essentials' => $this->cookieConsentEssentials,
                 'position'   => 'standalone',
             ])
         );
@@ -98,6 +118,7 @@ class CookieConsentController
             $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
                 'form'       => $this->createCookieConsentForm()->createView(),
                 'theme'      => $this->cookieConsentTheme,
+                'essentials' => $this->cookieConsentEssentials,
                 'position'   => $this->cookieConsentPosition,
             ])
         );
