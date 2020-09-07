@@ -2,7 +2,6 @@ ch_cookie_consent:
     title: 'Privacy Settings'
     intro: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes.'
     read_more: 'More information can be found in our Privacy Policy.'
-    read_more_small: 'Privacy Policy'
     essentials:
         title: 'Essential'
         description: 'Essential cookies enable basic functions and are necessary for the proper functioning of the website.'
@@ -68,3 +67,10 @@ ch_cookie_consent:
     hide_details: 'Hide details'
     show_cookie_information: 'Show cookie information'
     hide_cookie_information: 'Hide cookie information'
+    table_header:
+        title: 'Name'
+        provider: 'Provider'
+        purpose: 'Purpose'
+        policy: 'Policy'
+        name: 'Cookie Name'
+        expiry: 'Cookie Expiry'

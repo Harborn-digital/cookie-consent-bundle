@@ -4,6 +4,8 @@
     <script type="text/javascript" src="{{ asset('bundles/chcookieconsent/js/cookie_consent.js') }}"></script>
 {% endblock %}
 
+{# include "@CHCookieConsent/cookie_consent_styling.html.twig" #}
+
 <div class="ch-cookie-consent ch-cookie-consent--{{ theme }}-theme ch-cookie-consent--{{ position }}">
     <div class="ch-cookie-consent__content">
         {% block title %}
@@ -48,19 +50,19 @@
                                 {% for item in essentials %}
                                     <table>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>{{ ('ch_cookie_consent.table_header.title')|trans({}, 'CHCookieConsentBundle') }}</th>
                                             <td>{{ ('ch_cookie_consent.essentials.details.'~item~'.title')|trans({}, 'CHCookieConsentBundle') }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Provider</th>
+                                            <th>{{ ('ch_cookie_consent.table_header.provider')|trans({}, 'CHCookieConsentBundle') }}</th>
                                             <td>{{ ('ch_cookie_consent.essentials.details.'~item~'.provider')|trans({}, 'CHCookieConsentBundle') }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Purpose</th>
+                                            <th>{{ ('ch_cookie_consent.table_header.purpose')|trans({}, 'CHCookieConsentBundle') }}</th>
                                             <td>{{ ('ch_cookie_consent.essentials.details.'~item~'.purpose')|trans({}, 'CHCookieConsentBundle') }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Cookie Name</th>
+                                            <th>{{ ('ch_cookie_consent.table_header.name')|trans({}, 'CHCookieConsentBundle') }}</th>
                                             <td>{{ ('ch_cookie_consent.essentials.details.'~item~'.name')|trans({}, 'CHCookieConsentBundle') }}</td>
                                         </tr>
                                     </table>
@@ -92,19 +94,9 @@
 
                 <div class="ch-cookie-consent__btn-group ch-cookie-consent__btn-group-footer">
                     {{ form_rest(form) }}
-                    <div class="ch-cookie-consent__footer">
-                        {% block footer %}
-                            <ul>
-                                <li>
-                                    <a href="#" target="_blank">{{ 'ch_cookie_consent.privacy_policy'|trans({}, 'CHCookieConsentBundle') }}</a>
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">{{ 'ch_cookie_consent.imprint'|trans({}, 'CHCookieConsentBundle') }}</a>
-                                </li>
-                            </ul>
-                        {% endblock %}
-                    </div>
+                    {% block footer %}{% endblock %}
                 </div>
+
 
             </div>
 

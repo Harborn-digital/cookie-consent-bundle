@@ -2,7 +2,8 @@
 
 {% block title %}{{ 'ch_cookie_consent.title'|trans({}, 'CHCookieConsentBundle') }}{% endblock %}
 
+{# include "@!CHCookieConsent/cookie_consent_styling.html.twig" #}
+
 {% block body %}
-    {% include "@!CHCookieConsent/cookie_consent_styling.html.twig" %}
     {{ render_esi(path('ch_cookie_consent.standalone')) }}
 {% endblock %}

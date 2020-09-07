@@ -19,29 +19,29 @@
                 <div class="ch-cookie-consent__category-description-details" id="{{ name }}CookieDetails">
                     <table>
                         <tr>
-                            <th>Name</th>
+                            <th>{{ ('ch_cookie_consent.table_header.title')|trans({}, 'CHCookieConsentBundle') }}</th>
                             <td>{{ ('ch_cookie_consent.'~name~'.title')|trans({}, 'CHCookieConsentBundle') }}</td>
                         </tr>
                         <tr>
-                            <th>Provider</th>
+                            <th>{{ ('ch_cookie_consent.table_header.provider')|trans({}, 'CHCookieConsentBundle') }}</th>
                             <td>{{ ('ch_cookie_consent.'~name~'.details.provider')|trans({}, 'CHCookieConsentBundle') }}</td>
                         </tr>
                         <tr>
-                            <th>Purpose</th>
+                            <th>{{ ('ch_cookie_consent.table_header.purpose')|trans({}, 'CHCookieConsentBundle') }}</th>
                             <td>{{ ('ch_cookie_consent.'~name~'.details.purpose')|trans({}, 'CHCookieConsentBundle') }}</td>
                         </tr>
                         <tr>
-                            <th>Privacy Policy</th>
+                            <th>{{ ('ch_cookie_consent.table_header.policy')|trans({}, 'CHCookieConsentBundle') }}</th>
                             <td>
                                 <a href="{{ ('ch_cookie_consent.'~name~'.details.policy')|trans({}, 'CHCookieConsentBundle') }}" target="_blank" rel="nofollow noopener noreferrer">{{ ('ch_cookie_consent.'~name~'.details.policy')|trans({}, 'CHCookieConsentBundle') }}</a>
                             </td>
                         </tr>
                         <tr>
-                            <th>Cookie Name</th>
+                            <th>{{ ('ch_cookie_consent.table_header.name')|trans({}, 'CHCookieConsentBundle') }}</th>
                             <td>{{ ('ch_cookie_consent.'~name~'.details.name')|trans({}, 'CHCookieConsentBundle') }}</td>
                         </tr>
                         <tr>
-                            <th>Cookie Expiry</th>
+                            <th>{{ ('ch_cookie_consent.table_header.expiry')|trans({}, 'CHCookieConsentBundle') }}</th>
                             <td>{{ ('ch_cookie_consent.'~name~'.details.expiry')|trans({}, 'CHCookieConsentBundle') }}</td>
                         </tr>
                     </table>
