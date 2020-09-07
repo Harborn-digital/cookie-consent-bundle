@@ -304,32 +304,6 @@
   flex-grow: 1;
 }
 
-.ch-cookie-consent__footer {
-  margin-bottom: 25px;
-}
-
-.ch-cookie-consent__footer ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ch-cookie-consent__footer ul li {
-  margin: 0 10px;
-  clear: none;
-  float: left;
-}
-
-.ch-cookie-consent__footer ul li a {
-  color: #000;
-  font-size: .9rem;
-  font-weight: normal;
-}
-
-.ch-cookie-consent__footer ul li a:hover {
-  text-decoration: none;
-}
-
 .ch-cookie-consent--dark-theme {
   background-color: #000;
   color: #fff;
