@@ -113,6 +113,8 @@ You can add or remove any category by changing the config and making sure there 
 All texts can be altered via Symfony translations by overwriting the CHCookieConsentBundle translation files.
 
 ### Styling
+
+#### Option 1
 CHCookieConsentBundle comes with a default styling. A sass file is available in Resources/assets/css/cookie_consent.scss and a build css file is available in Resources/public/css/cookie_consent.css. Colors can easily be adjusted by setting the variables available in the sass file.
 
 To install these assets run:
@@ -123,6 +125,13 @@ bin/console assets:install
 And include the styling in your template:
 ```twig
 {% include "@CHCookieConsent/cookie_consent_styling.html.twig" %}
+```
+
+#### Option 2
+If you want to integrate styling into your site's scss use an include in your scss (avoids style glitches):
+```scss
+/** configure colors here */
+@import "vendor/connectholland/cookie-consent-bundle/Resources/assets/css/cookie_consent";
 ```
 
 ### Javascript
