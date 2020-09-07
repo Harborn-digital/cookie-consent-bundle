@@ -1,19 +1,63 @@
 ch_cookie_consent:
     title: 'Cookies op onze website.'
-    intro: ''
+    intro: 'ch_cookie_consent.intro.nl.untranslated'
     read_more: 'meer uitleg hierover'
+    essentials:
+        title: 'Essential'
+        description: 'Essential cookies enable basic functions and are necessary for the proper functioning of the website.'
+        details:
+            cookie_consent:
+                title: 'Cookie Consent'
+                provider: 'Connect Holland'
+                purpose: 'ch_cookie_consent.essentials.details.cookie_consent.purpose.nl.untranslated'
+                name: 'Cookie_Consent, Cookie_Consent_*'
+            phpsessid:
+                title: 'PHP Session ID'
+                provider: 'PHP'
+                purpose: 'ch_cookie_consent.essentials.details.phpsessid.purpose.nl.untranslated'
+                name: 'PHPSESSID'
+            sf_redirect:
+                title: 'Redirection'
+                provider: 'Symfony'
+                purpose: 'ch_cookie_consent.essentials.details.sf_redirect.purpose.nl.untranslated'
+                name: 'sf_redirect'
+
     analytics:
         title: 'Wilt u analytische cookies?'
         description: 'Hiermee kunnen wij statistieken verzamelen over de websitebezoek.'
+        details:
+            provider: 'ch_cookie_consent.analytics.details.provider.nl.untranslated'
+            purpose: 'ch_cookie_consent.analytics.details.purpose.nl.untranslated'
+            policy: 'https://some.policy/url'
+            name: 'ch_cookie_consent.analytics.details.name.nl.untranslated'
+            expiry: 'ch_cookie_consent.analytics.details.expiry.nl.untranslated'
     tracking:
         title: 'Wilt u tracking cookies?'
         description: 'Hiermee kunnen wij de gebruikerservaring verbeteren door het surfgedrag te observeren.'
+        details:
+            provider: 'ch_cookie_consent.tracking.details.provider.nl.untranslated'
+            purpose: 'ch_cookie_consent.tracking.details.purpose.nl.untranslated'
+            policy: 'https://some.policy/url'
+            name: 'ch_cookie_consent.tracking.details.name.nl.untranslated'
+            expiry: 'ch_cookie_consent.tracking.details.expiry.nl.untranslated'
     marketing:
         title: 'Wilt u gepersonaliseerde advertenties?'
         description: 'Hiermee kunnen advertentienetwerken uw internetgedrag volgen en ontvangt u gepersonaliseerde advertenties afgestemd op uw internetgedrag'
+        details:
+            provider: 'ch_cookie_consent.marketing.details.provider.nl.untranslated'
+            purpose: 'ch_cookie_consent.marketing.details.purpose.nl.untranslated'
+            policy: 'https://some.policy/url'
+            name: 'ch_cookie_consent.marketing.details.name.nl.untranslated'
+            expiry: 'ch_cookie_consent.marketing.details.expiry.nl.untranslated'
     social_media:
         title: 'Wilt u social media cookies?'
         description: 'Hiermee kunnen socialmedianetwerken cookies plaatsen waarmee u en uw internetgedrag gevolgd kunnen worden.'
+        details:
+            provider: 'ch_cookie_consent.social_media.details.provider.nl.untranslated'
+            purpose: 'ch_cookie_consent.social_media.details.purpose.nl.untranslated'
+            policy: 'https://some.policy/url'
+            name: 'ch_cookie_consent.social_media.details.name.nl.untranslated'
+            expiry: 'ch_cookie_consent.social_media.details.expiry.nl.untranslated'
     no: 'Nee'
     yes: 'Ja'
     save: 'Opslaan'
@@ -21,3 +65,12 @@ ch_cookie_consent:
     use_all_cookies: 'Sta alle cookies toe'
     show_details: 'Toon details'
     hide_details: 'Verberg details'
+    show_cookie_information: 'ch_cookie_consent.show_cookie_information.nl.untranslated'
+    hide_cookie_information: 'ch_cookie_consent.hide_cookie_information.nl.untranslated'
+    table_header:
+        title: 'Name'
+        provider: 'Provider'
+        purpose: 'Purpose'
+        policy: 'Policy'
+        name: 'Cookie Name'
+        expiry: 'Cookie Expiry'
