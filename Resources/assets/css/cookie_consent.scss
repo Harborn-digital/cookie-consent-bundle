@@ -297,28 +297,6 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
         }
     }
 
-    &__footer {
-        margin-bottom: 25px;
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            li {
-                margin: 0 10px;
-                clear: none;
-                float: left;
-                a {
-                    color: $ch-cookie-consent-secondary-button-text-color;
-                    font-size: .9rem;
-                    font-weight: normal;
-                    &:hover {
-                        text-decoration: none;
-                    }
-                }
-            }
-        }
-    }
-
 }
 
 .ch-cookie-consent--dark-theme {

@@ -1,0 +1,57 @@
+ch_cookie_consent:
+    title: 'Datenschutzeinstellungen'
+    intro: 'Wir verwenden Cookies, um Ihre Erfahrung und unsere Dienstleistungen zu verbessern. Hier finden Sie eine Übersicht aller verwendeten Cookies. Sie können ganzen Kategorien Ihre Zustimmung geben oder weitere Informationen anzeigen lassen.'
+    read_more: 'Nähere Hinweise erhalten Sie in unserer Datenschutzerklärung.'
+    essentials:
+        title: 'Notwendige Cookies'
+        description: 'Notwendige Cookies ermöglichen grundlegende Funktionen und sind für die einwandfreie Funktion der Website erforderlich.'
+        details:
+            cookie_consent:
+                title: 'Cookie Consent'
+                provider: 'Connect Holland'
+                purpose: 'Speichert die Einstellungen der Besucher, die hier ausgewählt wurden.'
+                name: 'Cookie_Consent, Cookie_Consent_*'
+            phpsessid:
+                title: 'PHP Session ID'
+                provider: 'PHP'
+                purpose: 'Dieser Session-Cookie wird verwendet, um den Benutzer wiedererkennen zu können.'
+                name: 'PHPSESSID'
+            sf_redirect:
+                title: 'Redirection'
+                provider: 'Symfony'
+                purpose: 'Speichert Informationen zur Weiterleitung.'
+                name: 'sf_redirect'
+    analytics:
+        title: 'Google Analytics'
+        description: 'This information helps us to understand how our visitors use our website.'
+        details:
+            provider: 'Google LLC'
+            purpose: 'Erzeugt statistische Daten darüber, wie der Besucher die Website nutzt.'
+            policy: 'https://policies.google.com/privacy'
+            name: '_ga, _gat, _gid'
+            expiry: '2 Jahre'
+    tracking:
+        title: 'Tracking'
+        description: 'Track your visit'
+    marketing:
+        title: 'Marketing'
+        description: 'Personalised ads'
+    social_media:
+        title: 'Social media'
+        description: 'Social media desc'
+    no: 'Nein'
+    yes: 'Ja'
+    save: 'Speichern'
+    use_only_functional_cookies: 'Nur notwendige Cookies akzeptieren'
+    use_all_cookies: 'Alle Cookies akzeptieren'
+    show_details: 'Details anzeigen'
+    hide_details: 'Details ausblenden'
+    show_cookie_information: 'Cookie-Informationen anzeigen'
+    hide_cookie_information: 'Cookie-Informationen ausblenden'
+    table_header:
+        title: 'Name'
+        provider: 'Anbieter'
+        purpose: 'Zweck'
+        policy: 'Datenschutzerklärung'
+        name: 'Cookie-Name'
+        expiry: 'Cookie-Laufzeit'
