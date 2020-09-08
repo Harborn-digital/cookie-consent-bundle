@@ -161,34 +161,4 @@ class CookieConsentControllerTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
     }
 
-    public function testIndex(): void
-    {
-        $this->templating
-            ->expects($this->once())
-            ->method('render')
-            ->willReturn('test');
-
-        $response = $this->cookieConsentController->index(new Request());
-
-        $this->assertInstanceOf(Response::class, $response);
-    }
-
-    public function testReview(): void
-    {
-        $this->formFactory
-            ->expects($this->once())
-            ->method('create')
-            ->with(CookieConsentType::class)
-            ->willReturn($this->createMock(FormInterface::class));
-
-        $this->templating
-            ->expects($this->once())
-            ->method('render')
-            ->willReturn('test');
-
-        $response = $this->cookieConsentController->review(new Request());
-
-        $this->assertInstanceOf(Response::class, $response);
-    }
-
 }
