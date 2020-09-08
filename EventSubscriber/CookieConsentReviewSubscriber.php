@@ -30,7 +30,7 @@ class CookieConsentReviewSubscriber implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        $route = $request->attributes->get('_route');
+        $route = $request->attributes->get('_route', 'doesnt_matter');
 
         if (strpos($route, 'ch_cookie_consent') === false) {
             if ($request->query->get('_cookie_consent_review') === '1') {
