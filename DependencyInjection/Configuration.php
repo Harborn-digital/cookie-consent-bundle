@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue([CategoryEnum::CATEGORY_TRACKING, CategoryEnum::CATEGORY_MARKETING, CategoryEnum::CATEGORY_SOCIAL_MEDIA])
                 ->end()
                 ->variableNode('essentials')
-                    ->defaultValue([EssentialEnum::COOKIE_CONSENT, EssentialEnum::PHPSESSID, EssentialEnum::SF_REDIRECT])
+                    ->defaultValue(EssentialEnum::getAvailableEssentialCookies())
                 ->end()
                 ->enumNode('theme')
                     ->defaultValue(ThemeEnum::THEME_LIGHT)
