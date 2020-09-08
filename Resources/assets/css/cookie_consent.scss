@@ -63,26 +63,6 @@ $ch-cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
         right: 0;
     }
 
-    &--standalone {
-        display: block;
-        padding: 0;
-        .ch-cookie-consent__category-group {
-            display: block;
-        }
-        & > .ch-cookie-consent__content {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-        .ch-cookie-consent__title {
-            margin-top: 0;
-        }
-
-        .ch-cookie-consent__footer {
-            display: none;
-        }
-    }
-
     &__title {
         color: $ch-cookie-consent-text-color;
         margin-top: 20px;

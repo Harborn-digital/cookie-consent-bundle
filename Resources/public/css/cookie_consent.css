@@ -29,29 +29,6 @@
   right: 0;
 }
 
-.ch-cookie-consent--standalone {
-  display: block;
-  padding: 0;
-}
-
-.ch-cookie-consent--standalone .ch-cookie-consent__category-group {
-  display: block;
-}
-
-.ch-cookie-consent--standalone > .ch-cookie-consent__content {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.ch-cookie-consent--standalone .ch-cookie-consent__title {
-  margin-top: 0;
-}
-
-.ch-cookie-consent--standalone .ch-cookie-consent__footer {
-  display: none;
-}
-
 .ch-cookie-consent__title {
   color: #000;
   margin-top: 20px;

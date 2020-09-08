@@ -40,8 +40,8 @@ class CookieConsentTypeTest extends TypeTestCase
         $form = $this->factory->create(CookieConsentType::class);
         $form->submit($formData);
 
-        self::assertTrue($form->isSynchronized());
-        self::assertSame($formData, $form->getData());
+        $this->assertTrue($form->isSynchronized());
+        $this->assertSame($formData, $form->getData());
     }
 
     public function testSubmitAcceptAll(): void
@@ -56,8 +56,8 @@ class CookieConsentTypeTest extends TypeTestCase
         $form = $this->factory->create(CookieConsentType::class);
         $form->submit($formData);
 
-        self::assertTrue($form->isSynchronized());
-        self::assertSame(
+        $this->assertTrue($form->isSynchronized());
+        $this->assertSame(
             [
                 'analytics' => 'true',
                 'tracking' => 'true',
@@ -79,8 +79,8 @@ class CookieConsentTypeTest extends TypeTestCase
         $form = $this->factory->create(CookieConsentType::class);
         $form->submit($formData);
 
-        self::assertTrue($form->isSynchronized());
-        self::assertSame(
+        $this->assertTrue($form->isSynchronized());
+        $this->assertSame(
             [
                 'analytics' => 'false',
                 'tracking' => 'false',
