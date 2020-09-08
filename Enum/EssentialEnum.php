@@ -27,7 +27,7 @@ class EssentialEnum
     /**
      * Get all essential cookies.
      */
-    public static function getAvailablePositions(): array
+    public static function getAvailableEssentialCookies(): array
     {
         return self::$essentials;
     }
