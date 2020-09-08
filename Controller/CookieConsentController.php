@@ -77,38 +77,7 @@ class CookieConsentController
     /**
      * Show cookie consent.
      *
-     * @Route("/cookie_consent", name="ch_cookie_consent.index")
-     */
-    public function index(): Response
-    {
-        return new Response(
-            $this->twigEnvironment->render('@CHCookieConsent/cookie_consent_index.html.twig', [])
-        );
-    }
-
-    /**
-     * Show cookie consent.
-     *
-     * @Route("/cookie_consent_standalone", name="ch_cookie_consent.standalone")
-     */
-    public function review(Request $request): Response
-    {
-        $this->setLocale($request);
-
-        return new Response(
-            $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
-                'form'       => $this->createCookieConsentForm()->createView(),
-                'theme'      => $this->cookieConsentTheme,
-                'essentials' => $this->cookieConsentEssentials,
-                'position'   => 'standalone',
-            ])
-        );
-    }
-
-    /**
-     * Show cookie consent.
-     *
-     * @Route("/cookie_consent_def", name="ch_cookie_consent.show")
+     * @Route("/cookie_consent", name="ch_cookie_consent.show")
      */
     public function show(Request $request): Response
     {
