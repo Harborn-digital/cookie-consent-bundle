@@ -56,6 +56,12 @@ ch_cookie_consent:
     position: 'top' # top, bottom
 ```
 
+### Step 5: Add a link on your site (optional) 
+Add a link in your footer to review privacy settings, if you want.
+```twig
+<a href="{{ path('home', {'_cookie_consent_review': '1'}) }}">Review Privacy Settings</a>
+``` 
+
 ## Usage
 ### Twig implementation
 Load the cookie consent in Twig via render_esi ( to prevent caching ) at any place you like:
@@ -138,7 +144,7 @@ If you want to integrate styling into your site's scss use an include in your sc
 By loading Resources/public/js/cookie_consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
 
 ### Template Themes
-You can override the templates by placing templates inside your poject:
+You can override the templates by placing templates inside your project:
 
 ```twig
 # app/Resources/CHCookieConsentBundle/views/cookie_consent.html.twig
