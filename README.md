@@ -116,7 +116,7 @@ check if user has saved any cookie preferences
 You can add or remove any category by changing the config and making sure there are translations available for these categories.
 
 ### Translations
-All texts can be altered via Symfony translations by overwriting the CHCookieConsentBundle translation files.
+Translations are currently available for EN, NL and DE. All texts can be altered via Symfony translations by overwriting the CHCookieConsentBundle translation files.
 
 ### Styling
 
