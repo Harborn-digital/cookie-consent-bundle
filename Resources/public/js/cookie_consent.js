@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(serializeForm(cookieConsentForm, event.target));
 		// Clear all styles from body to prevent the white margin at the end of the page
-		document.getElementsByTagName("body")[0].style = null;
+		document.body.style.marginBottom = null;
+		document.body.style.marginTop  = null;
             }, false);
         });
     }
