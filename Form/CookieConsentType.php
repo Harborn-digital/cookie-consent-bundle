@@ -35,11 +35,17 @@ class CookieConsentType extends AbstractType
      */
     protected $cookieConsentSimplified;
 
-    public function __construct(CookieChecker $cookieChecker, array $cookieCategories, bool $cookieConsentSimplified = false)
+    /**
+     * @var bool
+     */
+    protected $cookieConsentSetAllCookiesActive;
+
+    public function __construct(CookieChecker $cookieChecker, array $cookieCategories, bool $cookieConsentSimplified = false, bool $cookieConsentSetAllCookiesActive = true)
     {
         $this->cookieChecker           = $cookieChecker;
         $this->cookieCategories        = $cookieCategories;
         $this->cookieConsentSimplified = $cookieConsentSimplified;
+        $this->cookieConsentSetAllCookiesActive = $cookieConsentSetAllCookiesActive;
     }
 
     /**
@@ -68,8 +74,14 @@ class CookieConsentType extends AbstractType
             $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();
 
-                foreach ($this->cookieCategories as $category) {
-                    $data[$category] = isset($data['use_all_cookies']) ? 'true' : 'false';
+                if ($this->cookieConsentSetAllCookiesActive === true) {
+                    foreach ($this->cookieCategories as $category) {
+                        $data[$category] = 'true';
+                    }
+                } else {
+                    foreach ($this->cookieCategories as $category) {
+                        $data[$category] = isset($data['use_all_cookies']) ? 'true' : 'false';
+                    }
                 }
 
                 $event->setData($data);

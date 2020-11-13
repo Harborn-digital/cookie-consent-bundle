@@ -56,6 +56,11 @@ class CookieConsentController
      */
     private $cookieConsentSimplified;
 
+    /**
+     * @var bool
+     */
+    private $cookieConsentSetAllCookiesActive;
+
     public function __construct(
         Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
@@ -63,7 +68,8 @@ class CookieConsentController
         string $cookieConsentTheme,
         string $cookieConsentPosition,
         TranslatorInterface $translator,
-        bool $cookieConsentSimplified = false
+        bool $cookieConsentSimplified = false,
+        bool $cookieConsentSetAllCookiesActive = false
     ) {
         $this->twigEnvironment         = $twigEnvironment;
         $this->formFactory             = $formFactory;
@@ -72,6 +78,7 @@ class CookieConsentController
         $this->cookieConsentPosition   = $cookieConsentPosition;
         $this->translator              = $translator;
         $this->cookieConsentSimplified = $cookieConsentSimplified;
+        $this->cookieConsentSetAllCookiesActive = $cookieConsentSetAllCookiesActive;
     }
 
     /**
