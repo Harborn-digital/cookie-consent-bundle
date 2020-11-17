@@ -32,16 +32,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
                        cookieConsent.style.display = 'none';
+                        var buttonEvent = new CustomEvent('cookie-consent-form-submit-successful', {
+                            detail: event.target
+                        });
+                        document.dispatchEvent(buttonEvent);
                     }
                 };
                 xhr.open('POST', cookieConsentForm.action);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(serializeForm(cookieConsentForm, event.target));
-
-                var buttonEvent = new CustomEvent('cookie-consent-form-button-click', {
-                    detail: event.target
-                });
-                document.dispatchEvent(buttonEvent);
 
                 // Clear all styles from body to prevent the white margin at the end of the page
 		document.body.style.marginBottom = null;

@@ -126,9 +126,9 @@ And include the styling in your template:
 By loading Resources/public/js/cookie_consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
 
 ### Events
-When a form button is clicked, the event of cookie-consent-form-button-click is created. Use the following code to listen to the event and add your custom functionality.
+When a form button is clicked, the event of cookie-consent-form-submit-successful is created. Use the following code to listen to the event and add your custom functionality.
 ```javascript
-document.addEventListener('cookie-consent-form-button-click', function (e) {
+document.addEventListener('cookie-consent-form-submit-successful', function (e) {
     // ... your functionality
     // ... e.detail is available to see which button is clicked.
 }, false);
