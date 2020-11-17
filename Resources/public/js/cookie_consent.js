@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(serializeForm(cookieConsentForm, event.target));
 
-                let buttonEvent = new CustomEvent("cookie-consent-form-button-click", {
+                var buttonEvent = new CustomEvent('cookie-consent-form-button-click', {
                     detail: event.target
                 });
                 document.dispatchEvent(buttonEvent);
