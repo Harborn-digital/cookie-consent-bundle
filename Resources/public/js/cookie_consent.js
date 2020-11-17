@@ -37,7 +37,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.open('POST', cookieConsentForm.action);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(serializeForm(cookieConsentForm, event.target));
-                location.reload();
+
+                let buttonEvent = new CustomEvent("cookie-consent-form-button-click", {
+                    detail: event.target
+                });
+                document.dispatchEvent(buttonEvent);
+
                 // Clear all styles from body to prevent the white margin at the end of the page
 		document.body.style.marginBottom = null;
 		document.body.style.marginTop  = null;
