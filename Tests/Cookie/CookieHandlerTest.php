@@ -20,29 +20,17 @@ class CookieHandlerTest extends TestCase
      */
     private $response;
 
-    /**
-     * @var bool
-     */
-    private $httpOnly;
-
-    /**
-     * @var CookieHandler
-     */
-    private $cookieHandler;
-
     public function setUp(): void
     {
-        $this->response       = new Response();
-        $this->httpOnly       = true;
-        $this->cookieHandler  = new CookieHandler($this->httpOnly);
+        $this->response = new Response();
     }
 
     /**
-     * Test CookieHandler:save with httpOnly true.
+     * Test CookieHandler:save.
      */
     public function testSave(): void
     {
-        $this->saveCookieHandler($this->cookieHandler);
+        $this->saveCookieHandler(true);
 
         $cookies = $this->response->headers->getCookies();
 
@@ -61,25 +49,35 @@ class CookieHandlerTest extends TestCase
 
         $this->assertSame('Cookie_Category_tracking', $cookies[4]->getName());
         $this->assertSame('false', $cookies[4]->getValue());
-        $this->assertSame(true, $cookies[4]->isHttpOnly());
     }
 
     /**
      * Test CookieHandler:save with httpOnly false.
      */
-    public function testCookieHanlderHttpOnlyIsFalse(): void
+    public function testCookieHandlerHttpOnlyIsFalse(): void
     {
-        $this->httpOnly       = false;
-        $this->saveCookieHandler(new CookieHandler($this->httpOnly));
+        $this->saveCookieHandler(false);
         $cookies = $this->response->headers->getCookies();
         $this->assertSame(false, $cookies[4]->isHttpOnly());
     }
 
     /**
+     * Test CookieHandler:save with httpOnly true.
+     */
+    public function testCookieHandlerHttpOnlyIsTrue(): void
+    {
+        $this->saveCookieHandler(true);
+        $cookies = $this->response->headers->getCookies();
+        $this->assertSame(true, $cookies[4]->isHttpOnly());
+    }
+
+    /**
      * Save CookieHandler.
      */
-    public function saveCookieHandler(CookieHandler $cookieHandler): void
+    public function saveCookieHandler(bool $httpOnly): void
     {
+        $cookieHandler = new CookieHandler($httpOnly);
+
         $cookieHandler->save([
             'analytics'    => 'true',
             'social_media' => 'true',
