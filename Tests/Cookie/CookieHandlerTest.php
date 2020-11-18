@@ -40,7 +40,7 @@ class CookieHandlerTest extends TestCase
             'analytics'    => 'true',
             'social_media' => 'true',
             'tracking'     => 'false',
-        ], 'key-test');
+        ], 'key-test', true);
 
         $cookies = $this->response->headers->getCookies();
 
@@ -59,5 +59,6 @@ class CookieHandlerTest extends TestCase
 
         $this->assertSame('Cookie_Category_tracking', $cookies[4]->getName());
         $this->assertSame('false', $cookies[4]->getValue());
+        $this->assertSame(true, $cookies[4]->isHttpOnly());
     }
 }
