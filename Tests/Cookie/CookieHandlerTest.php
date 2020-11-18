@@ -21,6 +21,11 @@ class CookieHandlerTest extends TestCase
     private $response;
 
     /**
+     * @var bool
+     */
+    private $httpOnly;
+
+    /**
      * @var CookieHandler
      */
     private $cookieHandler;
@@ -28,7 +33,8 @@ class CookieHandlerTest extends TestCase
     public function setUp(): void
     {
         $this->response       = new Response();
-        $this->cookieHandler  = new CookieHandler($this->response);
+        $this->httpOnly       = true;
+        $this->cookieHandler  = new CookieHandler($this->httpOnly);
     }
 
     /**
@@ -40,7 +46,7 @@ class CookieHandlerTest extends TestCase
             'analytics'    => 'true',
             'social_media' => 'true',
             'tracking'     => 'false',
-        ], 'key-test', true);
+        ], 'key-test', $this->response);
 
         $cookies = $this->response->headers->getCookies();
 

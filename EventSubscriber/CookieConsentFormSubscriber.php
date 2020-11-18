@@ -37,21 +37,21 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     private $cookieLogger;
 
     /**
-     * @var bool
+     * @var CookieHandler
      */
-    private $useLogger;
+    private $cookieHandler;
 
     /**
      * @var bool
      */
-    private $httpOnly;
+    private $useLogger;
 
-    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger, bool $useLogger, bool $httpOnly)
+    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger, CookieHandler $cookieHandler, bool $useLogger)
     {
-        $this->formFactory  = $formFactory;
-        $this->cookieLogger = $cookieLogger;
-        $this->useLogger    = $useLogger;
-        $this->httpOnly     = $httpOnly;
+        $this->formFactory   = $formFactory;
+        $this->cookieLogger  = $cookieLogger;
+        $this->cookieHandler = $cookieHandler;
+        $this->useLogger     = $useLogger;
     }
 
     public static function getSubscribedEvents(): array
@@ -88,8 +88,7 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     {
         $cookieConsentKey = $this->getCookieConsentKey($request);
 
-        $cookieHandler = new CookieHandler($response);
-        $cookieHandler->save($categories, $cookieConsentKey, $this->httpOnly);
+        $this->cookieHandler->save($categories, $cookieConsentKey, $response);
 
         if ($this->useLogger) {
             $this->cookieLogger->log($categories, $cookieConsentKey);
