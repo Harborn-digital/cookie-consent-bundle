@@ -30,26 +30,26 @@ class CookieHandler
     /**
      * Save chosen cookie categories in cookies.
      */
-    public function save(array $categories, string $key): void
+    public function save(array $categories, string $key, bool $httpOnly): void
     {
-        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_NAME, date('r'));
-        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_KEY_NAME, $key);
+        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_NAME, date('r'), $httpOnly);
+        $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_KEY_NAME, $key, $httpOnly);
 
         foreach ($categories as $category => $permitted) {
-            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted);
+            $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted, $httpOnly);
         }
     }
 
     /**
      * Add cookie to response headers.
      */
-    protected function saveCookie(string $name, string $value): void
+    protected function saveCookie(string $name, string $value, bool $httpOnly): void
     {
         $expirationDate = new DateTime();
         $expirationDate->add(new DateInterval('P1Y'));
 
         $this->response->headers->setCookie(
-            new Cookie($name, $value, $expirationDate, '/', null, null, true, true)
+            new Cookie($name, $value, $expirationDate, '/', null, null, $httpOnly, true)
         );
     }
 }

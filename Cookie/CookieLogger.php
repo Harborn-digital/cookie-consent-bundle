@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Entity\CookieConsentLog;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 
 class CookieLogger
