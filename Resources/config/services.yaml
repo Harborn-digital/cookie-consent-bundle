@@ -11,6 +11,7 @@ services:
             $useLogger: '%ch_cookie_consent.use_logger%'
             $cookieConsentPosition: '%ch_cookie_consent.position%'
             $cookieConsentSimplified: '%ch_cookie_consent.simplified%'
+            $httpOnly: '%ch_cookie_consent.http_only%'
 
     ConnectHolland\CookieConsentBundle\:
         resource: '../../'
