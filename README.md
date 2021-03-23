@@ -136,7 +136,7 @@ document.addEventListener('cookie-consent-form-submit-successful', function (e) 
 ```
 
 ### Template Themes
-You can override the templates by placing templates inside your poject:
+You can override the templates by placing templates inside your project (except for Symfony 5 projects):
 
 ```twig
 # app/Resources/CHCookieConsentBundle/views/cookie_consent.html.twig
@@ -144,5 +144,16 @@ You can override the templates by placing templates inside your poject:
 
 {% block title %}
     Your custom title
+{% endblock %}
+```
+
+#### Template override for Symfony 5 projects
+You can override the templates by placing templaces inside you project as below. Be careful, it is important to place templates at this location: "app/templates/bundles/CHCookieConsentBundle/" . 
+```twig
+# app/templates/bundles/CHCookieConsentBundle/cookie_consent.html.twig
+{% extends '@!CHCookieConsent/cookie_consent.html.twig' %}
+
+{% block intro %}
+    Your custom intro
 {% endblock %}
 ```
