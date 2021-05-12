@@ -9,7 +9,7 @@ ch_cookie_consent:
         title: 'Acceptez-vous les cookies de suivi ?'
         description: ''
     marketing:
-        title: 'Acceptez-vous les publicités ciblés ?'
+        title: 'Acceptez-vous les publicités ciblées ?'
         description: ''
     social_media:
         title: 'Acceptez-vous les cookies des réseaux sociaux ?'
