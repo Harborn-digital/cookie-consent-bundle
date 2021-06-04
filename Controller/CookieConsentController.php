@@ -94,6 +94,7 @@ class CookieConsentController
 
         // Cache in ESI should not be shared
         $response->setPrivate();
+        $response->setMaxAge(0);
 
         return $response;
     }
