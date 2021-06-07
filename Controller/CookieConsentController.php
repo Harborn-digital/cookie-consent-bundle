@@ -83,7 +83,7 @@ class CookieConsentController
     {
         $this->setLocale($request);
 
-        return new Response(
+        $response = new Response(
             $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
                 'form'       => $this->createCookieConsentForm()->createView(),
                 'theme'      => $this->cookieConsentTheme,
@@ -91,6 +91,12 @@ class CookieConsentController
                 'simplified' => $this->cookieConsentSimplified,
             ])
         );
+
+        // Cache in ESI should not be shared
+        $response->setPrivate();
+        $response->setMaxAge(0);
+
+        return $response;
     }
 
     /**
