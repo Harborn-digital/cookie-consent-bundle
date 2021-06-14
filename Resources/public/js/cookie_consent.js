@@ -24,23 +24,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cookieConsentForm) {
         // Submit form via ajax
-        for (var i = 0; cookieConsentFormBtn.length; i++) {
+        for (var i = 0; i < cookieConsentFormBtn.length; i++) {
             var btn = cookieConsentFormBtn[i];
-
             btn.addEventListener('click', function (event) {
                 event.preventDefault();
 
+                var formAction = cookieConsentForm.action ? cookieConsentForm.action : location.href;
                 var xhr = new XMLHttpRequest();
+
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                       cookieConsent.style.display = 'none';
+                        cookieConsent.style.display = 'none';
                         var buttonEvent = new CustomEvent('cookie-consent-form-submit-successful', {
                             detail: event.target
                         });
                         document.dispatchEvent(buttonEvent);
                     }
                 };
-                xhr.open('POST', cookieConsentForm.action);
+                xhr.open('POST', formAction);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(serializeForm(cookieConsentForm, event.target));
 
@@ -62,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function serializeForm(form, clickedButton) {
-	var serialized = [];
+    var serialized = [];
 
-	for (var i = 0; i < form.elements.length; i++) {
+    for (var i = 0; i < form.elements.length; i++) {
         var field = form.elements[i];
 
         if ((field.type !== 'checkbox' && field.type !== 'radio' && field.type !== 'button') || field.checked) {
