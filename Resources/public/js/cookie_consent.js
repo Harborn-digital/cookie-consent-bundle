@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cookieConsentForm) {
         // Submit form via ajax
-        cookieConsentFormBtn.forEach(function(btn) {
+        for (var i = 0; cookieConsentFormBtn.length; i++) {
+            var btn = cookieConsentFormBtn[i];
+
             btn.addEventListener('click', function (event) {
                 event.preventDefault();
 
@@ -43,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.send(serializeForm(cookieConsentForm, event.target));
 
                 // Clear all styles from body to prevent the white margin at the end of the page
-		document.body.style.marginBottom = null;
-		document.body.style.marginTop  = null;
+                document.body.style.marginBottom = null;
+                document.body.style.marginTop  = null;
             }, false);
-        });
+        }
     }
 
     if (cookieConsentCategoryDetails && cookieConsentCategoryDetailsToggle) {
