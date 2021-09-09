@@ -54,6 +54,7 @@ ch_cookie_consent:
         - 'social_media'
     use_logger: true # Logs user actions to database
     position: 'top' # top, bottom
+    http_only: true # Sets HttpOnly on cookies
 ```
 
 ### Step 5: Add a link on your site (optional) 
@@ -143,8 +144,17 @@ If you want to integrate styling into your site's scss use an include in your sc
 ### Javascript
 By loading Resources/public/js/cookie_consent.js the cookie consent will be submitted via ajax and the cookie consent will be shown on top of your website while pushing down the rest of the website.
 
+### Events
+When a form button is clicked, the event of cookie-consent-form-submit-successful is created. Use the following code to listen to the event and add your custom functionality.
+```javascript
+document.addEventListener('cookie-consent-form-submit-successful', function (e) {
+    // ... your functionality
+    // ... e.detail is available to see which button is clicked.
+}, false);
+```
+
 ### Template Themes
-You can override the templates by placing templates inside your project:
+You can override the templates by placing templates inside your project (except for Symfony 5 projects):
 
 ```twig
 # app/Resources/CHCookieConsentBundle/views/cookie_consent.html.twig
@@ -152,5 +162,16 @@ You can override the templates by placing templates inside your project:
 
 {% block title %}
     Your custom title
+{% endblock %}
+```
+
+#### Template override for Symfony 5 projects
+You can override the templates by placing templaces inside you project as below. Be careful, it is important to place templates at this location: "app/templates/bundles/CHCookieConsentBundle/" . 
+```twig
+# app/templates/bundles/CHCookieConsentBundle/cookie_consent.html.twig
+{% extends '@!CHCookieConsent/cookie_consent.html.twig' %}
+
+{% block intro %}
+    Your custom intro
 {% endblock %}
 ```
