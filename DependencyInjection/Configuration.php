@@ -48,6 +48,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('use_logger')
                     ->defaultTrue()
                 ->end()
+                ->booleanNode('http_only')
+                    ->defaultTrue()
+                ->end()
             ->end()
         ;
 
