@@ -54,10 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (cookieConsentCategoryDetails && cookieConsentCategoryDetailsToggle) {
         cookieConsentCategoryDetailsToggle.addEventListener('click', function() {
-            var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
-            cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
+            var detailsIsHidden = cookieConsentCategoryDetails.offsetParent !== null;
+            cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'none' : 'block';
+            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'none' : 'block';
+            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'block' : 'none';
         });
     }
 });
