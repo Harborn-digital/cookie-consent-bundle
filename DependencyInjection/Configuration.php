@@ -53,6 +53,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('form_action')
                     ->defaultNull()
                 ->end()
+                ->booleanNode('csrf_protection')
+                    ->defaultTrue()
+                ->end()
             ->end()
         ;
 
