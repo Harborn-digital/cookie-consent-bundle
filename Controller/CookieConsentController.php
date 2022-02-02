@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -37,6 +38,11 @@ class CookieConsentController
     private $cookieChecker;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * @var string
      */
     private $cookieConsentTheme;
@@ -56,22 +62,31 @@ class CookieConsentController
      */
     private $cookieConsentSimplified;
 
+    /**
+     * @var string|null
+     */
+    private $formAction;
+
     public function __construct(
         Environment $twigEnvironment,
         FormFactoryInterface $formFactory,
         CookieChecker $cookieChecker,
+        RouterInterface $router,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
         TranslatorInterface $translator,
-        bool $cookieConsentSimplified = false
+        bool $cookieConsentSimplified = false,
+        string $formAction = null
     ) {
         $this->twigEnvironment         = $twigEnvironment;
         $this->formFactory             = $formFactory;
         $this->cookieChecker           = $cookieChecker;
+        $this->router                  = $router;
         $this->cookieConsentTheme      = $cookieConsentTheme;
         $this->cookieConsentPosition   = $cookieConsentPosition;
         $this->translator              = $translator;
         $this->cookieConsentSimplified = $cookieConsentSimplified;
+        $this->formAction              = $formAction;
     }
 
     /**
@@ -118,7 +133,19 @@ class CookieConsentController
      */
     protected function createCookieConsentForm(): FormInterface
     {
-        return $this->formFactory->create(CookieConsentType::class);
+        if ($this->formAction === null) {
+            $form = $this->formFactory->create(CookieConsentType::class);
+        } else {
+            $form = $this->formFactory->create(
+                CookieConsentType::class,
+                null,
+                [
+                    'action' => $this->router->generate($this->formAction),
+                ]
+            );
+        }
+
+        return $form;
     }
 
     /**

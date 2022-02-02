@@ -52,6 +52,8 @@ ch_cookie_consent:
     position: 'top' # top, bottom
     simplified: false # When set to true the user can only deny or accept all cookies at once
     http_only: true # Sets HttpOnly on cookies
+    form_action: $routeName # When set, xhr-Requests will only be sent to this route. Take care of having the route available.
+    csrf_protection: true # The cookie consent form is csrf protected or not
 ```
 
 ## Usage
