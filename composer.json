@@ -9,22 +9,22 @@
         "doctrine/doctrine-bundle": "^1.10 || ^2.0",
         "doctrine/orm": "^2.5",
         "symfony/asset": "^4.4 || ^5.4 || ^6.0",
-        "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0",
-        "symfony/doctrine-bridge": "^4.4 || ^5.4 || ^6.0",
-        "symfony/expression-language": "^4.4 || ^5.4 || ^6.0",
-        "symfony/form": "^4.4 || ^5.4 || ^6.0",
-        "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0",
-        "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0",
-        "symfony/templating": "^4.4 || ^5.4 || ^6.0",
-        "symfony/translation": "^4.4 || ^5.4 || ^6.0",
-        "symfony/twig-bridge": "^4.4 || ^5.4 || ^6.0",
-        "symfony/twig-bundle": "^4.4 || ^5.4 || ^6.0",
+        "symfony/dependency-injection": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/doctrine-bridge": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/expression-language": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/form": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/http-foundation": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/templating": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/translation": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/twig-bridge": "^4.4 || ^5.4 || ^6.0 || ^6.1",
+        "symfony/twig-bundle": "^4.4 || ^5.4 || ^6.0 || ^6.1",
         "twig/twig": "^2.6 || ^3.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14",
         "phpunit/phpunit": "^7.5",
-        "symfony/yaml": "^4.4 || ^5.4 || ^6.0"
+        "symfony/yaml": "^4.4 || ^5.4 || ^6.0 || ^6.1"
     },
     "prefer-stable": true,
     "autoload": {
