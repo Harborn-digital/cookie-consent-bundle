@@ -38,7 +38,7 @@ class CookieCheckerTest extends TestCase
      *
      * Test CookieChecker:isCookieConsentSavedByUser
      */
-    public function testIsCookieConsentSavedByUser(array $cookies = [], bool $expected): void
+    public function testIsCookieConsentSavedByUser(array $cookies = [], bool $expected = false): void
     {
         $this->request->cookies = new ParameterBag($cookies);
 
@@ -65,7 +65,7 @@ class CookieCheckerTest extends TestCase
      *
      * Test CookieChecker:isCategoryAllowedByUser
      */
-    public function testIsCategoryAllowedByUser(array $cookies = [], string $category, bool $expected): void
+    public function testIsCategoryAllowedByUser(array $cookies = [], string $category = '', bool $expected = false): void
     {
         $this->request->cookies = new ParameterBag($cookies);
 
