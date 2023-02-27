@@ -1,0 +1,23 @@
+ch_cookie_consent:
+    title: 'Používame súbory cookies'
+    intro: ''
+    read_more: 'Ďalšie informácie'
+    analytics:
+        title: 'Povoliť štatistické cookies?'
+        description: ''
+    tracking:
+        title: 'Povoliť sledovacie cookies?'
+        description: ''
+    marketing:
+        title: 'Povoliť personalizované reklamy?'
+        description: ''
+    social_media:
+        title: 'Povoliť cookies sociálnych sietí?'
+        description: ''
+    no: 'Nie'
+    yes: 'Áno'
+    save: 'Uložiť'
+    use_only_functional_cookies: 'Povoliť len nevyhnutné cookies'
+    use_all_cookies: 'Povoliť všetky cookies'
+    show_details: 'Zobraziť podrobnosti'
+    hide_details: 'Skryť podrobnosti'
