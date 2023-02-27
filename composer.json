@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2 || ^8.0.2",
-        "doctrine/annotations": "^1.6",
+        "doctrine/annotations": "^1.6|^2.0",
         "doctrine/doctrine-bundle": "^1.10 || ^2.0",
         "doctrine/orm": "^2.5",
         "symfony/asset": "^3.4 || ^4.2 || ^5.0 || ^6.0",
