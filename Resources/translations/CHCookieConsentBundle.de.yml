@@ -1,0 +1,23 @@
+ch_cookie_consent:
+    title: 'Cookies auf unserer Website.'
+    intro: ''
+    read_more: 'Lesen Sie mehr darüber'
+    analytics:
+        title: 'Möchten Sie analytische Cookies?'
+        description: 'Diese Cookies lassen uns verstehen, wie sich Besucher auf unserer Webseite verhalten, z.B. wie lange sie im Schnitt auf einer Seite sind, ob und wie oft sie wiederkehren. So können wir unsere Website immer weiter verbessern.'
+    tracking:
+        title: 'Möchten Sie tracking Cookies?'
+        description: 'Dadurch können wir die Benutzererfahrung verbessern, indem wir das Surfverhalten beobachten.'
+    marketing:
+        title: 'Möchten Sie personalisierte Anzeigen?'
+        description: 'Dadurch können Werbenetzwerke Ihr Internetverhalten verfolgen und Sie erhalten personalisierte Werbung, die auf Ihr Internetverhalten zugeschnitten ist.'
+    social_media:
+        title: 'Möchten Sie Social-Media-Cookies?'
+        description: 'Diese Cookies dienen dazu, Dein Surf-Verhalten auszuwerten und Dir Angebote zu zeigen, die für Dich wichtig oder interessant sind. Dabei können diese Cookies Dir auch auf andere Websites folgen und sind daher wertvoll für werbetreibende Dritte und Publisher.'
+    no: 'Nein'
+    yes: 'Ja'
+    save: 'Speichern'
+    use_only_functional_cookies: 'Nur funktionale Cookies Verwenden'
+    use_all_cookies: 'Alle akzeptieren'
+    show_details: 'Details anzeigen'
+    hide_details: 'Details ausblenden'
