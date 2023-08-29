@@ -12,6 +12,7 @@ namespace ConnectHolland\CookieConsentBundle\Cookie;
 use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CookieChecker
 {
@@ -20,9 +21,9 @@ class CookieChecker
      */
     private $request;
 
-    public function __construct(Request $request)
+    public function __construct(RequestStack $request)
     {
-        $this->request = $request;
+        $this->request = $request->getCurrentRequest();
     }
 
     /**

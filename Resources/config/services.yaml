@@ -24,7 +24,8 @@ services:
         public: true
 
     ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:
-        arguments: ["@=service('request_stack').getCurrentRequest()"]
+        arguments:
+            $request: '@request_stack'
 
     ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
         arguments:
