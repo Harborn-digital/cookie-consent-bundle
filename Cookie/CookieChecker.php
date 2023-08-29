@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class CookieChecker
