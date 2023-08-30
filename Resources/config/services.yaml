@@ -30,3 +30,7 @@ services:
     ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
         arguments:
             $request: "@=service('request_stack').getCurrentRequest()"
+
+    ConnectHolland\CookieConsentBundle\Twig\CHCookieConsentTwigExtension:
+        arguments:
+            $cookieChecker: '@ConnectHolland\CookieConsentBundle\Cookie\CookieChecker'
