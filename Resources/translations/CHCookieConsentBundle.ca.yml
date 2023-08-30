@@ -1,0 +1,23 @@
+ch_cookie_consent:
+    title: 'Galetes al nostre lloc web.'
+    intro: ''
+    read_more: 'llegir més sobre això'
+    analytics:
+        title: 'Vols galetes analítiques?'
+        description: ''
+    tracking:
+        title: 'Vols galetes de rastreig?'
+        description: ''
+    marketing:
+        title: 'Vols anuncis personalitzats?'
+        description: ''
+    social_media:
+        title: 'Vols galetes de xarxes socials?'
+        description: ''
+    no: 'No'
+    yes: 'Sí'
+    save: 'Guardar'
+    use_only_functional_cookies: 'Utilitzar només galetes funcionals'
+    use_all_cookies: 'Permetre totes les galetes'
+    show_details: 'Mostra els detalls'
+    hide_details: 'Oculta els detalls'
