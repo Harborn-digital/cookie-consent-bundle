@@ -10,20 +10,18 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class CookieChecker
 {
     /**
-     * @var Request
+     * @var RequestStack
      */
-    private $request;
+    private $requestStack;
 
-    public function __construct(RequestStack $request)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->request = $request->getCurrentRequest();
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -31,7 +29,7 @@ class CookieChecker
      */
     public function isCookieConsentSavedByUser(): bool
     {
-        return $this->request->cookies->has(CookieNameEnum::COOKIE_CONSENT_NAME);
+        return $this->requestStack->getCurrentRequest()->cookies->has(CookieNameEnum::COOKIE_CONSENT_NAME);
     }
 
     /**
@@ -39,6 +37,6 @@ class CookieChecker
      */
     public function isCategoryAllowedByUser(string $category): bool
     {
-        return $this->request->cookies->get(CookieNameEnum::getCookieCategoryName($category)) === 'true';
+        return $this->requestStack->getCurrentRequest()->cookies->get(CookieNameEnum::getCookieCategoryName($category)) === 'true';
     }
 }
