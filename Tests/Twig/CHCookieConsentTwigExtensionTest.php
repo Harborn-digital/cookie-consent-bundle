@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace ConnectHolland\CookieConsentBundle\Tests\Twig;
 
+use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
 use ConnectHolland\CookieConsentBundle\Twig\CHCookieConsentTwigExtension;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bridge\Twig\AppVariable;
-use Symfony\Component\HttpFoundation\Request;
 
 class CHCookieConsentTwigExtensionTest extends TestCase
 {
@@ -21,9 +20,15 @@ class CHCookieConsentTwigExtensionTest extends TestCase
      */
     private $chCookieConsentTwigExtension;
 
+    /**
+     * @var MockObject
+     */
+    private $cookieChecker;
+
     public function setUp(): void
     {
-        $this->chCookieConsentTwigExtension = new CHCookieConsentTwigExtension();
+        $this->cookieChecker = $this->createMock(CookieChecker::class);
+        $this->chCookieConsentTwigExtension = new CHCookieConsentTwigExtension($this->cookieChecker);
     }
 
     public function testGetFunctions(): void
@@ -37,32 +42,14 @@ class CHCookieConsentTwigExtensionTest extends TestCase
 
     public function testIsCookieConsentSavedByUser(): void
     {
-        $request  = new Request();
-
-        $appVariable = $this->createMock(AppVariable::class);
-        $appVariable
-            ->expects($this->once())
-            ->method('getRequest')
-            ->wilLReturn($request);
-
-        $context = ['app' => $appVariable];
-        $result  = $this->chCookieConsentTwigExtension->isCookieConsentSavedByUser($context);
+        $result  = $this->chCookieConsentTwigExtension->isCookieConsentSavedByUser();
 
         $this->assertSame($result, false);
     }
 
     public function testIsCategoryAllowedByUser(): void
     {
-        $request  = new Request();
-
-        $appVariable = $this->createMock(AppVariable::class);
-        $appVariable
-            ->expects($this->once())
-            ->method('getRequest')
-            ->wilLReturn($request);
-
-        $context = ['app' => $appVariable];
-        $result  = $this->chCookieConsentTwigExtension->isCategoryAllowedByUser($context, 'analytics');
+        $result  = $this->chCookieConsentTwigExtension->isCategoryAllowedByUser('analytics');
 
         $this->assertSame($result, false);
     }

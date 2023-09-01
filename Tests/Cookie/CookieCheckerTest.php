@@ -14,6 +14,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CookieCheckerTest extends TestCase
 {
@@ -23,14 +24,26 @@ class CookieCheckerTest extends TestCase
     private $request;
 
     /**
+     * @var MockObject
+     */
+    private $requestStack;
+
+    /**
      * @var CookieChecker
      */
     private $cookieChecker;
 
     public function setUp(): void
     {
-        $this->request       = $this->createMock(Request::class);
-        $this->cookieChecker = new CookieChecker($this->request);
+        $this->requestStack       = $this->createMock(RequestStack::class);
+        $this->request            = $this->createMock(Request::class);
+
+        $this->requestStack
+            ->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($this->request);
+
+        $this->cookieChecker = new CookieChecker($this->requestStack);
     }
 
     /**
