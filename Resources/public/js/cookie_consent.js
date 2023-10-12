@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (cookieConsentCategoryDetails && cookieConsentCategoryDetailsToggle) {
-        cookieConsentCategoryDetailsToggle.addEventListener('click', function() {
+        cookieConsentCategoryDetailsToggle.addEventListener('click', function(event) {
+			event.preventDefault();
             var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
             cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
             cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
