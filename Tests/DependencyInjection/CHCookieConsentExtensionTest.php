@@ -11,6 +11,7 @@ namespace ConnectHolland\CookieConsentBundle\Tests\DependencyInjection;
 
 use ConnectHolland\CookieConsentBundle\DependencyInjection\CHCookieConsentExtension;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
@@ -41,11 +42,9 @@ class CHCookieConsentExtensionTest extends TestCase
         $this->assertParameter('top', 'ch_cookie_consent.position');
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
     public function testInvalidConfiguration(): void
     {
+        $this->expectException(InvalidConfigurationException::class);
         $this->createConfiguration($this->getInvalidConfig());
     }
 

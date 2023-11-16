@@ -11,10 +11,11 @@ namespace ConnectHolland\CookieConsentBundle\Tests\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
 use ConnectHolland\CookieConsentBundle\Entity\CookieConsentLog;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 
 class CookieLoggerTest extends TestCase
@@ -103,11 +104,10 @@ class CookieLoggerTest extends TestCase
 
     /**
      * Test CookieLogger:log.
-     *
-     * @expectedException \RuntimeException
      */
     public function testLogWithoutRequest(): void
     {
+        $this->expectException(RuntimeException::class);
         $this->cookieLogger = new CookieLogger($this->registry, null);
         $this->cookieLogger->log([], 'key-test');
     }

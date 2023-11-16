@@ -1,6 +1,10 @@
 <?php
 
-return PhpCsFixer\Config::create()
+$finder = (new PhpCsFixer\Finder())
+    ->in(__DIR__)
+;
+
+return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony'               => true,
         'declare_strict_types'   => true,
@@ -23,6 +27,4 @@ EOH
                 ,
             ]
     ])
-    ->setFinder(
-        PhpCsFixer\Finder::create()->in(__DIR__)
-    );
+    ->setFinder($finder);

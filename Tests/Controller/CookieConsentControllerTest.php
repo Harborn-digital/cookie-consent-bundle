@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -59,7 +60,7 @@ class CookieConsentControllerTest extends TestCase
         $this->templating              = $this->createMock(Environment::class);
         $this->formFactory             = $this->createMock(FormFactoryInterface::class);
         $this->cookieChecker           = $this->createMock(CookieChecker::class);
-        $this->translator              = $this->createMock(TranslatorInterface::class);
+        $this->translator              = $this->createMock(Translator::class);
         $this->router                  = $this->createMock(RouterInterface::class);
         $this->cookieConsentController = new CookieConsentController(
             $this->templating,

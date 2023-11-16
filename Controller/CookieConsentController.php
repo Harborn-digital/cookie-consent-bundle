@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -74,7 +75,7 @@ class CookieConsentController
         RouterInterface $router,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
-        TranslatorInterface $translator,
+        Translator $translator,
         bool $cookieConsentSimplified = false,
         string $formAction = null
     ) {
@@ -151,7 +152,7 @@ class CookieConsentController
     /**
      * Set locale if available as GET parameter.
      */
-    protected function setLocale(Request $request)
+    protected function setLocale(Request $request): void
     {
         $locale = $request->get('locale');
         if (empty($locale) === false) {
