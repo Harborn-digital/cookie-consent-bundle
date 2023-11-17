@@ -17,15 +17,9 @@ use Symfony\Component\Yaml\Parser;
 
 class CHCookieConsentExtensionTest extends TestCase
 {
-    /**
-     * @var CHCookieConsentExtension
-     */
-    private $chCookieConsentExtension;
+    private CHCookieConsentExtension $chCookieConsentExtension;
 
-    /**
-     * @var ContainerBuilder
-     */
-    private $configuration;
+    private ContainerBuilder $configuration;
 
     public function setUp(): void
     {
@@ -37,7 +31,7 @@ class CHCookieConsentExtensionTest extends TestCase
     {
         $this->createConfiguration($this->getFullConfig());
 
-        $this->assertParameter(['analytics', 'tracking', 'marketing', 'social_media'], 'ch_cookie_consent.categories');
+        $this->assertParameter(['tracking', 'marketing', 'social_media'], 'ch_cookie_consent.consent_categories');
         $this->assertParameter('dark', 'ch_cookie_consent.theme');
         $this->assertParameter('top', 'ch_cookie_consent.position');
     }
@@ -46,6 +40,12 @@ class CHCookieConsentExtensionTest extends TestCase
     {
         $this->expectException(InvalidConfigurationException::class);
         $this->createConfiguration($this->getInvalidConfig());
+    }
+
+    public function testCookieNamesContainPrefix(): void
+    {
+        $this->createConfiguration($this->getFullConfig());
+        $this->assertParameter('test_', 'ch_cookie_consent.cookies.consent_key');
     }
 
     /**
@@ -64,9 +64,24 @@ class CHCookieConsentExtensionTest extends TestCase
     protected function getFullConfig(): array
     {
         $yaml = <<<EOF
-categories: ['analytics', 'tracking', 'marketing', 'social_media']
+consent_categories:
+- 'tracking'
+- 'marketing'
+- 'social_media'
+cookies:
+  name_prefix: 'test_'
+  consent:
+    name: 'cookie-consent'
+    http_only: false
+  consent_key:
+    name: 'cookie-consent-key'
+  consent_categories:
+    name: 'cookie-category'
+    http_only: false
 theme: 'dark'
 position: 'top'
+simplified: false
+csrf_protection: true
 EOF;
         $parser = new Parser();
 

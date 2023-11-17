@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace ConnectHolland\CookieConsentBundle\Tests\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -17,16 +18,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CookieCheckerTest extends TestCase
 {
-    /**
-     * @var MockObject
-     */
-    private $request;
+    private MockObject $request;
+    private CookieChecker $cookieChecker;
 
     /**
-     * @var CookieChecker
+     * @throws Exception
      */
-    private $cookieChecker;
-
     public function setUp(): void
     {
         $this->request       = $this->createMock(Request::class);
@@ -48,7 +45,7 @@ class CookieCheckerTest extends TestCase
     /**
      * Data provider for testIsCookieConsentSavedByUser.
      */
-    public function isCookieConsentSavedByUserDataProvider(): array
+    public static function isCookieConsentSavedByUserDataProvider(): array
     {
         return [
             [['Cookie_Consent' => date('r')], true],
@@ -75,7 +72,7 @@ class CookieCheckerTest extends TestCase
     /**
      * Data provider for testIsCategoryAllowedByUser.
      */
-    public function isCategoryAllowedByUserDataProvider(): array
+    public static function isCategoryAllowedByUserDataProvider(): array
     {
         return [
             [['Cookie_Category_analytics' => 'true'], 'analytics', true],

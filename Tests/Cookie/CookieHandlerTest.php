@@ -15,10 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CookieHandlerTest extends TestCase
 {
-    /**
-     * @var Response
-     */
-    private $response;
+    private Response $response;
 
     public function setUp(): void
     {
@@ -30,7 +27,36 @@ class CookieHandlerTest extends TestCase
      */
     public function testSave(): void
     {
-        $this->saveCookieHandler(true);
+        $cookies = [
+            'name_prefix' => 'Cookie_',
+            'categories' => [
+                'analytics',
+                'social_media',
+                'tracking',
+            ],
+            'consent' => [
+                'name' => 'consent',
+                'http_only' => false,
+                'secure' => true,
+                'same_site' => 'lax',
+                'expires' => 'P180D',
+            ],
+            'consent_key' => [
+                'name' => 'consent-key',
+                'http_only' => true,
+                'secure' => true,
+                'same_site' => 'strict',
+                'expires' => 'P180D',
+            ],
+            'consent_categories' => [
+                'name' => 'consent-categories',
+                'http_only' => true,
+                'secure' => true,
+                'same_site' => 'lax',
+                'expires' => 'P180D',
+            ],
+        ];
+        $this->saveCookieHandler($cookies);
 
         $cookies = $this->response->headers->getCookies();
 
@@ -56,7 +82,36 @@ class CookieHandlerTest extends TestCase
      */
     public function testCookieHandlerHttpOnlyIsFalse(): void
     {
-        $this->saveCookieHandler(false);
+        $cookies = [
+            'name_prefix' => 'Cookie_',
+            'categories' => [
+                'analytics',
+                'social_media',
+                'tracking',
+            ],
+            'consent' => [
+                'name' => 'consent',
+                'http_only' => false,
+                'secure' => true,
+                'same_site' => 'lax',
+                'expires' => 'P180D',
+            ],
+            'consent_key' => [
+                'name' => 'consent-key',
+                'http_only' => true,
+                'secure' => true,
+                'same_site' => 'strict',
+                'expires' => 'P180D',
+            ],
+            'consent_categories' => [
+                'name' => 'consent-categories',
+                'http_only' => false,
+                'secure' => true,
+                'same_site' => 'lax',
+                'expires' => 'P180D',
+            ],
+        ];
+        $this->saveCookieHandler($cookies);
         $cookies = $this->response->headers->getCookies();
         $this->assertSame(false, $cookies[4]->isHttpOnly());
     }
@@ -66,7 +121,36 @@ class CookieHandlerTest extends TestCase
      */
     public function testCookieHandlerHttpOnlyIsTrue(): void
     {
-        $this->saveCookieHandler(true);
+        $cookies = [
+            'name_prefix' => 'Cookie_',
+            'categories' => [
+                'analytics',
+                'social_media',
+                'tracking',
+            ],
+            'consent' => [
+                'name' => 'consent',
+                'http_only' => false,
+                'secure' => true,
+                'same_site' => 'lax',
+                'expires' => 'P180D',
+            ],
+            'consent_key' => [
+                'name' => 'consent-key',
+                'http_only' => true,
+                'secure' => true,
+                'same_site' => 'strict',
+                'expires' => 'P180D',
+            ],
+            'consent_categories' => [
+                'name' => 'consent-categories',
+                'http_only' => true,
+                'secure' => true,
+                'same_site' => 'lax',
+                'expires' => 'P180D',
+            ],
+        ];
+        $this->saveCookieHandler($cookies);
         $cookies = $this->response->headers->getCookies();
         $this->assertSame(true, $cookies[4]->isHttpOnly());
     }
@@ -74,14 +158,14 @@ class CookieHandlerTest extends TestCase
     /**
      * Save CookieHandler.
      */
-    public function saveCookieHandler(bool $httpOnly): void
+    public function saveCookieHandler($cookies): void
     {
-        $cookieHandler = new CookieHandler($httpOnly);
+        $cookieHandler = new CookieHandler($cookies);
 
         $cookieHandler->save([
-            'analytics'    => 'true',
+            'analytics' => 'true',
             'social_media' => 'true',
-            'tracking'     => 'false',
+            'tracking' => 'false',
         ], 'key-test', $this->response);
     }
 }

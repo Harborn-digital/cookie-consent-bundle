@@ -6,12 +6,12 @@ services:
         autoconfigure: true
         public: false
         bind:
+            $cookies: '%ch_cookie_consent.cookies%'
             $cookieConsentTheme: '%ch_cookie_consent.theme%'
-            $cookieCategories: '%ch_cookie_consent.categories%'
+            $cookieCategories: '%ch_cookie_consent.consent_categories%'
             $useLogger: '%ch_cookie_consent.use_logger%'
             $cookieConsentPosition: '%ch_cookie_consent.position%'
             $cookieConsentSimplified: '%ch_cookie_consent.simplified%'
-            $httpOnly: '%ch_cookie_consent.http_only%'
             $formAction: '%ch_cookie_consent.form_action%'
             $csrfProtection: '%ch_cookie_consent.csrf_protection%'
 

@@ -16,35 +16,16 @@ use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-
-    /**
-     * @var CookieLogger
-     */
-    private $cookieLogger;
-
-    /**
-     * @var CookieHandler
-     */
-    private $cookieHandler;
-
-    /**
-     * @var bool
-     */
-    private $useLogger;
+    private FormFactoryInterface $formFactory;
+    private CookieLogger $cookieLogger;
+    private CookieHandler $cookieHandler;
+    private bool $useLogger;
 
     public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger, CookieHandler $cookieHandler, bool $useLogger)
     {
@@ -57,19 +38,15 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-           KernelEvents::RESPONSE => ['onResponse'],
+           ResponseEvent::class => ['onResponse'],
         ];
     }
 
     /**
      * Checks if form has been submitted and saves users preferences in cookies by calling the CookieHandler.
      */
-    public function onResponse(KernelEvent $event): void
+    public function onResponse(ResponseEvent $event): void
     {
-        if ($event instanceof FilterResponseEvent === false && $event instanceof ResponseEvent === false) {
-            throw new \RuntimeException('No ResponseEvent class found');
-        }
-
         $request  = $event->getRequest();
         $response = $event->getResponse();
 
@@ -100,6 +77,7 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
      */
     protected function getCookieConsentKey(Request $request): string
     {
+        // TODO: Generate random bytes or use UUID
         return $request->cookies->get(CookieNameEnum::COOKIE_CONSENT_KEY_NAME) ?? uniqid();
     }
 

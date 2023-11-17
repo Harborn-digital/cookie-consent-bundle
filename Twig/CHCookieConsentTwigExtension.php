@@ -18,10 +18,8 @@ class CHCookieConsentTwigExtension extends AbstractExtension
 {
     /**
      * Register all custom twig functions.
-     *
-     * @return array
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(

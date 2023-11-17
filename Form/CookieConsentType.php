@@ -20,36 +20,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CookieConsentType extends AbstractType
 {
-    /**
-     * @var CookieChecker
-     */
-    protected $cookieChecker;
-
-    /**
-     * @var array
-     */
-    protected $cookieCategories;
-
-    /**
-     * @var bool
-     */
-    protected $cookieConsentSimplified;
-
-    /**
-     * @var bool
-     */
-    protected $csrfProtection;
+    protected CookieChecker $cookieChecker;
+    protected array $cookieCategories;
+    protected bool $cookieConsentSimplified;
+    protected bool $csrfProtection;
 
     public function __construct(
         CookieChecker $cookieChecker,
-        array $cookieCategories,
-        bool $cookieConsentSimplified = false,
-        bool $csrfProtection = true
-    ) {
-        $this->cookieChecker           = $cookieChecker;
-        $this->cookieCategories        = $cookieCategories;
+        array         $cookieCategories,
+        bool          $cookieConsentSimplified = false,
+        bool          $csrfProtection = true
+    )
+    {
+        $this->cookieChecker = $cookieChecker;
+        $this->cookieCategories = $cookieCategories;
         $this->cookieConsentSimplified = $cookieConsentSimplified;
-        $this->csrfProtection          = $csrfProtection;
+        $this->csrfProtection = $csrfProtection;
     }
 
     /**
@@ -61,8 +47,8 @@ class CookieConsentType extends AbstractType
             $builder->add($category, ChoiceType::class, [
                 'expanded' => true,
                 'multiple' => false,
-                'data'     => $this->cookieChecker->isCategoryAllowedByUser($category) ? 'true' : 'false',
-                'choices'  => [
+                'data' => $this->cookieChecker->isCategoryAllowedByUser($category) ? 'true' : 'false',
+                'choices' => [
                     ['ch_cookie_consent.yes' => 'true'],
                     ['ch_cookie_consent.no' => 'false'],
                 ],

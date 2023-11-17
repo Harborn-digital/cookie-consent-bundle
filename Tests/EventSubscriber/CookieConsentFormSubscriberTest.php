@@ -13,57 +13,52 @@ use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
 use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
 use ConnectHolland\CookieConsentBundle\EventSubscriber\CookieConsentFormSubscriber;
 use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriberTest extends TestCase
 {
-    /**
-     * @var MockObject
-     */
-    private $formFactoryInterface;
+    private MockObject $formFactoryInterface;
+
+    private MockObject $cookieLogger;
+
+    private MockObject $cookieHandler;
 
     /**
-     * @var MockObject
+     * @throws Exception
      */
-    private $cookieLogger;
-
-    /**
-     * @var MockObject
-     */
-    private $cookieHandler;
-
     public function setUp(): void
     {
-        $this->formFactoryInterface  = $this->createMock(FormFactoryInterface::class);
-        $this->cookieLogger          = $this->createMock(CookieLogger::class);
-        $this->cookieHandler         = $this->createMock(CookieHandler::class);
+        $this->formFactoryInterface = $this->createMock(FormFactoryInterface::class);
+        $this->cookieLogger = $this->createMock(CookieLogger::class);
+        $this->cookieHandler = $this->createMock(CookieHandler::class);
     }
 
     public function testGetSubscribedEvents(): void
     {
         $expectedEvents = [
-           KernelEvents::RESPONSE => ['onResponse'],
+            ResponseEvent::class => ['onResponse'],
         ];
 
         $cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface, $this->cookieLogger, $this->cookieHandler, true);
         $this->assertSame($expectedEvents, $cookieConsentFormSubscriber->getSubscribedEvents());
     }
 
+    /**
+     * @throws Exception
+     */
     public function testOnResponse(): void
     {
-        $request  = new Request();
+        $request = new Request();
         $response = new Response();
-        $event    = $this->getResponseEvent($request, $response);
+        $event = $this->getResponseEvent($request, $response);
 
         $form = $this->createMock(FormInterface::class);
         $form
@@ -93,11 +88,14 @@ class CookieConsentFormSubscriberTest extends TestCase
         $cookieConsentFormSubscriber->onResponse($event);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testOnResponseWithLoggerDisabled(): void
     {
-        $request  = new Request();
+        $request = new Request();
         $response = new Response();
-        $event    = $this->getResponseEvent($request, $response);
+        $event = $this->getResponseEvent($request, $response);
 
         $form = $this->createMock(FormInterface::class);
         $form
@@ -127,27 +125,12 @@ class CookieConsentFormSubscriberTest extends TestCase
         $cookieConsentFormSubscriber->onResponse($event);
     }
 
-    public function testOnResponseWithUnfoundResponseEvent(): void
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('No ResponseEvent class found');
-
-        $cookieConsentFormSubscriber = new CookieConsentFormSubscriber($this->formFactoryInterface, $this->cookieLogger, $this->cookieHandler, false);
-        $cookieConsentFormSubscriber->onResponse($this->createMock(KernelEvent::class));
-    }
-
     /**
-     * @return ResponseEvent|FilterResponseEvent
+     * @throws Exception
      */
-    private function getResponseEvent(Request $request, Response $response)
+    private function getResponseEvent(Request $request, Response $response): ResponseEvent
     {
         $kernel = $this->createMock(HttpKernelInterface::class);
-
-        if (class_exists(ResponseEvent::class)) {
-            return new ResponseEvent($kernel, $request, 200, $response);
-        } else {
-            // Support for Symfony 3.4 & < 4.3
-            return new FilterResponseEvent($kernel, $request, 200, $response);
-        }
+        return new ResponseEvent($kernel, $request, 200, $response);
     }
 }

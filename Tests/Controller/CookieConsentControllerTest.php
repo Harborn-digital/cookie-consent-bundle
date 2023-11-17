@@ -20,40 +20,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\Translator;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class CookieConsentControllerTest extends TestCase
 {
-    /**
-     * @var MockObject
-     */
-    private $templating;
+    private MockObject $templating;
 
-    /**
-     * @var MockObject
-     */
-    private $formFactory;
+    private MockObject $formFactory;
 
-    /**
-     * @var MockObject
-     */
-    private $cookieChecker;
+    private MockObject $cookieChecker;
 
-    /**
-     * @var MockObject
-     */
-    private $translator;
+    private MockObject $translator;
 
-    /**
-     * @var MockObject
-     */
-    private $router;
+    private MockObject $router;
 
-    /**
-     * @var CookieConsentController
-     */
-    private $cookieConsentController;
+    private CookieConsentController $cookieConsentController;
 
     public function setUp(): void
     {

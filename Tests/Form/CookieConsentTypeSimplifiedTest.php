@@ -17,10 +17,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class CookieConsentTypeSimplifiedTest extends TypeTestCase
 {
-    /**
-     * @var MockObject
-     */
-    private $cookieChecker;
+    private MockObject $cookieChecker;
 
     public function setUp(): void
     {

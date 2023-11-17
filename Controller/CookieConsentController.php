@@ -15,58 +15,24 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Translation\Translator;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class CookieConsentController
 {
-    /**
-     * @var Environment
-     */
-    private $twigEnvironment;
-
-    /**
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-
-    /**
-     * @var CookieChecker
-     */
-    private $cookieChecker;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * @var string
-     */
-    private $cookieConsentTheme;
-
-    /**
-     * @var string
-     */
-    private $cookieConsentPosition;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var bool
-     */
-    private $cookieConsentSimplified;
-
-    /**
-     * @var string|null
-     */
-    private $formAction;
+    private Environment $twigEnvironment;
+    private FormFactoryInterface $formFactory;
+    private CookieChecker $cookieChecker;
+    private RouterInterface $router;
+    private string $cookieConsentTheme;
+    private string $cookieConsentPosition;
+    private LocaleAwareInterface $translator;
+    private bool $cookieConsentSimplified;
+    private string|null $formAction;
 
     public function __construct(
         Environment $twigEnvironment,
@@ -75,7 +41,7 @@ class CookieConsentController
         RouterInterface $router,
         string $cookieConsentTheme,
         string $cookieConsentPosition,
-        Translator $translator,
+        LocaleAwareInterface $translator,
         bool $cookieConsentSimplified = false,
         string $formAction = null
     ) {
@@ -99,20 +65,24 @@ class CookieConsentController
     {
         $this->setLocale($request);
 
-        $response = new Response(
-            $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
-                'form'       => $this->createCookieConsentForm()->createView(),
-                'theme'      => $this->cookieConsentTheme,
-                'position'   => $this->cookieConsentPosition,
-                'simplified' => $this->cookieConsentSimplified,
-            ])
-        );
+        try {
+            $response = new Response(
+                $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
+                    'form' => $this->createCookieConsentForm()->createView(),
+                    'theme' => $this->cookieConsentTheme,
+                    'position' => $this->cookieConsentPosition,
+                    'simplified' => $this->cookieConsentSimplified,
+                ])
+            );
 
-        // Cache in ESI should not be shared
-        $response->setPrivate();
-        $response->setMaxAge(0);
+            // Cache in ESI should not be shared
+            $response->setPrivate();
+            $response->setMaxAge(0);
 
-        return $response;
+            return $response;
+        } catch (LoaderError|RuntimeError|SyntaxError $e) {
+            return new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

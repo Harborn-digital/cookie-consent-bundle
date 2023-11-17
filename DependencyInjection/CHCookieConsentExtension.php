@@ -22,12 +22,17 @@ class CHCookieConsentExtension extends Extension
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('ch_cookie_consent.categories', $config['categories']);
-        $container->setParameter('ch_cookie_consent.theme', $config['theme']);
+        $container->setParameter('ch_cookie_consent.consent_categories', $config['consent_categories']);
+        $container->setParameter('ch_cookie_consent.cookies', $config['cookies']);
+        $container->setParameter('ch_cookie_consent.cookies.name_prefix', $config['cookies']['name_prefix']);
+        $container->setParameter('ch_cookie_consent.cookies.consent', $config['cookies']['consent']);
+        $container->setParameter('ch_cookie_consent.cookies.consent_key', $config['cookies']['consent_key']);
+        $container->setParameter('ch_cookie_consent.cookies.consent_categories', $config['cookies']['consent_categories']);
+//        better name 'persist consent' instead of 'use_logger'
         $container->setParameter('ch_cookie_consent.use_logger', $config['use_logger']);
+        $container->setParameter('ch_cookie_consent.theme', $config['theme']);
         $container->setParameter('ch_cookie_consent.position', $config['position']);
         $container->setParameter('ch_cookie_consent.simplified', $config['simplified']);
-        $container->setParameter('ch_cookie_consent.http_only', $config['http_only']);
         $container->setParameter('ch_cookie_consent.form_action', $config['form_action']);
         $container->setParameter('ch_cookie_consent.csrf_protection', $config['csrf_protection']);
 

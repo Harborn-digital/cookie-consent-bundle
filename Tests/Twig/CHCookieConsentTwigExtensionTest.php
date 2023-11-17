@@ -16,10 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CHCookieConsentTwigExtensionTest extends TestCase
 {
-    /**
-     * @var CHCookieConsentTwigExtension
-     */
-    private $chCookieConsentTwigExtension;
+    private CHCookieConsentTwigExtension $chCookieConsentTwigExtension;
 
     public function setUp(): void
     {
