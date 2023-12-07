@@ -67,19 +67,18 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('cookies')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->append($this->addCookie(CookieNameEnum::COOKIE_CONSENT_NAME))
-                        ->append($this->addCookie(CookieNameEnum::COOKIE_CONSENT_KEY_NAME))
-                        ->append($this->addCookie(CookieNameEnum::COOKIE_CATEGORY_NAME_PREFIX))
+                        ->append($this->addCookie('consent_cookie', CookieNameEnum::COOKIE_CONSENT_NAME))
+                        ->append($this->addCookie('consent_key_cookie', CookieNameEnum::COOKIE_CONSENT_KEY_NAME))
+                        ->append($this->addCookie('consent_categories_cookie', CookieNameEnum::COOKIE_CATEGORY_NAME_PREFIX))
                     ->end()
                 ->end()
-//                ->prototype('CookieSettings')
             ->end();
         return $node;
     }
 
-    private function addCookie(string $name): ArrayNodeDefinition
+    private function addCookie(string $key, string $name): ArrayNodeDefinition
     {
-        $builder = new TreeBuilder($name);
+        $builder = new TreeBuilder($key);
         $node = $builder->getRootNode();
 
         $node
