@@ -2,38 +2,35 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Tests\DependencyInjection;
 
-use ConnectHolland\CookieConsentBundle\DependencyInjection\CHCookieConsentExtension;
+namespace huppys\CookieConsentBundle\Tests\DependencyInjection;
+
+use huppys\CookieConsentBundle\DependencyInjection\CookieConsentExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
-class CHCookieConsentExtensionTest extends TestCase
+class CookieConsentExtensionTest extends TestCase
 {
-    private CHCookieConsentExtension $chCookieConsentExtension;
+    private CookieConsentExtension $CookieConsentExtension;
 
     private ContainerBuilder $configuration;
 
     public function setUp(): void
     {
-        $this->chCookieConsentExtension = new CHCookieConsentExtension();
-        $this->configuration            = new ContainerBuilder();
+        $this->CookieConsentExtension = new CookieConsentExtension();
+        $this->configuration = new ContainerBuilder();
     }
 
     public function testFullConfiguration(): void
     {
         $this->createConfiguration($this->getFullConfig());
 
-        $this->assertParameter(['tracking', 'marketing', 'social_media'], 'ch_cookie_consent.consent_categories');
-        $this->assertParameter('dark', 'ch_cookie_consent.theme');
-        $this->assertParameter('top', 'ch_cookie_consent.position');
+        $this->assertParameter(['tracking', 'marketing', 'social_media'], 'cookie_consent.cookie_settings.consent_categories');
+        $this->assertParameter('dark', 'cookie_consent.theme');
+        $this->assertParameter('top', 'cookie_consent.position');
     }
 
     public function testInvalidConfiguration(): void
@@ -45,7 +42,13 @@ class CHCookieConsentExtensionTest extends TestCase
     public function testCookieNamesContainPrefix(): void
     {
         $this->createConfiguration($this->getFullConfig());
-        $this->assertParameter('test_', 'ch_cookie_consent.cookies.consent_key');
+        $this->assertParameter('test_', 'cookie_consent.cookie_settings.name_prefix');
+    }
+
+    public function testCookieSettingsIsAnArray(): void
+    {
+        $this->createConfiguration($this->getFullConfig());
+        $this->assertIsArray($this->configuration->getParameter("cookie_consent.cookie_settings"));
     }
 
     /**
@@ -53,7 +56,7 @@ class CHCookieConsentExtensionTest extends TestCase
      */
     protected function createConfiguration(array $config): void
     {
-        $this->chCookieConsentExtension->load([$config], $this->configuration);
+        $this->CookieConsentExtension->load([$config], $this->configuration);
 
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
@@ -64,23 +67,33 @@ class CHCookieConsentExtensionTest extends TestCase
     protected function getFullConfig(): array
     {
         $yaml = <<<EOF
-consent_categories:
-- 'tracking'
-- 'marketing'
-- 'social_media'
-cookies:
-  name_prefix: 'test_'
-  consent:
-    name: 'cookie-consent'
-    http_only: false
-  consent_key:
-    name: 'cookie-consent-key'
-  consent_categories:
-    name: 'cookie-category'
-    http_only: false
+cookie_settings:
+    name_prefix: 'test_'
+    consent_categories:
+    - 'tracking'
+    - 'marketing'
+    - 'social_media'
+    cookies:
+        consent_cookie:
+            name: 'consent'
+            http_only: false
+            secure: true
+            same_site: 'strict'
+            expires: 'P180D'
+        consent_key_cookie:
+            name: 'consent_key'
+            http_only: true
+            secure: true
+            same_site: 'strict'
+            expires: 'P180D'
+        consent_categories_cookie:
+            name: 'consent_categories'
+            http_only: true
+            secure: true
+            same_site: 'lax'
+            expires: 'P180D'
 theme: 'dark'
 position: 'top'
-simplified: false
 csrf_protection: true
 EOF;
         $parser = new Parser();

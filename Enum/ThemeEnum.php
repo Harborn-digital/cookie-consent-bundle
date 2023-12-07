@@ -2,22 +2,15 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
-
-namespace ConnectHolland\CookieConsentBundle\Enum;
+namespace huppys\CookieConsentBundle\Enum;
 
 class ThemeEnum
 {
     const THEME_LIGHT = 'light';
     const THEME_DARK  = 'dark';
 
-    /**
-     * @var array
-     */
-    private static $themes = [
+
+    private static array $themes = [
         self::THEME_LIGHT,
         self::THEME_DARK,
     ];

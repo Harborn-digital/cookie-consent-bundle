@@ -2,19 +2,16 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Twig;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
+namespace huppys\CookieConsentBundle\Twig;
+
+use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class CHCookieConsentTwigExtension extends AbstractExtension
+class CookieConsentTwigExtension extends AbstractExtension
 {
     /**
      * Register all custom twig functions.
@@ -23,12 +20,12 @@ class CHCookieConsentTwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'chcookieconsent_isCookieConsentSavedByUser',
+                'cookieconsent_isCookieConsentSavedByUser',
                 [$this, 'isCookieConsentSavedByUser'],
                 ['needs_context' => true]
             ),
             new TwigFunction(
-                'chcookieconsent_isCategoryAllowedByUser',
+                'cookieconsent_isCategoryAllowedByUser',
                 [$this, 'isCategoryAllowedByUser'],
                 ['needs_context' => true]
             ),

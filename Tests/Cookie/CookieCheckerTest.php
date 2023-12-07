@@ -2,18 +2,15 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Tests\Cookie;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
+namespace huppys\CookieConsentBundle\Tests\Cookie;
+
+use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\Request;
 
 class CookieCheckerTest extends TestCase
@@ -37,7 +34,7 @@ class CookieCheckerTest extends TestCase
      */
     public function testIsCookieConsentSavedByUser(array $cookies = [], bool $expected = false): void
     {
-        $this->request->cookies = new ParameterBag($cookies);
+        $this->request->cookies = new InputBag($cookies);
 
         $this->assertSame($expected, $this->cookieChecker->isCookieConsentSavedByUser());
     }
@@ -48,9 +45,9 @@ class CookieCheckerTest extends TestCase
     public static function isCookieConsentSavedByUserDataProvider(): array
     {
         return [
-            [['Cookie_Consent' => date('r')], true],
-            [['Cookie_Consent' => 'true'], true],
-            [['Cookie_Consent' => ''], true],
+            [['consent' => date('r')], true],
+            [['consent' => 'true'], true],
+            [['consent' => ''], true],
             [['Cookie Consent' => 'true'], false],
             [['CookieConsent' => 'true'], false],
             [[], false],
@@ -64,7 +61,7 @@ class CookieCheckerTest extends TestCase
      */
     public function testIsCategoryAllowedByUser(array $cookies = [], string $category = '', bool $expected = false): void
     {
-        $this->request->cookies = new ParameterBag($cookies);
+        $this->request->cookies = new InputBag($cookies);
 
         $this->assertSame($expected, $this->cookieChecker->isCategoryAllowedByUser($category));
     }
@@ -75,8 +72,8 @@ class CookieCheckerTest extends TestCase
     public static function isCategoryAllowedByUserDataProvider(): array
     {
         return [
-            [['Cookie_Category_analytics' => 'true'], 'analytics', true],
-            [['Cookie_Category_marketing' => 'true'], 'marketing', true],
+            [['consent_category_analytics' => 'true'], 'analytics', true],
+            [['consent_category_marketing' => 'true'], 'marketing', true],
             [['Cookie_Category_analytics' => 'false'], 'analytics', false],
             [['Cookie Category analytics' => 'true'], 'analytics', false],
             [['Cookie_Category_Analytics' => 'true'], 'analytics', false],

@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Tests\Controller;
 
-use ConnectHolland\CookieConsentBundle\Controller\CookieConsentController;
-use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
-use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
+namespace huppys\CookieConsentBundle\Tests\Controller;
+
+use huppys\CookieConsentBundle\Controller\CookieConsentController;
+use huppys\CookieConsentBundle\Cookie\CookieChecker;
+use huppys\CookieConsentBundle\Form\CookieConsentType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -50,8 +47,7 @@ class CookieConsentControllerTest extends TestCase
             $this->router,
             'dark',
             'top',
-            $this->translator,
-            false
+            $this->translator
         );
     }
 

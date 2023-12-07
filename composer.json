@@ -1,44 +1,49 @@
 {
-    "name": "connectholland/cookie-consent-bundle",
-    "type": "symfony-bundle",
-    "description": "Symfony bundle for implementing Cookie Consent to comply to AVG/GDPR.",
-    "license": "MIT",
-    "require": {
-        "php": "^8.1.0",
-        "doctrine/annotations": "^1.6|^2.0",
-        "doctrine/doctrine-bundle": "^1.10 || ^2.11.1",
-        "doctrine/orm": "^2.12.0",
-        "symfony/asset": "^5.0 || ^6.0",
-        "symfony/dependency-injection": "^5.0 || ^6.0",
-        "symfony/doctrine-bridge": "^5.0 || ^6.0",
-        "symfony/expression-language": "^5.0 || ^6.0",
-        "symfony/form": "^5.0 || ^6.0",
-        "symfony/framework-bundle": "^5.0 || ^6.0",
-        "symfony/http-foundation": "^5.0 || ^6.0",
-        "symfony/templating": "^5.0 || ^6.0",
-        "symfony/translation": "^5.0 || ^6.0",
-        "symfony/twig-bridge": "^5.0 || ^6.0",
-        "symfony/twig-bundle": "^5.0 || ^6.0",
-        "twig/twig": "^3.0"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^v3.38.2",
-        "phpunit/phpunit": "^10.4.2",
-        "symfony/yaml": "^5.0 || ^6.0"
-    },
-    "prefer-stable": true,
-    "autoload": {
-        "exclude-from-classmap": ["/Tests/"],
-        "psr-4": {
-            "ConnectHolland\\CookieConsentBundle\\": ""
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "ConnectHolland\\CookieConsentBundle\\Tests\\": "/Tests"
-        }
-    },
-    "config": {
-         "sort-packages": true
+  "name": "huppys/cookie-consent-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony bundle for implementing Cookie Consent to comply to AVG/GDPR.",
+  "license": "MIT",
+  "require": {
+    "php": "^8.1.0",
+    "doctrine/annotations": "^1.6|^2.0",
+    "doctrine/doctrine-bundle": "^1.10 || ^2.11.1",
+    "doctrine/orm": "^2.12.0",
+    "symfony/asset": "^6.0 || ^7.0",
+    "symfony/dependency-injection": "^6.0 || ^7.0",
+    "symfony/doctrine-bridge": "^6.0 || ^7.0",
+    "symfony/expression-language": "^6.0 || ^7.0",
+    "symfony/form": "^6.0 || ^7.0",
+    "symfony/framework-bundle": "^6.0 || ^7.0",
+    "symfony/http-foundation": "^6.3 || ^7.0",
+    "symfony/templating": "^6.0 || ^7.0",
+    "symfony/translation": "^6.0 || ^7.0",
+    "symfony/twig-bridge": "^6.0 || ^7.0",
+    "symfony/twig-bundle": "^6.0 || ^7.0",
+    "twig/twig": "^3.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^v3.38.2",
+    "phpunit/phpunit": "^10.4.2",
+    "symfony/yaml": "^6.0 || ^7.0"
+  },
+  "prefer-stable": true,
+  "autoload": {
+    "exclude-from-classmap": [
+      "/Tests/"
+    ],
+    "psr-4": {
+      "huppys\\CookieConsentBundle\\": ""
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "huppys\\CookieConsentBundle\\Tests\\": "/Tests"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  }
 }

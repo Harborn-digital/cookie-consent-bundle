@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Enum;
+
+namespace huppys\CookieConsentBundle\Enum;
 
 class CategoryEnum
 {

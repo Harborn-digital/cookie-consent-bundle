@@ -6,26 +6,25 @@ services:
         autoconfigure: true
         public: false
         bind:
-            $cookies: '%ch_cookie_consent.cookies%'
-            $cookieConsentTheme: '%ch_cookie_consent.theme%'
-            $cookieCategories: '%ch_cookie_consent.consent_categories%'
-            $useLogger: '%ch_cookie_consent.use_logger%'
-            $cookieConsentPosition: '%ch_cookie_consent.position%'
-            $cookieConsentSimplified: '%ch_cookie_consent.simplified%'
-            $formAction: '%ch_cookie_consent.form_action%'
-            $csrfProtection: '%ch_cookie_consent.csrf_protection%'
+            $cookieSettings: '%cookie_consent.cookie_settings%'
+            $cookieCategories: '%cookie_consent.cookie_settings.consent_categories%'
+            $useLogger: '%cookie_consent.use_logger%'
+            $cookieConsentTheme: '%cookie_consent.theme%'
+            $cookieConsentPosition: '%cookie_consent.position%'
+            $formAction: '%cookie_consent.form_action%'
+            $csrfProtection: '%cookie_consent.csrf_protection%'
 
-    ConnectHolland\CookieConsentBundle\:
+    huppys\CookieConsentBundle\:
         resource: '../../'
         exclude: '../../{vendor}'
 
-    ConnectHolland\CookieConsentBundle\Controller\:
+    huppys\CookieConsentBundle\Controller\:
         resource: '../../Controller/*'
         public: true
 
-    ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:
+    huppys\CookieConsentBundle\Cookie\CookieChecker:
         arguments: ["@=service('request_stack').getCurrentRequest()"]
 
-    ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
+    huppys\CookieConsentBundle\Cookie\CookieLogger:
         arguments:
             $request: "@=service('request_stack').getCurrentRequest()"

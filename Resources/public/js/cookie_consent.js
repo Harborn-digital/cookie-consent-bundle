@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var cookieConsent = document.querySelector('.ch-cookie-consent');
-    var cookieConsentForm = document.querySelector('.ch-cookie-consent__form');
-    var cookieConsentFormBtn = document.querySelectorAll('.ch-cookie-consent__btn');
-    var cookieConsentCategoryDetails = document.querySelector('.ch-cookie-consent__category-group');
-    var cookieConsentCategoryDetailsToggle = document.querySelector('.ch-cookie-consent__toggle-details');
+    var cookieConsent = document.querySelector('.cookie-consent');
+    var cookieConsentForm = document.querySelector('.cookie-consent__form');
+    var cookieConsentFormBtn = document.querySelectorAll('.cookie-consent__btn');
+    var cookieConsentCategoryDetails = document.querySelector('.cookie-consent__category-group');
+    var cookieConsentCategoryDetailsToggle = document.querySelector('.cookie-consent__toggle-details');
 
     // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
     if (cookieConsent && cookieConsent.parentNode.nodeName === 'BODY') {
-        if (cookieConsent.classList.contains('ch-cookie-consent--top')) {
+        if (cookieConsent.classList.contains('cookie-consent--top')) {
             document.body.style.marginTop = cookieConsent.offsetHeight + 'px';
 
             cookieConsent.style.position = 'absolute';
@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
         cookieConsentCategoryDetailsToggle.addEventListener('click', function() {
             var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
             cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.ch-cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
+            cookieConsentCategoryDetailsToggle.querySelector('.cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
+            cookieConsentCategoryDetailsToggle.querySelector('.cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
         });
     }
 });

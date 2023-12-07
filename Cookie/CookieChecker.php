@@ -2,14 +2,11 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Cookie;
 
-use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
+namespace huppys\CookieConsentBundle\Cookie;
+
+use huppys\CookieConsentBundle\Enum\CookieNameEnum;
 use Symfony\Component\HttpFoundation\Request;
 
 class CookieChecker

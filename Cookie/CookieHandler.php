@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Cookie;
 
-use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
+namespace huppys\CookieConsentBundle\Cookie;
+
 use DateInterval;
 use DateTime;
 use Exception;
@@ -18,15 +14,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CookieHandler
 {
-//    private bool $httpOnly;
-//    private bool $secure;
-//    private null|string $sameSite;
-//    private string $expires;
-    private array $cookies;
+    private CookieSettings $cookieSettings;
 
-    public function __construct(array $cookies)
+    public function __construct(array $cookieSettings)
     {
-        $this->cookies = $cookies;
+        $this->cookieSettings = $this->castConfigToCookieSettings($cookieSettings);
+    }
+
+    private function castConfigToCookieSettings(array $config): CookieSettings
+    {
+        return new CookieSettings(
+            $config['name_prefix'],
+            $this->castCookieConfigToCookieSetting($config['cookies']['consent_cookie']),
+            $this->castCookieConfigToCookieSetting($config['cookies']['consent_key_cookie']),
+            $this->castCookieConfigToCookieSetting($config['cookies']['consent_categories_cookie']),
+        );
+    }
+
+    private function castCookieConfigToCookieSetting(array $config): CookieSetting
+    {
+        return new CookieSetting(
+            $config['name'],
+            $config['http_only'],
+            $config['secure'],
+            $config['same_site'],
+            $config['expires'],
+        );
     }
 
     /**
@@ -35,42 +48,55 @@ class CookieHandler
      */
     public function save(array $categories, string $cookieConsentKey, Response $response): void
     {
-        if (isset($this->cookies['consent'])) {
-            $consentCookieSettings = $this->cookies['consent'];
-            $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_NAME, date('r'), $consentCookieSettings['expires'],
-                $consentCookieSettings['secure'], $consentCookieSettings['http_only'], $consentCookieSettings['same_site'], $response);
-        }
-        if (isset($this->cookies['consent_key'])) {
-            $consentKeyCookieSettings = $this->cookies['consent_key'];
-            $this->saveCookie(CookieNameEnum::COOKIE_CONSENT_KEY_NAME, $cookieConsentKey,
-                $consentKeyCookieSettings['expires'], $consentKeyCookieSettings['secure'], $consentKeyCookieSettings['http_only'],
-                $consentKeyCookieSettings['same_site'], $response);
+        $consentCookie = $this->cookieSettings->getConsentCookie();
+        if ($consentCookie != null) {
+            $this->saveCookie($consentCookie->getName(), date('r'), $consentCookie->getExpires(),
+                $consentCookie->isSecure(), $consentCookie->isHttpOnly(), $consentCookie->getSameSite(), $response);
         }
 
-        if (isset($this->cookies['consent_categories'])) {
-            $categoryCookieSettings = $this->cookies['consent_categories'];
+        $consentKeyCookie = $this->cookieSettings->getConsentKeyCookie();
+        if ($consentKeyCookie != null) {
+            $this->saveCookie($consentKeyCookie->getName(), $cookieConsentKey, $consentKeyCookie->getExpires(),
+                $consentKeyCookie->isSecure(), $consentKeyCookie->isHttpOnly(), $consentKeyCookie->getSameSite(), $response);
+        }
+
+        $consentCategoriesCookie = $this->cookieSettings->getConsentCategoriesCookie();
+        if ($consentCategoriesCookie != null) {
             foreach ($categories as $category => $permitted) {
-                $this->saveCookie(CookieNameEnum::getCookieCategoryName($category), $permitted, $categoryCookieSettings['expires'],
-                    $categoryCookieSettings['secure'], $categoryCookieSettings['http_only'], $categoryCookieSettings['same_site'], $response);
+                $this->saveCookie($consentCategoriesCookie->getName() . '-' . $category, $permitted, $consentCategoriesCookie->getExpires(),
+                    $consentCategoriesCookie->isSecure(), $consentCategoriesCookie->isHttpOnly(), $consentCategoriesCookie->getSameSite(), $response);
             }
         }
     }
 
     /**
      * Add cookie to response headers.
-     * @param string $sameSite
-     * @param bool $httpOnly
+     * @param string $name
+     * @param string $value
      * @param string $expires
      * @param bool $secure
+     * @param bool $httpOnly
+     * @param string $sameSite
+     * @param Response $response
      * @throws Exception
      */
-    protected function saveCookie(string $name, string $value, string $expires, bool $secure, bool $httpOnly, string $sameSite, Response $response): void
+    protected function saveCookie(string   $name,
+                                  string   $value,
+                                  string   $expires,
+                                  bool     $secure,
+                                  bool     $httpOnly,
+                                  string   $sameSite,
+                                  Response $response): void
     {
         $expirationDate = new DateTime();
         $expirationDate->add(new DateInterval($expires));
 
+        if ($sameSite == 'none') {
+            $secure = true;
+        }
+
         $response->headers->setCookie(
-            new Cookie($name, $value, $expirationDate, '/', null, $secure, $httpOnly, true, $sameSite)
+            new Cookie($this->cookieSettings->getNamePrefix() . $name, $value, $expirationDate, '/', null, $secure, $httpOnly, true, $sameSite)
         );
     }
 }

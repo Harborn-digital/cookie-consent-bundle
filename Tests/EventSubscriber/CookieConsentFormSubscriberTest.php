@@ -2,17 +2,14 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Tests\EventSubscriber;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
-use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
-use ConnectHolland\CookieConsentBundle\EventSubscriber\CookieConsentFormSubscriber;
-use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
+namespace huppys\CookieConsentBundle\Tests\EventSubscriber;
+
+use huppys\CookieConsentBundle\Cookie\CookieHandler;
+use huppys\CookieConsentBundle\Cookie\CookieLogger;
+use huppys\CookieConsentBundle\EventSubscriber\CookieConsentFormSubscriber;
+use huppys\CookieConsentBundle\Form\CookieConsentType;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

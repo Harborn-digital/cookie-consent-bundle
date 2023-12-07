@@ -2,24 +2,21 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
-
-namespace ConnectHolland\CookieConsentBundle\Enum;
+namespace huppys\CookieConsentBundle\Enum;
 
 class PositionEnum
 {
     const POSITION_TOP     = 'top';
     const POSITION_BOTTOM  = 'bottom';
+    const POSITION_DIALOG  = 'dialog';
 
     /**
      * @var array
      */
-    private static $positions = [
+    private static array $positions = [
         self::POSITION_TOP,
         self::POSITION_BOTTOM,
+        self::POSITION_DIALOG,
     ];
 
     /**

@@ -2,17 +2,14 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\EventSubscriber;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
-use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
-use ConnectHolland\CookieConsentBundle\Enum\CookieNameEnum;
-use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
+namespace huppys\CookieConsentBundle\EventSubscriber;
+
+use huppys\CookieConsentBundle\Cookie\CookieHandler;
+use huppys\CookieConsentBundle\Cookie\CookieLogger;
+use huppys\CookieConsentBundle\Enum\CookieNameEnum;
+use huppys\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;

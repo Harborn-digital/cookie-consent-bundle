@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Cookie;
 
-use ConnectHolland\CookieConsentBundle\Entity\CookieConsentLog;
+namespace huppys\CookieConsentBundle\Cookie;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use huppys\CookieConsentBundle\Entity\CookieConsentLog;
 use Symfony\Component\HttpFoundation\Request;
 
 class CookieLogger

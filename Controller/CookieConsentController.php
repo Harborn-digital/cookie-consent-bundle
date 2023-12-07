@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Controller;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieChecker;
-use ConnectHolland\CookieConsentBundle\Form\CookieConsentType;
+namespace huppys\CookieConsentBundle\Controller;
+
+use huppys\CookieConsentBundle\Cookie\CookieChecker;
+use huppys\CookieConsentBundle\Form\CookieConsentType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Twig\Environment;
@@ -22,6 +21,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+#[AsController]
 class CookieConsentController
 {
     private Environment $twigEnvironment;
@@ -31,7 +31,6 @@ class CookieConsentController
     private string $cookieConsentTheme;
     private string $cookieConsentPosition;
     private LocaleAwareInterface $translator;
-    private bool $cookieConsentSimplified;
     private string|null $formAction;
 
     public function __construct(
@@ -42,7 +41,6 @@ class CookieConsentController
         string $cookieConsentTheme,
         string $cookieConsentPosition,
         LocaleAwareInterface $translator,
-        bool $cookieConsentSimplified = false,
         string $formAction = null
     ) {
         $this->twigEnvironment         = $twigEnvironment;
@@ -52,26 +50,23 @@ class CookieConsentController
         $this->cookieConsentTheme      = $cookieConsentTheme;
         $this->cookieConsentPosition   = $cookieConsentPosition;
         $this->translator              = $translator;
-        $this->cookieConsentSimplified = $cookieConsentSimplified;
         $this->formAction              = $formAction;
     }
 
     /**
      * Show cookie consent.
-     *
-     * @Route("/cookie_consent", name="ch_cookie_consent.show")
      */
+    #[Route('/cookie_consent', name: 'cookie_consent.show')]
     public function show(Request $request): Response
     {
         $this->setLocale($request);
 
         try {
             $response = new Response(
-                $this->twigEnvironment->render('@CHCookieConsent/cookie_consent.html.twig', [
+                $this->twigEnvironment->render('@CookieConsent/cookie_consent.html.twig', [
                     'form' => $this->createCookieConsentForm()->createView(),
                     'theme' => $this->cookieConsentTheme,
                     'position' => $this->cookieConsentPosition,
-                    'simplified' => $this->cookieConsentSimplified,
                 ])
             );
 
@@ -87,9 +82,8 @@ class CookieConsentController
 
     /**
      * Show cookie consent.
-     *
-     * @Route("/cookie_consent_alt", name="ch_cookie_consent.show_if_cookie_consent_not_set")
      */
+    #[Route('/cookie_consent_alt', name: 'cookie_consent.show_if_cookie_consent_not_set')]
     public function showIfCookieConsentNotSet(Request $request): Response
     {
         if ($this->cookieChecker->isCookieConsentSavedByUser() === false) {

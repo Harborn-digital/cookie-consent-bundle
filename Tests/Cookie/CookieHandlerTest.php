@@ -2,20 +2,18 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the ConnectHolland CookieConsentBundle package.
- * (c) Connect Holland.
- */
 
-namespace ConnectHolland\CookieConsentBundle\Tests\Cookie;
 
-use ConnectHolland\CookieConsentBundle\Cookie\CookieHandler;
+namespace huppys\CookieConsentBundle\Tests\Cookie;
+
+use huppys\CookieConsentBundle\Cookie\CookieHandler;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class CookieHandlerTest extends TestCase
 {
     private Response $response;
+    private $cookies;
 
     public function setUp(): void
     {
@@ -27,54 +25,27 @@ class CookieHandlerTest extends TestCase
      */
     public function testSave(): void
     {
-        $cookies = [
-            'name_prefix' => 'Cookie_',
-            'categories' => [
-                'analytics',
-                'social_media',
-                'tracking',
-            ],
-            'consent' => [
-                'name' => 'consent',
-                'http_only' => false,
-                'secure' => true,
-                'same_site' => 'lax',
-                'expires' => 'P180D',
-            ],
-            'consent_key' => [
-                'name' => 'consent-key',
-                'http_only' => true,
-                'secure' => true,
-                'same_site' => 'strict',
-                'expires' => 'P180D',
-            ],
-            'consent_categories' => [
-                'name' => 'consent-categories',
-                'http_only' => true,
-                'secure' => true,
-                'same_site' => 'lax',
-                'expires' => 'P180D',
-            ],
-        ];
-        $this->saveCookieHandler($cookies);
 
-        $cookies = $this->response->headers->getCookies();
+        $cookieConfig = $this->getCookieDefaultConfig();
+        $this->saveCookieHandler($cookieConfig);
 
-        $this->assertCount(5, $cookies);
+        $this->cookies = $this->response->headers->getCookies();
 
-        $this->assertSame('Cookie_Consent', $cookies[0]->getName());
+        $this->assertCount(5, $this->cookies);
 
-        $this->assertSame('Cookie_Consent_Key', $cookies[1]->getName());
-        $this->assertSame('key-test', $cookies[1]->getValue());
+        $this->assertSame($cookieConfig['name_prefix'] . 'consent', $this->cookies[0]->getName());
 
-        $this->assertSame('Cookie_Category_analytics', $cookies[2]->getName());
-        $this->assertSame('true', $cookies[2]->getValue());
+        $this->assertSame($cookieConfig['name_prefix'] . 'consent-key', $this->cookies[1]->getName());
+        $this->assertSame('key-test', $this->cookies[1]->getValue());
 
-        $this->assertSame('Cookie_Category_social_media', $cookies[3]->getName());
-        $this->assertSame('true', $cookies[3]->getValue());
+        $this->assertSame($cookieConfig['name_prefix'] . 'consent-categories-analytics', $this->cookies[2]->getName());
+        $this->assertSame('true', $this->cookies[2]->getValue());
 
-        $this->assertSame('Cookie_Category_tracking', $cookies[4]->getName());
-        $this->assertSame('false', $cookies[4]->getValue());
+        $this->assertSame($cookieConfig['name_prefix'] . 'consent-categories-social_media', $this->cookies[3]->getName());
+        $this->assertSame('true', $this->cookies[3]->getValue());
+
+        $this->assertSame($cookieConfig['name_prefix'] . 'consent-categories-tracking', $this->cookies[4]->getName());
+        $this->assertSame('false', $this->cookies[4]->getValue());
     }
 
     /**
@@ -82,38 +53,10 @@ class CookieHandlerTest extends TestCase
      */
     public function testCookieHandlerHttpOnlyIsFalse(): void
     {
-        $cookies = [
-            'name_prefix' => 'Cookie_',
-            'categories' => [
-                'analytics',
-                'social_media',
-                'tracking',
-            ],
-            'consent' => [
-                'name' => 'consent',
-                'http_only' => false,
-                'secure' => true,
-                'same_site' => 'lax',
-                'expires' => 'P180D',
-            ],
-            'consent_key' => [
-                'name' => 'consent-key',
-                'http_only' => true,
-                'secure' => true,
-                'same_site' => 'strict',
-                'expires' => 'P180D',
-            ],
-            'consent_categories' => [
-                'name' => 'consent-categories',
-                'http_only' => false,
-                'secure' => true,
-                'same_site' => 'lax',
-                'expires' => 'P180D',
-            ],
-        ];
-        $this->saveCookieHandler($cookies);
+        $this->saveCookieHandler($this->getCookieConfigWithHttpOnlyFalse());
         $cookies = $this->response->headers->getCookies();
-        $this->assertSame(false, $cookies[4]->isHttpOnly());
+        $this->assertSame(false, $cookies[0]->isHttpOnly());
+        $this->assertSame(true, $cookies[1]->isHttpOnly());
     }
 
     /**
@@ -121,51 +64,86 @@ class CookieHandlerTest extends TestCase
      */
     public function testCookieHandlerHttpOnlyIsTrue(): void
     {
-        $cookies = [
-            'name_prefix' => 'Cookie_',
-            'categories' => [
-                'analytics',
-                'social_media',
-                'tracking',
-            ],
-            'consent' => [
-                'name' => 'consent',
-                'http_only' => false,
-                'secure' => true,
-                'same_site' => 'lax',
-                'expires' => 'P180D',
-            ],
-            'consent_key' => [
-                'name' => 'consent-key',
-                'http_only' => true,
-                'secure' => true,
-                'same_site' => 'strict',
-                'expires' => 'P180D',
-            ],
-            'consent_categories' => [
-                'name' => 'consent-categories',
-                'http_only' => true,
-                'secure' => true,
-                'same_site' => 'lax',
-                'expires' => 'P180D',
-            ],
-        ];
-        $this->saveCookieHandler($cookies);
+        $this->saveCookieHandler($this->getCookieDefaultConfig());
         $cookies = $this->response->headers->getCookies();
-        $this->assertSame(true, $cookies[4]->isHttpOnly());
+        $this->assertSame(true, $cookies[0]->isHttpOnly());
     }
 
     /**
-     * Save CookieHandler.
+     * Save CookieHandler
      */
-    public function saveCookieHandler($cookies): void
+    public function saveCookieHandler(array $cookieSettings): void
     {
-        $cookieHandler = new CookieHandler($cookies);
+        $cookieHandler = new CookieHandler($cookieSettings);
 
         $cookieHandler->save([
             'analytics' => 'true',
             'social_media' => 'true',
             'tracking' => 'false',
         ], 'key-test', $this->response);
+    }
+
+    private function getCookieDefaultConfig(): array
+    {
+        return [
+            'name_prefix' => 'testCookie_',
+            'consent_categories' => [
+                'analytics',
+                'social_media',
+                'tracking',
+            ],
+            'cookies' => [
+                'consent_cookie' => [
+                    'http_only' => true,
+                    'secure' => true,
+                    'same_site' => 'lax',
+                    'expires' => 'P180D',
+                ],
+                'consent_key_cookie' => [
+                    'http_only' => true,
+                    'secure' => true,
+                    'same_site' => 'strict',
+                    'expires' => 'P180D',
+                ],
+                'consent_categories_cookie' => [
+                    'http_only' => true,
+                    'secure' => true,
+                    'same_site' => 'lax',
+                    'expires' => 'P180D',
+                ],
+            ]
+        ];
+    }
+
+    private function getCookieConfigWithHttpOnlyFalse(): array
+    {
+        return [
+            'name_prefix' => 'testCookie_',
+            'consent_categories' => [
+                'analytics',
+                'social_media',
+                'tracking',
+            ],
+            'cookies' => [
+                'consent_cookie' => [
+                    'http_only' => false,
+                    'secure' => true,
+                    'same_site' => 'lax',
+                    'expires' => 'P180D',
+                ],
+                'consent_key_cookie' => [
+                    'http_only' => true,
+                    'secure' => true,
+                    'same_site' => 'strict',
+                    'expires' => 'P180D',
+                ],
+                'consent_categories_cookie' => [
+                    'http_only' => true,
+                    'secure' => true,
+                    'same_site' => 'lax',
+                    'expires' => 'P180D',
+                ],
+            ]
+        ];
     }
 }
