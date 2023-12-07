@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 
-
 namespace huppys\CookieConsentBundle\Form;
 
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
@@ -11,8 +10,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CookieConsentType extends AbstractType
@@ -49,18 +46,7 @@ class CookieConsentType extends AbstractType
             ]);
         }
 
-        $builder->add('use_only_functional_cookies', SubmitType::class, ['label' => 'cookie_consent.use_only_functional_cookies', 'attr' => ['class' => 'btn cookie-consent__btn']]);
-        $builder->add('use_all_cookies', SubmitType::class, ['label' => 'cookie_consent.use_all_cookies', 'attr' => ['class' => 'btn cookie-consent__btn cookie-consent__btn--secondary']]);
-
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-            $data = $event->getData();
-
-            foreach ($this->cookieCategories as $category) {
-                $data[$category] = isset($data['use_all_cookies']) ? 'true' : 'false';
-            }
-
-            $event->setData($data);
-        });
+        $builder->add('save', SubmitType::class, ['label' => 'cookie_consent.save', 'attr' => ['class' => 'btn cookie-consent__btn']]);
     }
 
     /**

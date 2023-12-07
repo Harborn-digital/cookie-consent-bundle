@@ -94,18 +94,21 @@ class CookieHandlerTest extends TestCase
             ],
             'cookies' => [
                 'consent_cookie' => [
+                    'name' => 'consent',
                     'http_only' => true,
                     'secure' => true,
                     'same_site' => 'lax',
                     'expires' => 'P180D',
                 ],
                 'consent_key_cookie' => [
+                    'name' => 'consent-key',
                     'http_only' => true,
                     'secure' => true,
                     'same_site' => 'strict',
                     'expires' => 'P180D',
                 ],
                 'consent_categories_cookie' => [
+                    'name' => 'consent-categories',
                     'http_only' => true,
                     'secure' => true,
                     'same_site' => 'lax',
@@ -126,18 +129,21 @@ class CookieHandlerTest extends TestCase
             ],
             'cookies' => [
                 'consent_cookie' => [
+                    'name' => 'consent',
                     'http_only' => false,
                     'secure' => true,
                     'same_site' => 'lax',
                     'expires' => 'P180D',
                 ],
                 'consent_key_cookie' => [
+                    'name' => 'consent-key',
                     'http_only' => true,
                     'secure' => true,
                     'same_site' => 'strict',
                     'expires' => 'P180D',
                 ],
                 'consent_categories_cookie' => [
+                    'name' => 'consent-categories',
                     'http_only' => true,
                     'secure' => true,
                     'same_site' => 'lax',
