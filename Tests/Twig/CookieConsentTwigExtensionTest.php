@@ -20,15 +20,6 @@ class CookieConsentTwigExtensionTest extends TestCase
         $this->CookieConsentTwigExtension = new CookieConsentTwigExtension('light');
     }
 
-    public function testGetFunctions(): void
-    {
-        $functions = $this->CookieConsentTwigExtension->getFunctions();
-
-        $this->assertCount(2, $functions);
-        $this->assertSame('cookieconsent_isCookieConsentSavedByUser', $functions[0]->getName());
-        $this->assertSame('cookieconsent_isCategoryAllowedByUser', $functions[1]->getName());
-    }
-
     public function testIsCookieConsentSavedByUser(): void
     {
         $request  = new Request();

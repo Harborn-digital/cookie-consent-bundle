@@ -67,12 +67,12 @@ class CookieConsentExtensionTest extends TestCase
     protected function getFullConfig(): array
     {
         $yaml = <<<EOF
+consent_categories:
+- 'tracking'
+- 'marketing'
+- 'social_media'
 cookie_settings:
     name_prefix: 'test_'
-    consent_categories:
-    - 'tracking'
-    - 'marketing'
-    - 'social_media'
     cookies:
         consent_cookie:
             name: 'consent'
