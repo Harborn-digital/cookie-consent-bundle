@@ -94,6 +94,7 @@
 
 .cookie-consent__category-title {
     color: #000;
+    display: inline-block;
     margin: 0;
 }
 
@@ -109,15 +110,6 @@
 
 .cookie-consent__btn-group .cookie-consent__btn {
     margin-right: 30px;
-}
-
-.cookie-consent__btn-group .cookie-consent__toggle-details {
-    cursor: pointer;
-    margin-bottom: 25px;
-}
-
-.cookie-consent__btn-group .cookie-consent__toggle-details-hide {
-    display: none;
 }
 
 .cookie-consent__btn-wrapper {

@@ -7,6 +7,7 @@ namespace huppys\CookieConsentBundle\Form;
 
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,7 +47,8 @@ class CookieConsentType extends AbstractType
             ]);
         }
 
-        $builder->add('save', SubmitType::class, ['label' => 'cookie_consent.save', 'attr' => ['class' => 'btn cookie-consent__btn']]);
+        $builder->add('save', SubmitType::class, ['label' => 'cookie_consent.save', 'attr' => ['class' => 'btn cookie-consent__btn js-submit-cookie-consent-form']]);
+        $builder->add('reject_all_cookies', ButtonType::class, ['label' => 'cookie_consent.reject_all', 'attr' => ['class' => 'btn cookie-consent__btn js-modal-close']]);
     }
 
     /**

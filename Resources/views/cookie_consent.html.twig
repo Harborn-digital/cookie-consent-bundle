@@ -25,6 +25,12 @@
 
         {{ form_start(form, {'attr': {'class': 'cookie-consent__form'}}) }}
         <div class="cookie-consent__category-group">
+            <div class="cookie-consent__category">
+                <div class="cookie-consent__category-information">
+                    <h4 class="cookie-consent__category-title">{{ ('cookie_consent.required_cookies.title')|trans({}, 'CookieConsentBundle') }}</h4>
+                    <p class="cookie-consent__category-description">{{ ('cookie_consent.required_cookies.description')|trans({}, 'CookieConsentBundle') }}</p>
+                </div>
+            </div>
             {% for child in form %}
                 {% if child.vars.block_prefixes[0] != 'button' %}
                     {{ form_row(child) }}

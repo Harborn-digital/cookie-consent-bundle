@@ -2,6 +2,9 @@ cookie_consent:
     title: 'Cookies op onze website.'
     intro: ''
     read_more: 'meer uitleg hierover'
+    required_cookies:
+        title: 'Noodzakelijke cookies'
+        description: 'Deze cookies zijn noodzakelijk voor de werking van de website en kunnen niet uitgeschakeld worden.'
     analytics:
         title: 'Wilt u analytische cookies?'
         description: 'Hiermee kunnen wij statistieken verzamelen over de websitebezoek.'
@@ -21,3 +24,4 @@ cookie_consent:
     use_all_cookies: 'Sta alle cookies toe'
     show_details: 'Toon details'
     hide_details: 'Verberg details'
+    reject_all_cookies: 'Weiger alle cookies'

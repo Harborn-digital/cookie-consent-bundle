@@ -2,6 +2,9 @@ cookie_consent:
     title: 'Los cookies sul nòstre site.'
     intro: ''
     read_more: 'Ne saber mai'
+    required_cookies:
+        title: 'Cookies necessaris'
+        description: 'Aquestes cookies son necessàrias al foncionament del site e pòdon pas èsser desactivats.'
     analytics:
         title: 'Acceptatz los cookies analitics ?'
         description: ''
@@ -21,3 +24,4 @@ cookie_consent:
     use_all_cookies: 'Acceptar totes los cookies'
     show_details: 'Afichar los detalhs'
     hide_details: 'Amagar los detalhs'
+    reject_all_cookies: 'Refusar totes los cookies'

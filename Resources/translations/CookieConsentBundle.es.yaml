@@ -2,6 +2,9 @@ cookie_consent:
     title: 'Cookies en nuestro sitio web.'
     intro: ''
     read_more: 'leer más sobre esto'
+    required_cookies:
+        title: 'Cookies necesarias'
+        description: 'Estas cookies son necesarias para la funcionalidad del sitio web y no se pueden desactivar.'
     analytics:
         title: '¿Quieres cookies analíticas?'
         description: ''
@@ -21,3 +24,4 @@ cookie_consent:
     use_all_cookies: 'Permitir todas las cookies'
     show_details: 'Mostrar detalles'
     hide_details: 'Ocultar detalles'
+    reject_all_cookies: 'Rechazar todas las cookies'

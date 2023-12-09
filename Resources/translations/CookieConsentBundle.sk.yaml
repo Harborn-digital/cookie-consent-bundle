@@ -2,6 +2,9 @@ cookie_consent:
     title: 'Používame súbory cookies'
     intro: ''
     read_more: 'Ďalšie informácie'
+    required_cookies:
+        title: 'Nevyhnutné cookies'
+        description: 'Tieto cookies sú nevyhnutné pre funkčnosť webu a nie je možné ich zakázať.'
     analytics:
         title: 'Povoliť štatistické cookies?'
         description: ''
@@ -21,3 +24,4 @@ cookie_consent:
     use_all_cookies: 'Povoliť všetky cookies'
     show_details: 'Zobraziť podrobnosti'
     hide_details: 'Skryť podrobnosti'
+    reject_all_cookies: 'Zamietnuť všetky cookies'

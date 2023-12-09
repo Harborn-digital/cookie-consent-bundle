@@ -120,6 +120,7 @@ $cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
         &-title {
             color: $cookie-consent-text-color;
+            display: inline-block;
             margin: 0;
         }
 
@@ -135,15 +136,6 @@ $cookie-consent-dark-theme-secondary-button-border-color: #fff !default;
 
         .cookie-consent__btn {
             margin-right: 30px;
-        }
-
-        .cookie-consent__toggle-details {
-            cursor: pointer;
-            margin-bottom: 25px;
-
-            &-hide {
-                display: none;
-            }
         }
     }
 

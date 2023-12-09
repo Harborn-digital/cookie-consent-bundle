@@ -7,6 +7,14 @@
 - Create Symfony Flex recipe: https://github.com/symfony/recipes
 - ID for cookie consent log as UUID instead of integer
 
+# Concept
+Cookie consent consists of:
+- Obligatory:
+  - Session-Cookie
+  - CSRF-Token
+- optional:
+  - Functional, marketing, social media, whatever
+
 # Cookie Consent bundle for Symfony
 Symfony bundle to integrate a cookie consent dialog to your website and to handle cookies according to AVG/GDPR.
 

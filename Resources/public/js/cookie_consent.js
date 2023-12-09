@@ -1,39 +1,48 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var cookieConsent = document.querySelector('.cookie-consent');
-    var cookieConsentForm = document.querySelector('.cookie-consent__form');
-    var cookieConsentFormBtn = document.querySelectorAll('.cookie-consent__btn');
-    var cookieConsentCategoryDetails = document.querySelector('.cookie-consent__category-group');
-    var cookieConsentCategoryDetailsToggle = document.querySelector('.cookie-consent__toggle-details');
+document.addEventListener("DOMContentLoaded", function () {
+    const cookieConsent = document.querySelector('.cookie-consent');
+    const cookieConsentForm = document.querySelector('.cookie-consent__form');
+    const cookieConsentFormBtn = document.querySelectorAll('.js-submit-cookie-consent-form');
 
-    var cookieConsentDialog = document.querySelector('.cookie-consent-dialog');
+    const cookieConsentDialog = document.querySelector('.cookie-consent-dialog');
     if (cookieConsentDialog) {
         cookieConsentDialog.showModal();
 
-        var saveButton = cookieConsentDialog.querySelector('#cookie_consent_save');
+        const saveButton = cookieConsentDialog.querySelector('#cookie_consent_save');
         if (saveButton) {
             saveButton.addEventListener('click', function () {
                 cookieConsentDialog.close();
             });
         }
+
+        cookieConsentDialog.querySelectorAll('.js-modal-close').forEach(function (closeButton) {
+            closeButton.addEventListener('click', function () {
+                cookieConsentDialog.close();
+            });
+        });
     }
 
     if (cookieConsentForm) {
         // Submit form via ajax
-        for (var i = 0; i < cookieConsentFormBtn.length; i++) {
-            var btn = cookieConsentFormBtn[i];
+        cookieConsentFormBtn.forEach(function (btn) {
             btn.addEventListener('click', function (event) {
                 event.preventDefault();
 
-                var formAction = cookieConsentForm.action ? cookieConsentForm.action : location.href;
-                var xhr = new XMLHttpRequest();
+                const formAction = cookieConsentForm.action ? cookieConsentForm.action : location.href;
+                const xhr = new XMLHttpRequest();
 
                 xhr.onload = function () {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        cookieConsent.style.display = 'none';
-                        var buttonEvent = new CustomEvent('cookie-consent-form-submit-successful', {
+
+                        if (cookieConsentDialog) {
+                            cookieConsentDialog.close();
+                        } else {
+                            cookieConsent.remove();
+                        }
+
+                        const formSubmittedEvent = new CustomEvent('cookie-consent-form-submit-successful', {
                             detail: event.target
                         });
-                        document.dispatchEvent(buttonEvent);
+                        document.dispatchEvent(formSubmittedEvent);
                     }
                 };
                 xhr.open('POST', formAction);
@@ -41,29 +50,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.send(serializeForm(cookieConsentForm, event.target));
 
             }, false);
-        }
-    }
-
-    if (cookieConsentCategoryDetails && cookieConsentCategoryDetailsToggle) {
-        cookieConsentCategoryDetailsToggle.addEventListener('click', function() {
-            var detailsIsHidden = cookieConsentCategoryDetails.style.display !== 'block';
-            cookieConsentCategoryDetails.style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.cookie-consent__toggle-details-hide').style.display = detailsIsHidden ? 'block' : 'none';
-            cookieConsentCategoryDetailsToggle.querySelector('.cookie-consent__toggle-details-show').style.display = detailsIsHidden ? 'none' : 'block';
         });
     }
 });
 
 function serializeForm(form, clickedButton) {
-    var serialized = [];
+    const serialized = [];
 
-    for (var i = 0; i < form.elements.length; i++) {
-        var field = form.elements[i];
-
+    Array.from(form.elements).forEach(function (field) {
         if ((field.type !== 'checkbox' && field.type !== 'radio' && field.type !== 'button') || field.checked) {
             serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
         }
-    }
+    });
 
     serialized.push(encodeURIComponent(clickedButton.getAttribute('name')) + "=");
 

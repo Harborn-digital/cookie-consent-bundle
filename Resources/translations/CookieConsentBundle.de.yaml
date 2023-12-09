@@ -2,6 +2,9 @@ cookie_consent:
     title: 'Cookies auf unserer Website.'
     intro: ''
     read_more: 'Lesen Sie mehr darüber'
+    required_cookies:
+        title: 'Notwendige Cookies'
+        description: 'Diese Cookies sind für die Funktionalität der Website unbedingt erforderlich und können nicht deaktiviert werden.'
     analytics:
         title: 'Möchten Sie analytische Cookies?'
         description: 'Diese Cookies lassen uns verstehen, wie sich Besucher auf unserer Webseite verhalten, z.B. wie lange sie im Schnitt auf einer Seite sind, ob und wie oft sie wiederkehren. So können wir unsere Website immer weiter verbessern.'
@@ -21,3 +24,4 @@ cookie_consent:
     use_all_cookies: 'Alle akzeptieren'
     show_details: 'Details anzeigen'
     hide_details: 'Details ausblenden'
+    reject_all: 'Alle Cookies ablehnen'
