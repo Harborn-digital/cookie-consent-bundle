@@ -12,13 +12,13 @@ class CookieNameEnum
 
     const COOKIE_CONSENT_KEY_NAME = 'consent-key';
 
-    const COOKIE_CATEGORY_NAME_PREFIX = 'consent-category-';
+    const COOKIE_CATEGORY_NAME_PREFIX = 'consent-category';
 
     /**
      * Get cookie category name.
      */
     public static function getCookieCategoryName(string $category): string
     {
-        return self::COOKIE_CATEGORY_NAME_PREFIX.$category;
+        return self::COOKIE_CATEGORY_NAME_PREFIX.'-'.$category;
     }
 }
