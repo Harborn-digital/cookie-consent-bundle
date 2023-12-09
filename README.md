@@ -1,3 +1,12 @@
+# Next!
+- update JS
+  - emit successful submit form event
+  - submit form asynchronously
+  - add csrf token
+- make form available in dialog (Fuck off, IE11!!!)
+- Create Symfony Flex recipe: https://github.com/symfony/recipes
+- ID for cookie consent log as UUID instead of integer
+
 # Cookie Consent bundle for Symfony
 Symfony bundle to integrate a cookie consent dialog to your website and to handle cookies according to AVG/GDPR.
 
@@ -21,7 +30,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new ConnectHolland\CookieConsentBundle\CookieConsentBundle(),
+        new huppys\CookieConsentBundle\CookieConsentBundle(),
         // ...
     );
 }
@@ -50,34 +59,34 @@ Configure the cookie consent bundle to your needs. By default, the most secure o
 You can change the config in config/packages/cookie_consent.yaml:
 ```yaml
 cookie_consent:
+  cookie_settings:
+    name_prefix: '' # string, any string you like to prefix the cookie names with
     consent_categories: # Below are the default supported categories
-        - 'analytics'
-        - 'tracking'
-        - 'marketing'
-        - 'social_media'
-    cookie_settings:
-      name_prefix: '' # string, any string you like to prefix the cookie names with
-      cookie_settings:
-        consent_cookie:
-          httpOnly: true # boolean, refer to mdn docs for more info
-          secure: true # boolean, enable or disable transport only over https
-          same_site: 'lax' # available values: 'strict', 'lax', 'none'
-          expires: 'P180D' # available values: PHP formatted date string, 'P180D' (180 days), 'P1Y' (1 year) etc.
-        consent_key_cookie:
-          httpOnly: true
-          secure: true
-          same_site: 'lax'
-          expires: 'P180D'
-        consent_categories_cookie:
-          httpOnly: true
-          secure: true
-          same_site: 'lax'
-          expires: 'P180D'
-    theme: 'light' # available values: 'light', 'dark'
-    use_logger: true # boolean; logs user actions to database
-    position: 'top' # available values: 'top', 'bottom', 'dialog'
-    form_action: $routeName # When set, xhr-Requests will only be sent to this route. Take care of having the route available.
-    csrf_protection: true # boolean; enable or disable csrf protection for the form
+      - 'analytics'
+      - 'tracking'
+      - 'marketing'
+      - 'social_media'
+    cookies:
+      consent_cookie:
+        http_only: true # boolean, refer to mdn docs for more info
+        secure: true # boolean, enable or disable transport only over https
+        same_site: 'lax' # available values: 'strict', 'lax', 'none'
+        expires: 'P180D' # available values: PHP formatted date string, 'P180D' (180 days), 'P1Y' (1 year) etc.
+      consent_key_cookie:
+        http_only: true
+        secure: true
+        same_site: 'lax'
+        expires: 'P180D'
+      consent_categories_cookie:
+        http_only: true
+        secure: true
+        same_site: 'lax'
+        expires: 'P180D'
+  theme: 'light' # available values: 'light', 'dark'
+  persist_consent: true # boolean; logs user actions to database
+  position: 'top' # available values: 'top', 'bottom', 'dialog'
+  form_action: $routeName # When set, xhr-Requests will only be sent to this route. Take care of having the route available.
+  csrf_protection: true # boolean; enable or disable csrf protection for the form
 ```
 
 ## Usage

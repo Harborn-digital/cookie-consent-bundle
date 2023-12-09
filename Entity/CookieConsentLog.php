@@ -2,62 +2,37 @@
 
 declare(strict_types=1);
 
-
-
 namespace huppys\CookieConsentBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="cookieconsent_log")
- */
+#[ORM\Entity]
+#[ORM\Table(name: "cookieconsent_log")]
 class CookieConsentLog
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @var int
-     */
-    protected $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    protected int $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $ipAddress;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $cookieConsentKey;
+    #[ORM\Column(type: 'string', length: 255)]
+    protected string $ipAddress;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $cookieName;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @var string
-     */
-    protected $cookieValue;
+    #[ORM\Column(type: 'string', length: 255)]
+    protected string $consentKey;
 
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var DateTime
-     */
-    protected $timestamp;
+    #[ORM\Column(type: 'string', length: 255)]
+    protected string $cookieName;
+
+
+    #[ORM\Column(type: 'string', length: 1024)]
+    protected string $cookieValue;
+
+    #[ORM\Column(type: 'datetime')]
+    protected DateTime $timestamp;
 
     public function getId(): int
     {
@@ -76,16 +51,16 @@ class CookieConsentLog
         return $this->ipAddress;
     }
 
-    public function setCookieConsentKey(string $cookieConsentKey): self
+    public function setConsentKey(string $consentKey): self
     {
-        $this->cookieConsentKey = $cookieConsentKey;
+        $this->consentKey = $consentKey;
 
         return $this;
     }
 
-    public function getCookieConsentKey(): string
+    public function getConsentKey(): string
     {
-        return $this->cookieConsentKey;
+        return $this->consentKey;
     }
 
     public function setCookieName(string $cookieName): self

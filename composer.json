@@ -28,9 +28,7 @@
   },
   "prefer-stable": true,
   "autoload": {
-    "exclude-from-classmap": [
-      "/Tests/"
-    ],
+    "exclude-from-classmap": ["/Tests/"],
     "psr-4": {
       "huppys\\CookieConsentBundle\\": ""
     }

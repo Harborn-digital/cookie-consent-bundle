@@ -1,23 +1,29 @@
-{% form_theme form '@CookieConsent/form/cookie_consent_theme.html.twig' %}
+{% form_theme form '@CookieConsent/form/cookie_consent_form_theme.html.twig' %}
 
 {% block script %}
     <script type="text/javascript" src="{{ asset('bundles/cookieconsent/js/cookie_consent.js') }}"></script>
 {% endblock %}
 
-<div class="cookie-consent cookie-consent--{{ theme }}-theme cookie-consent--{{ position }}">
-    {% block title %}
-        <h3 class="cookie-consent__title">{{ 'cookie_consent.title'|trans({}, 'CookieConsentBundle') }}</h3>
-    {% endblock %}
+{# Wrap in dialog tag if position is dialog #}
+{% if position == 'dialog' %}
+<dialog class="cookie-consent-dialog">
+{% endif %}
 
-    {% block intro %}
-        <p class="cookie-consent__intro">{{ 'cookie_consent.intro'|trans({}, 'CookieConsentBundle') }}</p>
-    {% endblock %}
+    <div class="cookie-consent cookie-consent--{{ theme }}-theme cookie-consent--{{ position }}">
+        {% block title %}
+            <h3 class="cookie-consent__title">{{ 'cookie_consent.title'|trans({}, 'CookieConsentBundle') }}</h3>
+        {% endblock %}
 
-    {% block read_more %}
-        <a class="cookie-consent__read-more" href="{% block read_more_link %}/privacy-statement{% endblock %}">{{ 'cookie_consent.read_more'|trans({}, 'CookieConsentBundle') }}</a>
-    {% endblock %}
+        {% block intro %}
+            <p class="cookie-consent__intro">{{ 'cookie_consent.intro'|trans({}, 'CookieConsentBundle') }}</p>
+        {% endblock %}
 
-    {{ form_start(form, {'attr': {'class': 'cookie-consent__form'}}) }}
+        {% block read_more %}
+            <a class="cookie-consent__read-more"
+               href="{% block read_more_link %}/privacy-statement{% endblock %}">{{ 'cookie_consent.read_more'|trans({}, 'CookieConsentBundle') }}</a>
+        {% endblock %}
+
+        {{ form_start(form, {'attr': {'class': 'cookie-consent__form'}}) }}
         <div class="cookie-consent__category-group">
             {% for child in form %}
                 {% if child.vars.block_prefixes[0] != 'button' %}
@@ -29,6 +35,9 @@
         <div class="cookie-consent__btn-group">
             {{ form_rest(form) }}
         </div>
-    {{ form_end(form) }}
-</div>
+        {{ form_end(form) }}
+    </div>
 
+{% if position == 'dialog' %}
+</dialog>
+{% endif %}

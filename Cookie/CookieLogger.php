@@ -51,7 +51,7 @@ class CookieLogger
     {
         $cookieConsentLog = (new CookieConsentLog())
             ->setIpAddress($ip)
-            ->setCookieConsentKey($key)
+            ->setConsentKey($key)
             ->setCookieName($category)
             ->setCookieValue($value)
             ->setTimestamp(new \DateTime());

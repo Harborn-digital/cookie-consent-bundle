@@ -8,7 +8,7 @@ services:
         bind:
             $cookieSettings: '%cookie_consent.cookie_settings%'
             $cookieCategories: '%cookie_consent.cookie_settings.consent_categories%'
-            $useLogger: '%cookie_consent.use_logger%'
+            $persistConsent: '%cookie_consent.persist_consent%'
             $cookieConsentTheme: '%cookie_consent.theme%'
             $cookieConsentPosition: '%cookie_consent.position%'
             $formAction: '%cookie_consent.form_action%'

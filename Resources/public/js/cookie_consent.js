@@ -5,20 +5,15 @@ document.addEventListener("DOMContentLoaded", function() {
     var cookieConsentCategoryDetails = document.querySelector('.cookie-consent__category-group');
     var cookieConsentCategoryDetailsToggle = document.querySelector('.cookie-consent__toggle-details');
 
-    // If cookie consent is direct child of body, assume it should be placed on top of the site pushing down the rest of the website
-    if (cookieConsent && cookieConsent.parentNode.nodeName === 'BODY') {
-        if (cookieConsent.classList.contains('cookie-consent--top')) {
-            document.body.style.marginTop = cookieConsent.offsetHeight + 'px';
+    var cookieConsentDialog = document.querySelector('.cookie-consent-dialog');
+    if (cookieConsentDialog) {
+        cookieConsentDialog.showModal();
 
-            cookieConsent.style.position = 'absolute';
-            cookieConsent.style.top = '0';
-            cookieConsent.style.left = '0';
-        } else {
-            document.body.style.marginBottom = cookieConsent.offsetHeight + 'px';
-
-            cookieConsent.style.position = 'fixed';
-            cookieConsent.style.bottom = '0';
-            cookieConsent.style.left = '0';
+        var saveButton = cookieConsentDialog.querySelector('#cookie_consent_save');
+        if (saveButton) {
+            saveButton.addEventListener('click', function () {
+                cookieConsentDialog.close();
+            });
         }
     }
 
@@ -45,9 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(serializeForm(cookieConsentForm, event.target));
 
-                // Clear all styles from body to prevent the white margin at the end of the page
-                document.body.style.marginBottom = null;
-                document.body.style.marginTop  = null;
             }, false);
         }
     }
@@ -76,17 +68,4 @@ function serializeForm(form, clickedButton) {
     serialized.push(encodeURIComponent(clickedButton.getAttribute('name')) + "=");
 
     return serialized.join('&');
-}
-
-if ( typeof window.CustomEvent !== "function" ) {
-    function CustomEvent(event, params) {
-        params = params || {bubbles: false, cancelable: false, detail: undefined};
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
-    }
-
-    CustomEvent.prototype = window.Event.prototype;
-
-    window.CustomEvent = CustomEvent;
 }

@@ -159,45 +159,6 @@
     border: 2px solid #000;
 }
 
-.cookie-consent--dark-theme {
-    background-color: #000;
-    color: #fff;
-}
-
-.cookie-consent--dark-theme .cookie-consent__title, .cookie-consent--dark-theme .cookie-consent__read-more {
-    color: #fff;
-}
-
-.cookie-consent--dark-theme .cookie-consent__category {
-    border-color: #fff;
-}
-
-.cookie-consent--dark-theme .cookie-consent__category:first-child {
-    border-color: #fff;
-}
-
-.cookie-consent--dark-theme .cookie-consent__category-toggle input + label {
-    background-color: #000;
-    color: #fff;
-    border-color: #fff;
-}
-
-.cookie-consent--dark-theme .cookie-consent__category-toggle input:checked + label, .cookie-consent--dark-theme .cookie-consent__category-toggle input + label:hover {
-    background-color: #fff;
-    color: #000;
-    border-color: #000;
-}
-
-.cookie-consent--dark-theme .cookie-consent__category-toggle input:checked + label {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath fill='#000' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
-}
-
-.cookie-consent--dark-theme .cookie-consent__category-title {
-    color: #fff;
-}
-
-.cookie-consent--dark-theme .cookie-consent__btn--secondary {
-    background: transparent;
-    color: #fff;
-    border: 2px solid #fff;
+dialog::backdrop {
+    background-color: rgba(255, 255, 255, 0.8);
 }

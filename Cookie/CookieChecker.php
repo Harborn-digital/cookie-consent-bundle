@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
-
 namespace huppys\CookieConsentBundle\Cookie;
 
 use huppys\CookieConsentBundle\Enum\CookieNameEnum;

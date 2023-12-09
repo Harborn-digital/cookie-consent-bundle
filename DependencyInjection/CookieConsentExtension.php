@@ -20,11 +20,10 @@ class CookieConsentExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('cookie_consent.cookie_settings', $config['cookie_settings']);
-        $container->setParameter('cookie_consent.cookie_settings.consent_categories', $config['cookie_settings']['consent_categories']);
         $container->setParameter('cookie_consent.cookie_settings.name_prefix', $config['cookie_settings']['name_prefix']);
         $container->setParameter('cookie_consent.cookie_settings.cookies', $config['cookie_settings']['cookies']);
-//        better name 'persist consent' instead of 'use_logger'
-        $container->setParameter('cookie_consent.use_logger', $config['use_logger']);
+        $container->setParameter('cookie_consent.cookie_settings.consent_categories', $config['consent_categories']);
+        $container->setParameter('cookie_consent.persist_consent', $config['persist_consent']);
         $container->setParameter('cookie_consent.theme', $config['theme']);
         $container->setParameter('cookie_consent.position', $config['position']);
         $container->setParameter('cookie_consent.form_action', $config['form_action']);

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 
-
 namespace huppys\CookieConsentBundle\Twig;
 
 use huppys\CookieConsentBundle\Cookie\CookieChecker;
@@ -13,6 +12,10 @@ use Twig\TwigFunction;
 
 class CookieConsentTwigExtension extends AbstractExtension
 {
+    public function __construct(private readonly string $cookieConsentTheme)
+    {
+    }
+
     /**
      * Register all custom twig functions.
      */
@@ -28,6 +31,11 @@ class CookieConsentTwigExtension extends AbstractExtension
                 'cookieconsent_isCategoryAllowedByUser',
                 [$this, 'isCategoryAllowedByUser'],
                 ['needs_context' => true]
+            ),
+            new TwigFunction(
+                'cookieconsent_getTheme',
+                [$this, 'getTheme'],
+                ['needs_context' => false]
             ),
         ];
     }
@@ -50,6 +58,15 @@ class CookieConsentTwigExtension extends AbstractExtension
         $cookieChecker = $this->getCookieChecker($context['app']->getRequest());
 
         return $cookieChecker->isCategoryAllowedByUser($category);
+    }
+
+    public function getTheme(): string
+    {
+        if (isset($this->cookieConsentTheme)) {
+            return $this->cookieConsentTheme;
+        }
+
+        return 'light'; // default theme
     }
 
     /**

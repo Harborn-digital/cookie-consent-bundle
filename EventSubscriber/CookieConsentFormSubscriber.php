@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 
-
 namespace huppys\CookieConsentBundle\EventSubscriber;
 
 use huppys\CookieConsentBundle\Cookie\CookieHandler;
@@ -22,20 +21,20 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
     private FormFactoryInterface $formFactory;
     private CookieLogger $cookieLogger;
     private CookieHandler $cookieHandler;
-    private bool $useLogger;
+    private bool $persistConsent;
 
-    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger, CookieHandler $cookieHandler, bool $useLogger)
+    public function __construct(FormFactoryInterface $formFactory, CookieLogger $cookieLogger, CookieHandler $cookieHandler, bool $persistConsent)
     {
-        $this->formFactory   = $formFactory;
-        $this->cookieLogger  = $cookieLogger;
+        $this->formFactory = $formFactory;
+        $this->cookieLogger = $cookieLogger;
         $this->cookieHandler = $cookieHandler;
-        $this->useLogger     = $useLogger;
+        $this->persistConsent = $persistConsent;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-           ResponseEvent::class => ['onResponse'],
+            ResponseEvent::class => ['onResponse'],
         ];
     }
 
@@ -44,7 +43,7 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
      */
     public function onResponse(ResponseEvent $event): void
     {
-        $request  = $event->getRequest();
+        $request = $event->getRequest();
         $response = $event->getResponse();
 
         $form = $this->createCookieConsentForm();
@@ -64,7 +63,7 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
 
         $this->cookieHandler->save($categories, $cookieConsentKey, $response);
 
-        if ($this->useLogger) {
+        if ($this->persistConsent) {
             $this->cookieLogger->log($categories, $cookieConsentKey);
         }
     }

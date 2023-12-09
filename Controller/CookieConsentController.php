@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-
-
 namespace huppys\CookieConsentBundle\Controller;
 
 use huppys\CookieConsentBundle\Cookie\CookieChecker;

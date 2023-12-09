@@ -1,0 +1,48 @@
+.cookie-consent--dark-theme {
+  background-color: $cookie-consent-dark-theme-background-color;
+  color: $cookie-consent-dark-theme-text-color;
+
+  .cookie-consent {
+    &__title,
+    &__read-more  {
+      color: $cookie-consent-dark-theme-text-color;
+    }
+
+    &__category {
+      border-color: $cookie-consent-dark-theme-border-color;
+
+      &:first-child {
+        border-color: $cookie-consent-dark-theme-border-color;
+      }
+
+      &-toggle {
+        input + label {
+          background-color: $cookie-consent-dark-theme-checkbox-inactive-background-color;
+          color: $cookie-consent-dark-theme-checkbox-inactive-text-color;
+          border-color: $cookie-consent-dark-theme-checkbox-inactive-border-color;
+        }
+
+        input:checked + label,
+        input + label:hover {
+          background-color: $cookie-consent-dark-theme-checkbox-active-background-color;
+          color: $cookie-consent-dark-theme-checkbox-active-text-color;
+          border-color: $cookie-consent-dark-theme-checkbox-active-border-color;
+        }
+
+        input:checked + label {
+          @include check-icon($cookie-consent-dark-theme-checkbox-active-text-color);
+        }
+      }
+
+      &-title {
+        color: $cookie-consent-dark-theme-text-color;
+      }
+    }
+
+    &__btn--secondary {
+      background: $cookie-consent-dark-theme-secondary-button-background;
+      color: $cookie-consent-dark-theme-secondary-button-text-color;
+      border: 2px solid $cookie-consent-dark-theme-secondary-button-border-color;
+    }
+  }
+}
