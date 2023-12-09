@@ -17,7 +17,7 @@ class CookieConsentTwigExtensionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->CookieConsentTwigExtension = new CookieConsentTwigExtension();
+        $this->CookieConsentTwigExtension = new CookieConsentTwigExtension('light');
     }
 
     public function testGetFunctions(): void
