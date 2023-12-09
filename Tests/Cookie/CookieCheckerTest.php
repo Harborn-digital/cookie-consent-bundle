@@ -72,8 +72,8 @@ class CookieCheckerTest extends TestCase
     public static function isCategoryAllowedByUserDataProvider(): array
     {
         return [
-            [['consent_category_analytics' => 'true'], 'analytics', true],
-            [['consent_category_marketing' => 'true'], 'marketing', true],
+            [['consent-category-analytics' => 'true'], 'analytics', true],
+            [['consent-category-marketing' => 'true'], 'marketing', true],
             [['Cookie_Category_analytics' => 'false'], 'analytics', false],
             [['Cookie Category analytics' => 'true'], 'analytics', false],
             [['Cookie_Category_Analytics' => 'true'], 'analytics', false],

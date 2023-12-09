@@ -9,8 +9,10 @@
             {% endfor %}
         </div>
         <div class="cookie-consent__category-information">
-            <h4 class="cookie-consent__category-title">{{ ('cookie_consent.'~name~'.title')|trans({}, 'CookieConsentBundle') }}</h4>
-            <p class="cookie-consent__category-description">{{ ('cookie_consent.'~name~'.description')|trans({}, 'CookieConsentBundle') }}</p>
+            {% block cookie_title_with_description %}
+                <h4 class="cookie-consent__category-title">{{ ('cookie_consent.'~name~'.title')|trans({}, 'CookieConsentBundle') }}</h4>
+                <p class="cookie-consent__category-description">{{ ('cookie_consent.'~name~'.description')|trans({}, 'CookieConsentBundle') }}</p>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

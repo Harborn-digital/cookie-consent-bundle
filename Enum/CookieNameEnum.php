@@ -10,9 +10,9 @@ class CookieNameEnum
 {
     const COOKIE_CONSENT_NAME = 'consent';
 
-    const COOKIE_CONSENT_KEY_NAME = 'consent_key';
+    const COOKIE_CONSENT_KEY_NAME = 'consent-key';
 
-    const COOKIE_CATEGORY_NAME_PREFIX = 'consent_category_';
+    const COOKIE_CATEGORY_NAME_PREFIX = 'consent-category-';
 
     /**
      * Get cookie category name.
