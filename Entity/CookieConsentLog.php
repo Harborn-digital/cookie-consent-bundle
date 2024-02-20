@@ -11,8 +11,9 @@ namespace ConnectHolland\CookieConsentBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
-#[ORM\Entity(repositoryClass: BootstrapIconsRepository::class)]
+#[ORM\Entity]
 #[ORM\Table(name: "ch_cookieconsent_log")]
 class CookieConsentLog
 {
