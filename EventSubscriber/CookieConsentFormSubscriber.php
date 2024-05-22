@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class CookieConsentFormSubscriber implements EventSubscriberInterface
@@ -76,9 +77,30 @@ class CookieConsentFormSubscriber implements EventSubscriberInterface
         $form = $this->createCookieConsentForm();
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            if (!$form->isValid()) {
+                $errorList = $this->getFormErrors($form);
+                throw new HttpException(400, 'Form is invalid. These are the errors: ' . implode(', ', $errorList));
+            }
+
             $this->handleFormSubmit($form->getData(), $request, $response);
         }
+    }
+
+    /**
+     * Get form errors as an array of error messages.
+     *
+     * @param FormInterface $form
+     * @return array
+     */
+    private function getFormErrors(FormInterface $form): array
+    {
+        $errorList = [];
+        foreach ($form->getErrors(true) as $error) {
+            $errorList[] = $error->getMessage();
+        }
+
+        return $errorList;
     }
 
     /**
