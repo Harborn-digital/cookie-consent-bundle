@@ -27,7 +27,7 @@ class CHCookieConsentTwigExtensionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->cookieChecker = $this->createMock(CookieChecker::class);
+        $this->cookieChecker                = $this->createMock(CookieChecker::class);
         $this->chCookieConsentTwigExtension = new CHCookieConsentTwigExtension($this->cookieChecker);
     }
 

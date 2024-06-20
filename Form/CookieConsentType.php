@@ -94,7 +94,7 @@ class CookieConsentType extends AbstractType
     {
         $resolver->setDefaults([
             'translation_domain' => 'CHCookieConsentBundle',
-            'csrf_protection' => $this->csrfProtection,
+            'csrf_protection'    => $this->csrfProtection,
         ]);
     }
 }

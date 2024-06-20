@@ -11,11 +11,12 @@ namespace ConnectHolland\CookieConsentBundle\Tests\Cookie;
 
 use ConnectHolland\CookieConsentBundle\Cookie\CookieLogger;
 use ConnectHolland\CookieConsentBundle\Entity\CookieConsentLog;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CookieLoggerTest extends TestCase
 {
@@ -27,6 +28,11 @@ class CookieLoggerTest extends TestCase
     /**
      * @var MockObject
      */
+    private $requestStack;
+
+    /**
+     * @var MockObject
+     */
     private $request;
 
     /**
@@ -34,11 +40,22 @@ class CookieLoggerTest extends TestCase
      */
     private $entityManager;
 
+    /**
+     * @var CookieLogger
+     */
+    private $cookieLogger;
+
     public function setUp(): void
     {
-        $this->registry      = $this->createMock(ManagerRegistry::class);
-        $this->request       = $this->createMock(Request::class);
-        $this->entityManager = $this->createMock(EntityManagerInterface::class);
+        $this->registry           = $this->createMock(ManagerRegistry::class);
+        $this->requestStack       = $this->createMock(RequestStack::class);
+        $this->request            = $this->createMock(Request::class);
+        $this->entityManager      = $this->createMock(EntityManagerInterface::class);
+
+        $this->requestStack
+            ->expects($this->any())
+            ->method('getCurrentRequest')
+            ->willReturn($this->request);
 
         $this->registry
             ->expects($this->any())
@@ -46,7 +63,7 @@ class CookieLoggerTest extends TestCase
             ->with(CookieConsentLog::class)
             ->willReturn($this->entityManager);
 
-        $this->cookieLogger = new CookieLogger($this->registry, $this->request);
+        $this->cookieLogger = new CookieLogger($this->registry, $this->requestStack);
     }
 
     /**
@@ -103,12 +120,18 @@ class CookieLoggerTest extends TestCase
 
     /**
      * Test CookieLogger:log.
-     *
-     * @expectedException \RuntimeException
      */
     public function testLogWithoutRequest(): void
     {
-        $this->cookieLogger = new CookieLogger($this->registry, null);
+        $this->expectException(\RuntimeException::class);
+
+        $requestStack = $this->createMock(RequestStack::class);
+        $requestStack
+            ->expects($this->once())
+            ->method('getCurrentRequest')
+            ->willReturn(null);
+
+        $this->cookieLogger = new CookieLogger($this->registry, $requestStack);
         $this->cookieLogger->log([], 'key-test');
     }
 }
