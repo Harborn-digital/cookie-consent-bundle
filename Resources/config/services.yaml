@@ -24,8 +24,13 @@ services:
         public: true
 
     ConnectHolland\CookieConsentBundle\Cookie\CookieChecker:
-        arguments: ["@=service('request_stack').getCurrentRequest()"]
+        arguments:
+            $requestStack: '@request_stack'
 
     ConnectHolland\CookieConsentBundle\Cookie\CookieLogger:
         arguments:
-            $request: "@=service('request_stack').getCurrentRequest()"
+            $requestStack: "@request_stack"
+
+    ConnectHolland\CookieConsentBundle\Twig\CHCookieConsentTwigExtension:
+        arguments:
+            $cookieChecker: '@ConnectHolland\CookieConsentBundle\Cookie\CookieChecker'

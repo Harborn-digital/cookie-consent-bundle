@@ -12,7 +12,7 @@ namespace ConnectHolland\CookieConsentBundle\Cookie;
 use ConnectHolland\CookieConsentBundle\Entity\CookieConsentLog;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CookieLogger
 {
@@ -22,14 +22,14 @@ class CookieLogger
     private $entityManager;
 
     /**
-     * @var Request|null
+     * @var RequestStack
      */
-    private $request;
+    private $requestStack;
 
-    public function __construct(ManagerRegistry $registry, ?Request $request)
+    public function __construct(ManagerRegistry $registry, RequestStack $requestStack)
     {
-        $this->entityManager = $registry->getManagerForClass(CookieConsentLog::class);
-        $this->request       = $request;
+        $this->entityManager      = $registry->getManagerForClass(CookieConsentLog::class);
+        $this->requestStack       = $requestStack;
     }
 
     /**
@@ -37,11 +37,11 @@ class CookieLogger
      */
     public function log(array $categories, string $key): void
     {
-        if ($this->request === null) {
+        if ($this->requestStack->getCurrentRequest() === null) {
             throw new \RuntimeException('No request found');
         }
 
-        $ip = $this->anonymizeIp($this->request->getClientIp());
+        $ip = $this->anonymizeIp($this->requestStack->getCurrentRequest()->getClientIp());
 
         foreach ($categories as $category => $value) {
             $this->persistCookieConsentLog($category, $value, $ip, $key);

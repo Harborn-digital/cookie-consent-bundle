@@ -41,11 +41,9 @@ class CHCookieConsentExtensionTest extends TestCase
         $this->assertParameter('top', 'ch_cookie_consent.position');
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
     public function testInvalidConfiguration(): void
     {
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException::class);
         $this->createConfiguration($this->getInvalidConfig());
     }
 
